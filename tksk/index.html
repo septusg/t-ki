@@ -19,6 +19,7 @@
     --danger: #c4614a;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  img { -webkit-touch-callout: none; }
   body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; min-height: 100vh; overflow-x: hidden; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -143,6 +144,7 @@
     object-fit: contain;
     user-select: none; -webkit-user-select: none;
     -webkit-user-drag: none;
+    -webkit-touch-callout: none;
     draggable: false;
   }
   .paged-counter-overlay {
@@ -506,6 +508,7 @@ async function init() {
 
   STATE.passwords.manga = '';
   document.addEventListener('keydown', handleKey);
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
   });
@@ -916,9 +919,25 @@ function pagedScrollToIndex(carousel, idx, smooth) {
 
 
 function pagedIndexFromScroll(carousel) {
-  const w = pagedGetWidth(carousel);
-  const snapPos = Math.round(carousel.scrollLeft / w);
-  return (STATE.viewerImages.length - 1) - snapPos;
+  if (!carousel) return 0;
+  const slides = carousel.querySelectorAll('.paged-slide');
+  if (!slides || !slides.length) return 0;
+
+  const cr = carousel.getBoundingClientRect();
+  const cx = cr.left + cr.width / 2;
+
+  let bestIdx = 0;
+  let bestDist = 1e18;
+
+  for (let i = 0; i < slides.length; i++) {
+    const r = slides[i].getBoundingClientRect();
+    const scx = r.left + r.width / 2;
+    const d = Math.abs(scx - cx);
+    if (d < bestDist) { bestDist = d; bestIdx = i; }
+  }
+
+  const idx = parseInt(slides[bestIdx].getAttribute('data-idx') || '0', 10);
+  return isNaN(idx) ? 0 : idx;
 }
 
 function renderPaged() {
@@ -955,15 +974,11 @@ function renderPaged() {
       const idx = pagedIndexFromScroll(carousel);
       const ctr = document.getElementById('paged-counter');
       if (idx >= 0 && idx < imgs.length) {
+        STATE.viewerIndex = idx;
         if (ctr) ctr.textContent = (idx + 1) + ' / ' + imgs.length;
         PAGED_UI.updateArrows(idx, imgs.length);
         PAGED_UI.show();
       }
-      clearTimeout(tmr);
-      tmr = setTimeout(() => {
-        const finalIdx = pagedIndexFromScroll(carousel);
-        if (finalIdx >= 0 && finalIdx < imgs.length) STATE.viewerIndex = finalIdx;
-      }, 120);
     });
   }, { passive: true });
 
