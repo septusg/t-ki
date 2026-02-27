@@ -117,8 +117,7 @@
   .viewer-mode-label { font-size: 11px; color: #3a5a75; letter-spacing: 0.1em; border: 1px solid #1a2a40; padding: 4px 10px; }
   .viewer-strip { padding-top: 52px; }
   .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
-
-  /* ── PAGED VIEWER — scroll-snap carousel ── */
+    /* ── PAGED VIEWER — scroll-snap carousel ── */
   .paged-carousel {
     position: fixed; inset: 0; top: 52px;
     display: flex;
@@ -170,28 +169,32 @@
   .paged-arr-right { right: 0; border-radius: 6px 0 0 6px; }
   .paged-arrow:hover { background: rgba(0,0,0,0.62); color: #fff; }
   .paged-arrow.arr-end    { opacity: 0.15 !important; pointer-events: none !important; }
-  .paged-arrow.arr-hidden { opacity: 0   !important; pointer-events: none !important; }
-
-  /* ── ADMIN/POST/MODAL STYLES OMITTED FOR BREVITY BUT KEPT IN FINAL FILE ── */
-  /* ... (Rest of CSS same as original) */
+  .paged-arrow.arr-hidden { opacity: 0   !important; pointer-events: none !important; }/* illust post article viewer */
   .post-article { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px; }
   .post-article-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
   .post-article-meta { font-size: 12px; color: var(--text3); margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  /* text block */
   .post-block-text { font-size: 14px; color: var(--text2); line-height: 1.9; white-space: pre-wrap; margin-bottom: 20px; }
+  /* image block */
   .post-block-img { margin-bottom: 12px; }
   .post-block-img img { display: block; width: 100%; cursor: pointer; border: 1px solid var(--border); transition: opacity 0.2s; }
   .post-block-img img:hover { opacity: 0.9; }
+  /* multi-image grid */
   .post-block-imgs { display: grid; gap: 4px; margin-bottom: 12px; }
   .post-block-imgs.cols-1 { grid-template-columns: 1fr; }
   .post-block-imgs.cols-2 { grid-template-columns: 1fr 1fr; }
   .post-block-imgs.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
   .post-block-imgs img { width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; border: 1px solid var(--border); transition: opacity 0.2s; }
   .post-block-imgs img:hover { opacity: 0.9; }
+
+  /* gallery grid (fallback for albums without captions) */
   .viewer-gallery { padding-top: 52px; columns: 2; column-gap: 4px; padding-bottom: 4px; }
   @media(min-width:600px){.viewer-gallery{columns:3;}}
   @media(min-width:900px){.viewer-gallery{columns:4;}}
   .gallery-img { display: block; width: 100%; margin-bottom: 4px; cursor: pointer; transition: opacity 0.2s; break-inside: avoid; }
   .gallery-img:hover { opacity: 0.8; }
+
+  /* lightbox */
   .lightbox { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.97); display: none; align-items: center; justify-content: center; }
   .lightbox.open { display: flex; }
   .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
@@ -201,6 +204,8 @@
   .lightbox-prev:hover, .lightbox-next:hover { color: #7ab3e0; }
   .lightbox-prev { left: 0; }
   .lightbox-next { right: 0; }
+
+  /* ── ADMIN ── */
   .admin-inner { max-width: 860px; margin: 0 auto; padding: 32px 24px; }
   .admin-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--accent); margin-bottom: 28px; letter-spacing: 0.12em; }
   .admin-section { margin-bottom: 40px; }
@@ -223,6 +228,7 @@
   .work-list-item { border: 1px solid var(--border); background: var(--bg2); margin-bottom: 10px; overflow: hidden; }
   .work-list-header { display: flex; align-items: center; cursor: pointer; gap: 10px; }
   .work-list-header:hover { background: var(--bg3); }
+  /* cover thumbnail in admin list */
   .work-list-cover { width: 48px; height: 48px; flex-shrink: 0; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
   .work-list-cover img { width: 100%; height: 100%; object-fit: cover; }
   .work-list-cover-ph { font-size: 18px; color: var(--border); font-family: 'Noto Serif TC', serif; }
@@ -236,20 +242,27 @@
   .chapter-edit-name { flex: 1; font-size: 13px; color: var(--text2); }
   .chapter-edit-count { font-size: 11px; color: var(--text3); }
   .pw-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* post editor */
   .post-editor { border: 1px solid var(--border); background: var(--bg3); padding: 16px; margin-bottom: 10px; }
   .post-editor-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 12px; color: var(--text3); letter-spacing: 0.06em; }
   .post-preview-imgs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
   .post-preview-img { width: 60px; height: 60px; object-fit: cover; border: 1px solid var(--border); }
+
   .toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 12px 20px; font-size: 13px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; letter-spacing: 0.05em; }
   .toast.show { opacity: 1; transform: translateY(0); }
   .toast.success { border-color: var(--accent); }
   .toast.error { border-color: var(--danger); }
+
   .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 24px; }
   .modal-overlay.open { display: flex; }
   .modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; padding: 32px; }
   .modal-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--accent); margin-bottom: 24px; letter-spacing: 0.08em; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; }
+
+  /* mini password modal */
   .mini-modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 320px; padding: 32px; }
+
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
   .reveal.visible { opacity: 1; transform: none; }
   @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
@@ -257,6 +270,7 @@
 </head>
 <body>
 
+<!-- ══ LOGIN ══ -->
 <div id="page-login" class="page active">
   <div class="login-box">
     <div class="login-title">Usagi Comic Reader</div>
@@ -273,6 +287,7 @@
   </div>
 </div>
 
+<!-- ══ LIBRARY ══ -->
 <div id="page-library" class="page">
   <nav class="site-nav">
     <div class="nav-logo" onclick="goHome()">閱覽室</div>
@@ -299,6 +314,7 @@
   </div>
 </div>
 
+<!-- ══ WORK DETAIL ══ -->
 <div id="page-work" class="page">
   <nav class="site-nav">
     <div class="nav-logo" onclick="goHome()">Usagi</div>
@@ -319,6 +335,7 @@
   <div class="chapter-list" id="chapter-list"></div>
 </div>
 
+<!-- ══ VIEWER ══ -->
 <div id="page-viewer" class="page">
   <div class="viewer-nav" id="viewer-nav">
     <button class="viewer-close" onclick="closeViewer()">← 返回</button>
@@ -330,6 +347,7 @@
   <div id="viewer-content"></div>
 </div>
 
+<!-- ══ MODAL: 小密碼視窗 ══ -->
 <div class="modal-overlay" id="modal-unlock">
   <div class="mini-modal">
     <div class="modal-title" id="modal-unlock-title">輸入密碼</div>
@@ -342,6 +360,7 @@
   </div>
 </div>
 
+<!-- ══ MODAL: 新增/編輯作品 ══ -->
 <div class="modal-overlay" id="modal-work">
   <div class="modal">
     <div class="modal-title" id="modal-work-title">新增作品</div>
@@ -370,6 +389,7 @@
   </div>
 </div>
 
+<!-- ══ MODAL: 新增/編輯漫畫話數 ══ -->
 <div class="modal-overlay" id="modal-chapter">
   <div class="modal">
     <div class="modal-title" id="modal-chapter-title">新增話數</div>
@@ -392,15 +412,27 @@
   </div>
 </div>
 
+<!-- ══ MODAL: 新增/編輯插圖貼文 ══ -->
 <div class="modal-overlay" id="modal-post">
   <div class="modal">
     <div class="modal-title" id="modal-post-title">新增貼文</div>
     <div class="field"><label>貼文標題</label><input type="text" id="m-post-title" placeholder="這篇文章的標題"></div>
     <div class="field" style="margin-top:10px"><label>封面圖 URL（選填，留空自動用第一張圖）</label><input type="text" id="m-post-cover" placeholder="https://..."></div>
-    <div class="field" style="margin-top:10px">
-        <label>內容文字（每行自動轉為段落，圖片網址會自動轉為圖片）</label>
-        <textarea id="m-post-body" placeholder="內容..." style="min-height:160px"></textarea>
+    
+    <div style="margin-top:14px;margin-bottom:6px">
+      <div style="font-size:11px;color:var(--text3);letter-spacing:0.06em;margin-bottom:6px">文章內文</div>
+      <div style="font-size:11px;color:var(--border);background:var(--bg3);border:1px solid var(--border);padding:10px 12px;line-height:1.9;font-family:monospace">
+        直接貼上圖片 URL 的那一行 → 顯示為圖片<br>
+        其餘文字 → 顯示為段落文字<br>
+        <span style="color:var(--text3)">── 範例 ──</span><br>
+        今天畫了這張：<br>
+        https://i.imgur.com/abc.jpg<br>
+        這邊是後記，想說的話<br>
+        https://i.imgur.com/xyz.jpg<br>
+        最後這張是草稿
+      </div>
     </div>
+    <div class="field"><textarea id="m-post-body" placeholder="在這裡輸入文章內文，圖片 URL 單獨一行即可插入圖片…" style="min-height:180px;line-height:1.8"></textarea></div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeModal('modal-post')">取消</button>
       <button class="btn btn-primary" onclick="savePost()">儲存</button>
@@ -408,137 +440,506 @@
   </div>
 </div>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightboxDirect()">×</div>
+  <div class="lightbox-prev" onclick="lightboxNav(-1)">‹</div>
+  <img id="lightbox-img" src="">
+  <div class="lightbox-next" onclick="lightboxNav(1)">›</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
 // ══════════════════════════════════════════
-// STATE & CORE (保持原樣)
+// STATE
 // ══════════════════════════════════════════
-const STATE = {
-  passwords: { manga: '', illust: '', admin: '' },
+let STATE = {
+  // loggedIn: Set of unlocked sections. 'admin' means all access.
+  unlocked: new Set(), // e.g. 'manga', 'illust', 'admin'
+  passwords: { manga: '', illust: 'ki' },
   works: [],
-  unlocked: new Set(),
-  activeSection: 'manga',
-  currentWorkId: null,
+  viewerImages: [],    // flat array for manga/lightbox
+  viewerPosts: [],     // array of {images, caption} for illust post feed
   viewerMode: 'strip',
-  viewerImages: [],
   viewerIndex: 0,
+  currentWorkId: null,
+  editingWorkId: null,
+  editingChapterId: null,
+  editingWorkIdForChapter: null,
+  editingPostId: null,
+  editingPostWorkId: null,
+  pendingUnlockSection: null, // which section user is trying to unlock
+  lightboxImages: [],
+  lightboxIndex: 0,
 };
 
-function init() {
-  const remote = typeof DATA !== 'undefined' ? DATA : null;
-  if (remote) STATE.works = remote.works;
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+
+function loadLocalData() {
+  const saved = localStorage.getItem('manga-gallery-data');
+  if (!saved) return null;
+  try { return JSON.parse(saved); } catch(e) { return null; }
+}
+
+async function loadRemoteData() {
+  try {
+    const r = await fetch('data.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return null;
+    const d = await r.json();
+    if (d && Array.isArray(d.works)) return d;
+  } catch(e) {}
+  return null;
+}
+
+async function init() {
+  const remote = await loadRemoteData();
+  if (remote && remote.works) STATE.works = remote.works;
+
   const local = loadLocalData();
   if (local) {
     if (local.passwords) STATE.passwords = { ...STATE.passwords, ...local.passwords };
     if (!remote && local.works) STATE.works = local.works;
   }
+
+  STATE.passwords.manga = '';
   document.addEventListener('keydown', handleKey);
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
   });
 }
-window.onload = init;
-
-function loadLocalData() {
-  try { return JSON.parse(localStorage.getItem('manga-gallery-data')); } catch { return null; }
-}
 
 function save() {
-  localStorage.setItem('manga-gallery-data', JSON.stringify({ passwords: STATE.passwords, works: STATE.works, }));
+  localStorage.setItem('manga-gallery-data', JSON.stringify({
+    passwords: STATE.passwords,
+    works: STATE.works,
+  }));
 }
 
-// ── AUTH & NAV (略) ──
+
+// ══════════════════════════════════════════
+// AUTH — multi-section unlock system
+// ══════════════════════════════════════════
+let loginTarget = 'manga';
+
 function selectLoginTab(type, el) {
   loginTarget = type;
   document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
+  document.getElementById('login-error').textContent = '';
 }
+
 function doLogin() {
   const pw = document.getElementById('pw-input').value;
+  if (loginTarget === 'admin') {
+    const err = document.getElementById('login-error');
+    err.textContent = '請使用 admin.html';
+    setTimeout(() => err.textContent = '', 2200);
+    return;
+  }
   if (pw === STATE.passwords[loginTarget]) {
+    document.getElementById('pw-input').value = '';
+    document.getElementById('login-error').textContent = '';
     STATE.unlocked.add(loginTarget);
     showPage('library');
     renderLibrary(loginTarget);
   } else {
-    toast('密碼錯誤', 'error');
+    const err = document.getElementById('login-error');
+    err.textContent = '密碼錯誤';
+    setTimeout(() => err.textContent = '', 2000);
   }
 }
-function showPage(id) {
+
+// Called when nav button for a locked section is clicked
+function navClickSection(type) {
+  if (STATE.unlocked.has(type) || STATE.unlocked.has('admin')) {
+    // already unlocked — just switch
+    showPage('library');
+    renderLibrary(type);
+  } else {
+    // need password
+    STATE.pendingUnlockSection = type;
+    const label = type === 'manga' ? '漫畫區' : '插圖區';
+    document.getElementById('modal-unlock-title').textContent = '輸入' + label + '密碼';
+    document.getElementById('unlock-input').value = '';
+    document.getElementById('unlock-error').textContent = '';
+    openModal('modal-unlock');
+    setTimeout(() => document.getElementById('unlock-input').focus(), 100);
+  }
+}
+
+function doUnlock() {
+  const pw = document.getElementById('unlock-input').value;
+  const type = STATE.pendingUnlockSection;
+  if (pw === STATE.passwords[type]) {
+    STATE.unlocked.add(type);
+    closeModal('modal-unlock');
+    showPage('library');
+    renderLibrary(type);
+  } else {
+    const err = document.getElementById('unlock-error');
+    err.textContent = '密碼錯誤';
+    setTimeout(() => err.textContent = '', 2000);
+  }
+}
+
+// Admin nav: go to manga/illust section (admin always has access)
+function adminGoSection(type) {
+  showPage('library');
+  renderLibrary(type);
+}
+
+function logout() {
+  STATE.unlocked = new Set();
+  showPage('login');
+}
+
+function isUnlocked(type) {
+  return STATE.unlocked.has(type) || STATE.unlocked.has('admin');
+}
+
+// ══════════════════════════════════════════
+// PAGES
+// ══════════════════════════════════════════
+function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('page-' + name).classList.add('active');
   window.scrollTo(0, 0);
 }
 
-// ══════════════════════════════════════════
-// VIEWER - PAGED MODE (關鍵修正區)
-// ══════════════════════════════════════════
-
-// 修正：更可靠的寬度獲取
-function pagedGetWidth(carousel) {
-  return carousel.offsetWidth || window.innerWidth;
-}
-
-// 修正：改用 scrollIntoView 並增加導航鎖定
-function pagedScrollToIndex(carousel, idx, smooth) {
-  const slide = carousel.querySelector(`.paged-slide[data-idx="${idx}"]`);
-  if (!slide) return;
-  
-  // 標記正在導航中，防止 scroll 事件回寫干擾
-  carousel._isNavigating = true;
-  
-  slide.scrollIntoView({
-    behavior: smooth ? 'smooth' : 'auto',
-    block: 'nearest',
-    inline: 'center'
-  });
-
-  // 平滑捲動結束後釋放鎖定
-  if (smooth) {
-    setTimeout(() => { carousel._isNavigating = false; }, 500);
+function goHome() {
+  if (isUnlocked('admin')) {
+    // admin: return to whichever section was last viewed, or show admin
+    showPage('admin');
+    renderAdmin();
   } else {
-    carousel._isNavigating = false;
+    showPage('library');
+    // show first unlocked section
+    const section = STATE.unlocked.has('manga') ? 'manga' : 'illust';
+    renderLibrary(section);
   }
 }
 
-// 修正：改用中心點距離判定，不依賴複雜的 scrollLeft 數學
-function pagedIndexFromScroll(carousel) {
-  const slides = carousel.querySelectorAll('.paged-slide');
-  const carouselRect = carousel.getBoundingClientRect();
-  const centerX = carouselRect.left + carouselRect.width / 2;
-  
-  let closestIdx = 0;
-  let minDiff = Infinity;
-  
-  slides.forEach(slide => {
-    const rect = slide.getBoundingClientRect();
-    const slideCenter = rect.left + rect.width / 2;
-    const diff = Math.abs(centerX - slideCenter);
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestIdx = parseInt(slide.dataset.idx);
+// ══════════════════════════════════════════
+// LIBRARY
+// ══════════════════════════════════════════
+function renderLibrary(activeSection) {
+  const mangaWorks = STATE.works.filter(w => w.type === 'manga');
+  const illustWorks = STATE.works.filter(w => w.type === 'illust');
+  document.getElementById('manga-count').textContent = mangaWorks.length + ' 部';
+  document.getElementById('illust-count').textContent = illustWorks.length + ' 部';
+  renderGrid('manga-grid', mangaWorks);
+  renderGrid('illust-grid', illustWorks);
+
+  // show/hide sections based on unlock state
+  const showManga = isUnlocked('manga');
+  const showIllust = isUnlocked('illust');
+  document.getElementById('manga-section').style.display = showManga ? '' : 'none';
+  document.getElementById('illust-section').style.display = showIllust ? '' : 'none';
+
+  // nav button states
+  const navManga = document.getElementById('nav-manga');
+  const navIllust = document.getElementById('nav-illust');
+  navManga.classList.toggle('active', activeSection === 'manga');
+  navIllust.classList.toggle('active', activeSection === 'illust');
+  navManga.classList.toggle('locked', !showManga);
+  navIllust.classList.toggle('locked', !showIllust);
+
+  // if both unlocked, show only the active one
+  if (showManga && showIllust) {
+    document.getElementById('manga-section').style.display = activeSection === 'manga' ? '' : 'none';
+    document.getElementById('illust-section').style.display = activeSection === 'illust' ? '' : 'none';
+  }
+}
+
+function renderGrid(id, works) {
+  const el = document.getElementById(id);
+  if (!works.length) { el.innerHTML = '<div class="empty-hint">尚無作品</div>'; return; }
+  el.innerHTML = works.map(w => `
+    <div class="work-card reveal" onclick="openWork('${w.id}')">
+      <div class="work-cover">
+        ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy">` : `<div class="work-cover-placeholder">${w.title.charAt(0)}</div>`}
+      </div>
+      <div class="work-info">
+        <div class="work-title">${esc(w.title)}</div>
+        <div class="work-meta">${w.type === 'manga' ? w.chapters.length + ' 話' : (w.chapters||[]).length + ' 貼文'}</div>
+      </div>
+    </div>
+  `).join('');
+  setTimeout(() => el.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+}
+
+// ══════════════════════════════════════════
+// WORK DETAIL
+// ══════════════════════════════════════════
+function openWork(id) {
+  const w = STATE.works.find(x => x.id === id);
+  if (!w) return;
+  STATE.currentWorkId = id;
+  document.getElementById('work-section-label').textContent = w.type === 'manga' ? '漫畫' : '插圖';
+  document.getElementById('work-breadcrumb-title').textContent = w.title;
+  document.getElementById('work-detail-title').textContent = w.title;
+  document.getElementById('work-type-badge').textContent =
+    w.type === 'illust' ? '插圖集' : (w.readMode === 'paged' ? '頁漫' : '條漫');
+
+  const cl = document.getElementById('chapter-list');
+  if (w.type === 'manga') {
+    renderChapterList(cl, w);
+  } else {
+    renderAlbumList(cl, w);
+  }
+  showPage('work');
+}
+
+function renderChapterList(cl, w) {
+  if (!w.chapters || !w.chapters.length) {
+    cl.innerHTML = '<div class="empty-hint">尚無話數</div>'; return;
+  }
+  cl.innerHTML = w.chapters.map((c, i) => {
+    const thumb = c.cover || (c.images && c.images[0]) || '';
+    return `
+      <div class="chapter-item reveal" onclick="openChapter('${w.id}','${c.id}')">
+        <div class="chapter-thumb">
+          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${String(i+1).padStart(2,'0')}</div>`}
+        </div>
+        <div class="chapter-info">
+          <div class="chapter-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="chapter-name">${esc(c.title)}</div>
+          <div class="chapter-count">${(c.images||[]).length} 張</div>
+        </div>
+      </div>`;
+  }).join('');
+  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+}
+
+function renderAlbumList(cl, w) {
+  const posts = w.chapters || [];
+  if (!posts.length) { cl.innerHTML = '<div class="empty-hint">尚無貼文</div>'; return; }
+  cl.innerHTML = '<div class="post-list">' + posts.map((p, i) => {
+    const coverUrl = p.cover || (p.images && p.images[0]) || '';    const coverHtml = coverUrl
+      ? `<img src="${esc(coverUrl)}" loading="lazy">`
+      : `<div class="post-list-cover-ph">🖼</div>`;
+    // title = first line of caption, or fallback
+    const lines = (p.caption || '').split('\n');
+    const title = p.title || lines[0] || '（未命名貼文）';
+    // excerpt = remaining caption text
+    const excerptLines = p.title ? lines : lines.slice(1);
+    const excerpt = excerptLines.join(' ').trim();
+    return `
+      <div class="post-list-item reveal" onclick="openPost('${w.id}','${p.id}')">
+        <div class="post-list-cover">${coverHtml}</div>
+        <div class="post-list-body">
+          <div class="post-list-title">${esc(title)}</div>
+          ${excerpt ? `<div class="post-list-excerpt">${esc(excerpt)}</div>` : ''}
+          <div class="post-list-meta">${(p.images||[]).length} 張圖片</div>
+        </div>
+      </div>`;
+  }).join('') + '</div>';
+  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+}
+
+// ══════════════════════════════════════════
+// VIEWER — MANGA
+// ══════════════════════════════════════════
+function openChapter(workId, chapterId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const c = w.chapters.find(x => x.id === chapterId);
+  if (!c || !c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
+  STATE.viewerImages = c.images;
+  STATE.viewerIndex = 0;
+  document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
+  showPage('viewer');
+  setMode(c.readMode || w.readMode || 'strip');
+}
+
+// ══════════════════════════════════════════
+// VIEWER — ILLUST POST (single post full view)
+// ══════════════════════════════════════════
+function openPost(workId, postId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const p = w.chapters.find(x => x.id === postId);
+  if (!p) return;
+  STATE.viewerPosts = [p];
+  STATE.viewerImages = p.images || [];
+  STATE.viewerIndex = 0;
+  document.getElementById('viewer-title').textContent = w.title;
+  showPage('viewer');
+  setMode('illust-post');
+}
+
+function setMode(mode) {
+  STATE.viewerMode = mode;
+  const label = document.getElementById('viewer-mode-label');
+  label.textContent = mode === 'strip' ? '條漫' : mode === 'paged' ? '頁漫' : '';
+  const nav = document.getElementById('viewer-nav');
+  const content = document.getElementById('viewer-content');
+  window.onscroll = null;
+  PAGED_UI.exitPaged();
+
+  if (mode === 'strip') {
+    nav.classList.remove('hidden');
+    content.innerHTML = `<div class="viewer-strip">${
+      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
+    }</div>`;
+    let last = 0;
+    window.onscroll = () => {
+      const cur = window.scrollY;
+      nav.classList.toggle('hidden', cur > last && cur > 100);
+      last = cur;
+    };
+  } else if (mode === 'paged') {
+    nav.classList.remove('hidden');
+    renderPaged();
+  } else if (mode === 'illust-post') {
+    nav.classList.remove('hidden');
+    const p = STATE.viewerPosts[0];
+    // Parse body into blocks: lines starting with [img:URL] are image blocks, rest is text
+    // Format: any line that is a plain URL (http...) = image; text lines = text block
+    // We merge consecutive text lines into one block
+    let allImgUrls = p.images || [];
+    let imgIdx = 0; // for lightbox index tracking across blocks
+    const body = p.body || ''; // structured body if present
+    let blocksHtml = '';
+
+    if (body) {
+      // Parse structured body: segments separated by blank lines or [img] markers
+      // Each paragraph = text block; each URL line = image
+      const lines = body.split('\n');
+      let textBuf = [];
+      const flushText = () => {
+        if (!textBuf.length) return;
+        const t = textBuf.join('\n').trim();
+        if (t) blocksHtml += `<div class="post-block-text">${esc(t)}</div>`;
+        textBuf = [];
+      };
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (/^https?:\/\//i.test(trimmed)) {
+          flushText();
+          const li = imgIdx++;
+          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
+        } else {
+          textBuf.push(line);
+        }
+      }
+      flushText();
+    } else {
+      // Legacy: images array + caption text
+      const imgs = allImgUrls;
+      if (imgs.length === 1) {
+        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
+      } else if (imgs.length > 1) {
+        const cols = imgs.length === 2 ? 'cols-2' : 'cols-3';
+        blocksHtml += `<div class="post-block-imgs ${cols}">` +
+          imgs.map((src,i) => `<img src="${esc(src)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
+          `</div>`;
+      }
+      if (p.caption) {
+        blocksHtml += `<div class="post-block-text">${esc(p.caption)}</div>`;
+      }
     }
-  });
-  return closestIdx;
+
+    const titleHtml = p.title ? `<div class="post-article-title">${esc(p.title)}</div>` : '';
+    const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
+    content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}${blocksHtml}</div></div>`;
+  }
+}
+
+// ══════════════════════════════════════════
+// 頁漫 UI 全域控制器
+// ══════════════════════════════════════════
+const PAGED_UI = {
+  timer: null,
+  nav:     () => document.getElementById('viewer-nav'),
+  counter: () => document.getElementById('paged-counter'),
+  arrPrev: () => document.getElementById('paged-arr-prev'),
+  arrNext: () => document.getElementById('paged-arr-next'),
+
+  show() {
+    clearTimeout(this.timer);
+    const nav = this.nav(), ctr = this.counter(), ap = this.arrPrev(), an = this.arrNext();
+    if (nav) nav.classList.remove('hidden');
+    if (ctr) ctr.classList.remove('arr-hidden');
+    if (ap)  ap.classList.remove('arr-hidden');
+    if (an)  an.classList.remove('arr-hidden');
+    this.timer = setTimeout(() => this.hide(), 2500);
+  },
+
+  hide() {
+    const nav = this.nav(), ctr = this.counter(), ap = this.arrPrev(), an = this.arrNext();
+    if (nav) nav.classList.add('hidden');
+    if (ctr) ctr.classList.add('arr-hidden');
+    if (ap)  ap.classList.add('arr-hidden');
+    if (an)  an.classList.add('arr-hidden');
+  },
+
+  updateArrows(idx, total) {
+    const ap = this.arrPrev(), an = this.arrNext();
+    if (!ap || !an) return;
+    ap.classList.toggle('arr-end', idx === 0);
+    an.classList.toggle('arr-end', idx === total - 1);
+  },
+
+  enterPaged() {
+    const ap = this.arrPrev(), an = this.arrNext();
+    if (ap) ap.style.display = 'flex';
+    if (an) an.style.display = 'flex';
+    this.show();
+  },
+
+  exitPaged() {
+    clearTimeout(this.timer);
+    const ap = this.arrPrev(), an = this.arrNext();
+    if (ap) ap.style.display = 'none';
+    if (an) an.style.display = 'none';
+    const nav = this.nav();
+    if (nav) nav.classList.remove('hidden');
+  }
+};
+
+function pagedGetWidth(carousel) {
+  const r = carousel.getBoundingClientRect();
+  return r.width || window.innerWidth || 1;
+}
+
+function pagedScrollToIndex(carousel, idx, smooth) {
+  const slide = carousel ? carousel.querySelector(".paged-slide[data-idx='" + idx + "']") : null;
+  const w = pagedGetWidth(carousel);
+  const target = slide ? slide.offsetLeft : (STATE.viewerImages.length - 1 - idx) * w;
+  const behavior = smooth ? 'smooth' : 'auto';
+  try { carousel.scrollTo({ left: target, behavior: behavior }); }
+  catch (e) { carousel.style.scrollBehavior = behavior; carousel.scrollLeft = target; }
+  if (smooth) setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 420);
+}
+
+
+function pagedIndexFromScroll(carousel) {
+  const w = pagedGetWidth(carousel);
+  const snapPos = Math.round(carousel.scrollLeft / w);
+  return (STATE.viewerImages.length - 1) - snapPos;
 }
 
 function renderPaged() {
   const imgs = STATE.viewerImages;
-  const i = STATE.viewerIndex;
+  const i    = STATE.viewerIndex;
   const content = document.getElementById('viewer-content');
-  
-  const slides = imgs.map((src, idx) => `
-    <div class="paged-slide" data-idx="${idx}">
-      <img src="${esc(src)}" loading="${idx <= i + 2 ? 'eager' : 'lazy'}">
-    </div>
-  `).join('');
 
-  content.innerHTML = `
-    <div class="paged-carousel rtl" id="paged-carousel">${slides}</div>
-    <div class="paged-counter-overlay" id="paged-counter">${i+1} / ${imgs.length}</div>
-  `;
+  const slides = imgs.map((src, idx) =>
+    `<div class="paged-slide" data-idx="${idx}">` +
+    `<img src="${esc(src)}" loading="${idx <= i + 2 ? 'eager' : 'lazy'}">` +
+    `</div>`
+  ).join('');
+
+  content.innerHTML =
+    `<div class="paged-carousel rtl" id="paged-carousel">${slides}</div>` +
+    `<div class="paged-counter-overlay arr-hidden" id="paged-counter">${i+1} / ${imgs.length}</div>`;
 
   const carousel = document.getElementById('paged-carousel');
-  
-  // 初始化位置
+
+  carousel.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
+
   requestAnimationFrame(() => {
     pagedScrollToIndex(carousel, i, false);
     PAGED_UI.enterPaged();
@@ -546,9 +947,8 @@ function renderPaged() {
   });
 
   let raf = 0;
+  let tmr = 0;
   carousel.addEventListener('scroll', () => {
-    if (carousel._isNavigating) return; // 如果是由按鈕觸發的捲動，不處理 scroll 回寫
-    
     if (raf) cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
       raf = 0;
@@ -557,114 +957,371 @@ function renderPaged() {
       if (idx >= 0 && idx < imgs.length) {
         if (ctr) ctr.textContent = (idx + 1) + ' / ' + imgs.length;
         PAGED_UI.updateArrows(idx, imgs.length);
-        STATE.viewerIndex = idx;
+        PAGED_UI.show();
       }
+      clearTimeout(tmr);
+      tmr = setTimeout(() => {
+        const finalIdx = pagedIndexFromScroll(carousel);
+        if (finalIdx >= 0 && finalIdx < imgs.length) STATE.viewerIndex = finalIdx;
+      }, 120);
     });
   }, { passive: true });
 
-  // 點擊畫面中央切換 UI
-  carousel.addEventListener('click', (e) => {
-    if (e.target.tagName === 'IMG') {
-        const nav = document.getElementById('viewer-nav');
-        if (nav.classList.contains('hidden')) PAGED_UI.show();
-        else PAGED_UI.hide();
-    }
+  carousel._wasDragging = false;
+
+  carousel.addEventListener('click', () => {
+    if (carousel._wasDragging) return;
+    const nav = document.getElementById('viewer-nav');
+    if (!nav) return;
+    if (nav.classList.contains('hidden')) PAGED_UI.show();
+    else PAGED_UI.hide();
   });
+
+  let dragging = false, startX = 0, startScroll = 0;
+  carousel.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') return;
+    dragging = true;
+    carousel._wasDragging = false;
+    startX = e.clientX;
+    startScroll = carousel.scrollLeft;
+    carousel.style.scrollBehavior = 'auto';
+    try { carousel.setPointerCapture(e.pointerId); } catch(_) {}
+    e.preventDefault();
+  }, { passive: false });
+
+  carousel.addEventListener('pointermove', (e) => {
+    if (!dragging || e.pointerType === 'touch') return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 6) carousel._wasDragging = true;
+    carousel.scrollLeft = startScroll - dx;
+    e.preventDefault();
+  }, { passive: false });
+
+  const endDrag = (e) => {
+    if (!dragging || (e && e.pointerType === 'touch')) return;
+    dragging = false;
+    const w = pagedGetWidth(carousel);
+    const snap = Math.round(carousel.scrollLeft / w);
+    carousel.style.scrollBehavior = 'smooth';
+    carousel.scrollLeft = snap * w;
+    setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 420);
+    setTimeout(() => { carousel._wasDragging = false; }, 60);
+  };
+
+  carousel.addEventListener('pointerup', endDrag);
+  carousel.addEventListener('pointercancel', () => { dragging = false; carousel._wasDragging = false; });
 }
 
-// 修正：pagedNav 呼叫邏輯
 function pagedNav(dir) {
   const n = STATE.viewerIndex + dir;
   if (n < 0 || n >= STATE.viewerImages.length) return;
-  
   STATE.viewerIndex = n;
+
   const carousel = document.getElementById('paged-carousel');
   if (!carousel) return;
 
-  // 執行平滑滑動
   pagedScrollToIndex(carousel, n, true);
 
-  // 立即更新 UI 反饋
   const ctr = document.getElementById('paged-counter');
   if (ctr) ctr.textContent = (n + 1) + ' / ' + STATE.viewerImages.length;
   PAGED_UI.updateArrows(n, STATE.viewerImages.length);
   PAGED_UI.show();
 }
 
-// 頁漫 UI 控制器
-const PAGED_UI = {
-  show() {
-    document.getElementById('viewer-nav').classList.remove('hidden');
-    document.getElementById('paged-counter').classList.remove('arr-hidden');
-    document.querySelectorAll('.paged-arrow').forEach(a => a.classList.remove('arr-hidden'));
-  },
-  hide() {
-    document.getElementById('viewer-nav').classList.add('hidden');
-    document.getElementById('paged-counter').classList.add('arr-hidden');
-    document.querySelectorAll('.paged-arrow').forEach(a => a.classList.add('arr-hidden'));
-  },
-  updateArrows(idx, total) {
-    const prev = document.getElementById('paged-arr-prev');
-    const next = document.getElementById('paged-arr-next');
-    if (prev) prev.classList.toggle('arr-end', idx <= 0);
-    if (next) next.classList.toggle('arr-end', idx >= total - 1);
-  },
-  enterPaged() {
-    document.body.style.overflow = 'hidden';
-    document.querySelectorAll('.paged-arrow').forEach(a => a.style.display = 'flex');
-  },
-  exitPaged() {
-    document.body.style.overflow = '';
-    document.querySelectorAll('.paged-arrow').forEach(a => a.style.display = 'none');
-  }
-};
-
-// ══════════════════════════════════════════
-// UTILS & REST OF FUNCTIONS (保持原樣)
-// ══════════════════════════════════════════
-function openChapter(workId, chapterId) {
-  const w = STATE.works.find(x => x.id === workId);
-  const c = w.chapters.find(x => x.id === chapterId);
-  if (!c || !c.images || !c.images.length) { toast('無圖片', 'error'); return; }
-  STATE.viewerImages = c.images;
-  STATE.viewerIndex = 0;
-  STATE.viewerMode = c.readMode || w.readMode || 'strip';
-  document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
-  showPage('viewer');
-  if (STATE.viewerMode === 'paged') renderPaged(); else renderStrip();
-}
-
-function renderStrip() {
-  const content = document.getElementById('viewer-content');
-  content.innerHTML = `<div class="viewer-strip">${STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')}</div>`;
-  PAGED_UI.exitPaged();
-}
-
 function closeViewer() {
+  window.onscroll = null;
   PAGED_UI.exitPaged();
-  showPage('work');
+  openWork(STATE.currentWorkId);
 }
 
+// ══════════════════════════════════════════
+// LIGHTBOX
+// ══════════════════════════════════════════
+function openLightbox(index) {
+  STATE.lightboxImages = STATE.viewerImages;
+  STATE.lightboxIndex = index;
+  document.getElementById('lightbox-img').src = STATE.lightboxImages[index];
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(e) { if (e.target === document.getElementById('lightbox')) closeLightboxDirect(); }
+function closeLightboxDirect() { document.getElementById('lightbox').classList.remove('open'); }
+function lightboxNav(dir) {
+  const n = STATE.lightboxIndex + dir;
+  if (n < 0 || n >= STATE.lightboxImages.length) return;
+  STATE.lightboxIndex = n;
+  document.getElementById('lightbox-img').src = STATE.lightboxImages[n];
+}
+// For post article: lightbox with explicit image array
+function openLightboxArr(imgs, index) {
+  STATE.lightboxImages = imgs;
+  STATE.lightboxIndex = index;
+  document.getElementById('lightbox-img').src = imgs[index];
+  document.getElementById('lightbox').classList.add('open');
+}
+
+// ══════════════════════════════════════════
+// KEYBOARD
+// ══════════════════════════════════════════
 function handleKey(e) {
-  if (document.getElementById('page-viewer').classList.contains('active') && STATE.viewerMode === 'paged') {
-    if (e.key === 'ArrowRight') pagedNav(-1);
-    if (e.key === 'ArrowLeft') pagedNav(1);
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'Escape') closeLightboxDirect();
+    return;
+  }
+  if (!document.getElementById('page-viewer').classList.contains('active')) return;
+  if (STATE.viewerMode === 'paged') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') pagedNav(-1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') pagedNav(1);
   }
   if (e.key === 'Escape') closeViewer();
 }
 
-function toast(msg, type='success') {
-  const t = document.createElement('div');
-  t.className = `toast show ${type}`;
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => { t.classList.remove('show'); setTimeout(()=>t.remove(), 300); }, 2000);
+// ══════════════════════════════════════════
+// ADMIN
+// ══════════════════════════════════════════
+function renderAdmin() {
+  const el = document.getElementById('admin-work-list');
+  if (!STATE.works.length) { el.innerHTML = '<div class="empty-hint">尚無作品，點擊「新增作品」開始</div>'; return; }
+  el.innerHTML = STATE.works.map(w => {
+    const coverHtml = w.cover
+      ? `<img src="${esc(w.cover)}" loading="lazy">`
+      : `<div class="work-list-cover-ph">${w.title.charAt(0)}</div>`;
+    return `
+    <div class="work-list-item">
+      <div class="work-list-header" onclick="toggleWorkExpand('${w.id}')">
+        <div class="work-list-toggle" id="arrow-${w.id}">▶</div>
+        <div class="work-list-cover">${coverHtml}</div>
+        <span class="work-list-name">${esc(w.title)}</span>
+        <span class="work-list-type">${w.type === 'manga' ? (w.readMode === 'paged' ? '頁漫' : '條漫') : '插圖'}</span>
+        <div class="work-list-actions">
+          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openEditWork('${w.id}')">編輯</button>
+          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteWork('${w.id}')">刪除</button>
+        </div>
+      </div>
+      <div class="work-list-body" id="work-body-${w.id}" style="display:none">
+        <div style="padding:12px 0 8px;display:flex;justify-content:flex-end">
+          ${w.type === 'manga'
+            ? `<button class="btn btn-primary btn-sm" onclick="openAddChapter('${w.id}')">+ 新增話數</button>`
+            : `<button class="btn btn-primary btn-sm" onclick="openAddPost('${w.id}')">+ 新增貼文</button>`}
+        </div>
+        ${(w.chapters||[]).map((c,i) => w.type === 'manga' ? `
+          <div class="chapter-edit-item">
+            ${(c.cover||c.images?.[0]) ? `<img src="${esc(c.cover||c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
+            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title)}</span>
+            <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
+            <button class="btn btn-secondary btn-sm" onclick="openEditChapter('${w.id}','${c.id}')">編輯</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
+          </div>` : `
+          <div class="chapter-edit-item">
+            ${c.images?.[0] ? `<img src="${esc(c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
+            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title || (c.caption||'').split('\n')[0].slice(0,30) || '（未命名）')}</span>
+            <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
+            <button class="btn btn-secondary btn-sm" onclick="openEditPost('${w.id}','${c.id}')">編輯</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
+          </div>`
+        ).join('')}
+        ${!(w.chapters||[]).length ? '<div style="font-size:12px;color:var(--text3);padding:8px 0">尚無內容</div>' : ''}
+      </div>
+    </div>`
+  }).join('');
 }
 
-function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toggleWorkExpand(id) {
+  const body = document.getElementById('work-body-' + id);
+  const arrow = document.getElementById('arrow-' + id);
+  const open = body.style.display === 'none';
+  body.style.display = open ? '' : 'none';
+  arrow.classList.toggle('open', open);
+}
 
-function goHome() { showPage('library'); renderLibrary(STATE.activeSection); }
-// ... (其餘 CRUD/Library 渲染邏輯保持與原檔一致)
+// ── Work CRUD ──
+function openAddWork() {
+  STATE.editingWorkId = null;
+  document.getElementById('modal-work-title').textContent = '新增作品';
+  document.getElementById('m-work-title').value = '';
+  document.getElementById('m-work-type').value = 'manga';
+  document.getElementById('m-work-readmode').value = 'strip';
+  document.getElementById('m-work-cover').value = '';
+  document.getElementById('read-mode-field').style.display = '';
+  openModal('modal-work');
+}
+function openEditWork(id) {
+  const w = STATE.works.find(x => x.id === id);
+  STATE.editingWorkId = id;
+  document.getElementById('modal-work-title').textContent = '編輯作品';
+  document.getElementById('m-work-title').value = w.title;
+  document.getElementById('m-work-type').value = w.type;
+  document.getElementById('m-work-readmode').value = w.readMode || 'strip';
+  document.getElementById('m-work-cover').value = w.cover || '';
+  document.getElementById('read-mode-field').style.display = w.type === 'illust' ? 'none' : '';
+  openModal('modal-work');
+}
+function toggleReadMode() {
+  document.getElementById('read-mode-field').style.display =
+    document.getElementById('m-work-type').value === 'illust' ? 'none' : '';
+}
+function saveWork() {
+  const title = document.getElementById('m-work-title').value.trim();
+  if (!title) { toast('請輸入標題', 'error'); return; }
+  const type = document.getElementById('m-work-type').value;
+  const cover = document.getElementById('m-work-cover').value.trim();
+  const readMode = type === 'manga' ? document.getElementById('m-work-readmode').value : null;
+  if (STATE.editingWorkId) {
+    const w = STATE.works.find(x => x.id === STATE.editingWorkId);
+    w.title = title; w.type = type; w.cover = cover; w.readMode = readMode;
+  } else {
+    STATE.works.push({ id: uid(), title, type, cover, readMode, chapters: [] });
+  }
+  save(); closeModal('modal-work'); renderAdmin(); toast('已儲存');
+}
+function deleteWork(id) {
+  if (!confirm('確定刪除此作品及所有內容？')) return;
+  STATE.works = STATE.works.filter(x => x.id !== id);
+  save(); renderAdmin(); toast('已刪除');
+}
+
+// ── Manga Chapter CRUD ──
+function openAddChapter(workId) {
+  STATE.editingWorkIdForChapter = workId;
+  STATE.editingChapterId = null;
+  document.getElementById('modal-chapter-title').textContent = '新增話數';
+  document.getElementById('m-ch-title').value = '';
+  document.getElementById('m-ch-cover').value = '';
+  document.getElementById('m-ch-readmode').value = '';
+  document.getElementById('m-ch-images').value = '';
+  openModal('modal-chapter');
+}
+function openEditChapter(workId, chapterId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const c = w.chapters.find(x => x.id === chapterId);
+  STATE.editingWorkIdForChapter = workId;
+  STATE.editingChapterId = chapterId;
+  document.getElementById('modal-chapter-title').textContent = '編輯話數';
+  document.getElementById('m-ch-title').value = c.title;
+  document.getElementById('m-ch-cover').value = c.cover || '';
+  document.getElementById('m-ch-readmode').value = c.readMode || '';
+  document.getElementById('m-ch-images').value = (c.images||[]).join('\n');
+  openModal('modal-chapter');
+}
+function saveChapter() {
+  const title = document.getElementById('m-ch-title').value.trim();
+  if (!title) { toast('請輸入標題', 'error'); return; }
+  const readMode = document.getElementById('m-ch-readmode').value || null;
+  const cover = document.getElementById('m-ch-cover').value.trim();
+  const images = document.getElementById('m-ch-images').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const w = STATE.works.find(x => x.id === STATE.editingWorkIdForChapter);
+  if (STATE.editingChapterId) {
+    const c = w.chapters.find(x => x.id === STATE.editingChapterId);
+    c.title = title; c.cover = cover; c.images = images; c.readMode = readMode;
+  } else {
+    w.chapters.push({ id: uid(), title, cover, images, readMode });
+  }
+  save(); closeModal('modal-chapter'); renderAdmin(); toast('已儲存');
+}
+function deleteChapter(workId, chapterId) {
+  if (!confirm('確定刪除？')) return;
+  const w = STATE.works.find(x => x.id === workId);
+  w.chapters = w.chapters.filter(x => x.id !== chapterId);
+  save(); renderAdmin(); toast('已刪除');
+}
+
+// ── Illust Post CRUD ──
+function openAddPost(workId) {
+  STATE.editingPostWorkId = workId;
+  STATE.editingPostId = null;
+  document.getElementById('modal-post-title').textContent = '新增貼文';
+  document.getElementById('m-post-title').value = '';
+  document.getElementById('m-post-cover').value = '';
+  document.getElementById('m-post-body').value = '';
+  openModal('modal-post');
+}
+function openEditPost(workId, postId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const p = w.chapters.find(x => x.id === postId);
+  STATE.editingPostWorkId = workId;
+  STATE.editingPostId = postId;
+  document.getElementById('modal-post-title').textContent = '編輯貼文';
+  document.getElementById('m-post-title').value = p.title || '';
+  document.getElementById('m-post-cover').value = p.cover || '';
+  document.getElementById('m-post-body').value = p.body || p.caption || '';
+  openModal('modal-post');
+}
+function savePost() {
+  const title = document.getElementById('m-post-title').value.trim();
+  const coverInput = document.getElementById('m-post-cover').value.trim();
+  const body = document.getElementById('m-post-body').value;
+
+  const bodyImages = body.split('\n').map(s => s.trim()).filter(s => /^https?:\/\//i.test(s));
+  const cover = coverInput || (bodyImages[0] || '');
+
+  if (!bodyImages.length && !body.trim()) { toast('請輸入圖片或文字內容', 'error'); return; }
+
+  const w = STATE.works.find(x => x.id === STATE.editingPostWorkId);
+  const postData = { title, cover, images: bodyImages, body, caption: '' };
+
+  if (STATE.editingPostId) {
+    const p = w.chapters.find(x => x.id === STATE.editingPostId);
+    Object.assign(p, postData);
+  } else {
+    w.chapters.push({ id: uid(), ...postData });
+  }
+
+  save(); closeModal('modal-post'); renderAdmin(); toast('已儲存');
+}
+
+// ── Passwords ──
+function savePasswords() {
+  const mn = document.getElementById('pw-manga-new').value;
+  const il = document.getElementById('pw-illust-new').value;
+  const ad = document.getElementById('pw-admin-new').value;
+  if (mn) STATE.passwords.manga = mn;
+  if (il) STATE.passwords.illust = il;
+  if (ad) STATE.passwords.admin = ad;
+  save();
+  ['pw-manga-new','pw-illust-new','pw-admin-new'].forEach(id => document.getElementById(id).value = '');
+  toast('密碼已更新');
+}
+
+// ── Backup ──
+function exportData() {
+  const blob = new Blob([JSON.stringify({ passwords: STATE.passwords, works: STATE.works }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'usagi-backup.json';
+  a.click();
+  toast('已匯出');
+}
+function importData(input) {
+  const file = input.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    try {
+      const d = JSON.parse(e.target.result);
+      if (d.passwords) STATE.passwords = { ...STATE.passwords, ...d.passwords };
+      if (d.works) STATE.works = d.works;
+      save(); renderAdmin(); toast('已匯入');
+    } catch { toast('JSON 格式錯誤', 'error'); }
+  };
+  r.readAsText(file);
+  input.value = '';
+}
+
+// ══════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════
+function uid() { return Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg, type='success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = 'toast show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+init();
 </script>
 </body>
 </html>
