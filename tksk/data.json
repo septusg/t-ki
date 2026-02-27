@@ -19,6 +19,25 @@
           "readMode": null
         }
       ]
+    },
+    {
+      "id": "cnlmvnmxmm51ldqh",
+      "title": "TEST",
+      "type": "manga",
+      "cover": "",
+      "readMode": "strip",
+      "chapters": [
+        {
+          "id": "fewz3wtmmm51mfq8",
+          "title": "A",
+          "cover": "",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3a7c238658d147ed.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3dd898dc7b7f4489.jpg"
+          ],
+          "readMode": null
+        }
+      ]
     }
   ]
 }
