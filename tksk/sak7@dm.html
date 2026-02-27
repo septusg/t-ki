@@ -460,6 +460,7 @@
 // UPLOAD (Cloudflare Worker -> GitHub)
 // ══════════════════════════════════════════
 const UPLOAD_API = 'https://tkskworker.pnyuki159.workers.dev/upload';
+const SAVE_API = 'https://tkskworker.pnyuki159.workers.dev/saveData';
 const UPLOAD_SITE_BASE = location.origin;
 
 // ══════════════════════════════════════════
@@ -1014,12 +1015,12 @@ function saveWork() {
   } else {
     STATE.works.push({ id: uid(), title, type, cover, readMode, chapters: [] });
   }
-  save(); closeModal('modal-work'); renderAdmin(); toast('已儲存');
+  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); closeModal('modal-work'); renderAdmin(); toast('已儲存');
 }
 function deleteWork(id) {
   if (!confirm('確定刪除此作品及所有內容？')) return;
   STATE.works = STATE.works.filter(x => x.id !== id);
-  save(); renderAdmin(); toast('已刪除');
+  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); renderAdmin(); toast('已刪除');
 }
 
 // ── Manga Chapter CRUD ──
@@ -1058,13 +1059,13 @@ function saveChapter() {
   } else {
     w.chapters.push({ id: uid(), title, cover, images, readMode });
   }
-  save(); closeModal('modal-chapter'); renderAdmin(); toast('已儲存');
+  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); closeModal('modal-chapter'); renderAdmin(); toast('已儲存');
 }
 function deleteChapter(workId, chapterId) {
   if (!confirm('確定刪除？')) return;
   const w = STATE.works.find(x => x.id === workId);
   w.chapters = w.chapters.filter(x => x.id !== chapterId);
-  save(); renderAdmin(); toast('已刪除');
+  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); renderAdmin(); toast('已刪除');
 }
 
 // ── Illust Post CRUD ──
@@ -1108,7 +1109,7 @@ function savePost() {
     w.chapters.push({ id: uid(), ...postData });
   }
 
-  save(); closeModal('modal-post'); renderAdmin(); toast('已儲存');
+  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); closeModal('modal-post'); renderAdmin(); toast('已儲存');
 }
 
 // ── Passwords ──
@@ -1141,7 +1142,7 @@ function importData(input) {
       const d = JSON.parse(e.target.result);
       if (d.passwords) STATE.passwords = { ...STATE.passwords, ...d.passwords };
       if (d.works) STATE.works = d.works;
-      save(); renderAdmin(); toast('已匯入');
+      save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); renderAdmin(); toast('已匯入');
     } catch { toast('JSON 格式錯誤', 'error'); }
   };
   r.readAsText(file);
@@ -1213,6 +1214,13 @@ async function uploadOneFile(file, kind) {
   const j = await r.json();
   if (!j || !j.url) throw new Error('NO_URL');
   return j.url;
+}
+
+async function pushPublicData() {
+  const payload = { version: 1, works: STATE.works };
+  const r = await fetch(SAVE_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json().catch(() => ({}));
 }
 
 </script>
