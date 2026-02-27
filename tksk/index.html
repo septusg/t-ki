@@ -117,7 +117,7 @@
   .viewer-mode-label { font-size: 11px; color: #3a5a75; letter-spacing: 0.1em; border: 1px solid #1a2a40; padding: 4px 10px; }
   .viewer-strip { padding-top: 52px; }
   .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
-  /* ── PAGED VIEWER — scroll-snap carousel ── */
+    /* ── PAGED VIEWER — scroll-snap carousel ── */
   .paged-carousel {
     position: fixed; inset: 0; top: 52px;
     display: flex;
@@ -127,7 +127,6 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     background: #000;
-    /* RTL: right-to-left reading, so flex direction reverses */
   }
   .paged-carousel.rtl { flex-direction: row-reverse; }
   .paged-carousel::-webkit-scrollbar { display: none; }
@@ -146,16 +145,15 @@
     -webkit-user-drag: none;
     draggable: false;
   }
-  /* counter overlay */
   .paged-counter-overlay {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
     background: rgba(0,0,0,0.6); color: #6a8fa8;
     font-size: 12px; padding: 4px 14px; border-radius: 20px;
     pointer-events: none; z-index: 201; letter-spacing: 0.06em;
-    transition: opacity 0.3s;
+    transition: opacity 0.25s;
   }
-  .paged-counter-overlay.fade { opacity: 0; }
-  /* ‹ › 頁漫箭頭按鈕 */
+  .paged-counter-overlay.arr-hidden { opacity: 0; }
+
   .paged-arrow {
     position: fixed; top: 50%; z-index: 220;
     transform: translateY(-50%);
@@ -171,9 +169,7 @@
   .paged-arr-right { right: 0; border-radius: 6px 0 0 6px; }
   .paged-arrow:hover { background: rgba(0,0,0,0.62); color: #fff; }
   .paged-arrow.arr-end    { opacity: 0.15 !important; pointer-events: none !important; }
-  .paged-arrow.arr-hidden { opacity: 0   !important; pointer-events: none !important; }
-
-  /* illust post article viewer */
+  .paged-arrow.arr-hidden { opacity: 0   !important; pointer-events: none !important; }/* illust post article viewer */
   .post-article { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px; }
   .post-article-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
   .post-article-meta { font-size: 12px; color: var(--text3); margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
@@ -270,8 +266,6 @@
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
   .reveal.visible { opacity: 1; transform: none; }
   @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
-
-
 </style>
 </head>
 <body>
@@ -348,7 +342,6 @@
     <div class="viewer-title" id="viewer-title"></div>
     <div class="viewer-mode-label" id="viewer-mode-label"></div>
   </div>
-  <!-- 頁漫箭頭：固定在 page-viewer 內，z-index 高於 carousel -->
   <button id="paged-arr-prev" class="paged-arrow paged-arr-right" onclick="pagedNav(-1)" style="display:none">&#8250;</button>
   <button id="paged-arr-next" class="paged-arrow paged-arr-left"  onclick="pagedNav(1)"  style="display:none">&#8249;</button>
   <div id="viewer-content"></div>
@@ -783,15 +776,14 @@ function setMode(mode) {
   const nav = document.getElementById('viewer-nav');
   const content = document.getElementById('viewer-content');
   window.onscroll = null;
-  content.onclick = null;
+  PAGED_UI.exitPaged();
 
   if (mode === 'strip') {
     nav.classList.remove('hidden');
     content.innerHTML = `<div class="viewer-strip">${
       STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
     }</div>`;
-        content.onclick = function() { nav.classList.toggle('hidden'); };
-let last = 0;
+    let last = 0;
     window.onscroll = () => {
       const cur = window.scrollY;
       nav.classList.toggle('hidden', cur > last && cur > 100);
@@ -855,12 +847,10 @@ let last = 0;
   }
 }
 
-
 // ══════════════════════════════════════════
 // 頁漫 UI 全域控制器
 // ══════════════════════════════════════════
 const PAGED_UI = {
-  visible: true,
   timer: null,
   nav:     () => document.getElementById('viewer-nav'),
   counter: () => document.getElementById('paged-counter'),
@@ -868,28 +858,22 @@ const PAGED_UI = {
   arrNext: () => document.getElementById('paged-arr-next'),
 
   show() {
-    this.visible = true;
     clearTimeout(this.timer);
-    const nav = this.nav(), ctr = this.counter(),
-          ap  = this.arrPrev(), an = this.arrNext();
+    const nav = this.nav(), ctr = this.counter(), ap = this.arrPrev(), an = this.arrNext();
     if (nav) nav.classList.remove('hidden');
     if (ctr) ctr.classList.remove('arr-hidden');
     if (ap)  ap.classList.remove('arr-hidden');
     if (an)  an.classList.remove('arr-hidden');
-    this.timer = setTimeout(() => this.hide(), 3500);
+    this.timer = setTimeout(() => this.hide(), 2500);
   },
 
   hide() {
-    this.visible = false;
-    const nav = this.nav(), ctr = this.counter(),
-          ap  = this.arrPrev(), an = this.arrNext();
+    const nav = this.nav(), ctr = this.counter(), ap = this.arrPrev(), an = this.arrNext();
     if (nav) nav.classList.add('hidden');
     if (ctr) ctr.classList.add('arr-hidden');
     if (ap)  ap.classList.add('arr-hidden');
     if (an)  an.classList.add('arr-hidden');
   },
-
-  toggle() { this.visible ? this.hide() : this.show(); },
 
   updateArrows(idx, total) {
     const ap = this.arrPrev(), an = this.arrNext();
@@ -899,7 +883,6 @@ const PAGED_UI = {
   },
 
   enterPaged() {
-    // 顯示箭頭按鈕
     const ap = this.arrPrev(), an = this.arrNext();
     if (ap) ap.style.display = 'flex';
     if (an) an.style.display = 'flex';
@@ -907,23 +890,39 @@ const PAGED_UI = {
   },
 
   exitPaged() {
-    // 隱藏箭頭按鈕
     clearTimeout(this.timer);
     const ap = this.arrPrev(), an = this.arrNext();
     if (ap) ap.style.display = 'none';
     if (an) an.style.display = 'none';
-    // 恢復 nav
     const nav = this.nav();
     if (nav) nav.classList.remove('hidden');
   }
 };
+
+function pagedGetWidth(carousel) {
+  const r = carousel.getBoundingClientRect();
+  return r.width || window.innerWidth || 1;
+}
+
+function pagedScrollToIndex(carousel, idx, smooth) {
+  const w = pagedGetWidth(carousel);
+  const target = (STATE.viewerImages.length - 1 - idx) * w;
+  carousel.style.scrollBehavior = smooth ? 'smooth' : 'auto';
+  carousel.scrollLeft = target;
+  if (smooth) setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 420);
+}
+
+function pagedIndexFromScroll(carousel) {
+  const w = pagedGetWidth(carousel);
+  const snapPos = Math.round(carousel.scrollLeft / w);
+  return (STATE.viewerImages.length - 1) - snapPos;
+}
 
 function renderPaged() {
   const imgs = STATE.viewerImages;
   const i    = STATE.viewerIndex;
   const content = document.getElementById('viewer-content');
 
-  // 每頁一個 slide，圖片用 contain 顯示
   const slides = imgs.map((src, idx) =>
     `<div class="paged-slide" data-idx="${idx}">` +
     `<img src="${esc(src)}" loading="${idx <= i + 2 ? 'eager' : 'lazy'}">` +
@@ -936,48 +935,48 @@ function renderPaged() {
 
   const carousel = document.getElementById('paged-carousel');
 
-  // ── 防止 img 原生拖曳干擾 ──
-  carousel.querySelectorAll('img').forEach(img => {
-    img.ondragstart = (e) => e.preventDefault();
-  });
+  carousel.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
 
-  // ── 初始定位（instant，不觸發 snap 動畫）──
   requestAnimationFrame(() => {
-    carousel.style.scrollBehavior = 'auto';
-    carousel.scrollLeft = (imgs.length - 1 - i) * window.innerWidth;
-    requestAnimationFrame(() => {
-      // 啟動 UI（顯示箭頭、nav、counter）
-      PAGED_UI.enterPaged();
-      PAGED_UI.updateArrows(i, imgs.length);
-    });
+    pagedScrollToIndex(carousel, i, false);
+    PAGED_UI.enterPaged();
+    PAGED_UI.updateArrows(i, imgs.length);
   });
 
-  // ── scroll → 更新頁碼 & 箭頭 ──
+  let raf = 0;
+  let tmr = 0;
   carousel.addEventListener('scroll', () => {
-    const snapPos = Math.round(carousel.scrollLeft / window.innerWidth);
-    const newIdx  = (imgs.length - 1) - snapPos;
-    if (newIdx >= 0 && newIdx < imgs.length && newIdx !== STATE.viewerIndex) {
-      STATE.viewerIndex = newIdx;
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const idx = pagedIndexFromScroll(carousel);
       const ctr = document.getElementById('paged-counter');
-      if (ctr) ctr.textContent = (newIdx + 1) + ' / ' + imgs.length;
-      PAGED_UI.updateArrows(newIdx, imgs.length);
-      PAGED_UI.show();
-    }
+      if (idx >= 0 && idx < imgs.length) {
+        if (ctr) ctr.textContent = (idx + 1) + ' / ' + imgs.length;
+        PAGED_UI.updateArrows(idx, imgs.length);
+        PAGED_UI.show();
+      }
+      clearTimeout(tmr);
+      tmr = setTimeout(() => {
+        const finalIdx = pagedIndexFromScroll(carousel);
+        if (finalIdx >= 0 && finalIdx < imgs.length) STATE.viewerIndex = finalIdx;
+      }, 120);
+    });
   }, { passive: true });
 
-  // ── 點擊 carousel → toggle UI（非拖曳時）──
-  carousel.addEventListener('click', () => {
-    if (carousel._wasDragging) return;
-    PAGED_UI.toggle();
-  });
-
-  // ── PC 滑鼠拖曳（pointerType != touch）──
-  // img 有 pointer-events:none，所以 pointerdown 會打在 .paged-slide 上
-  let dragging = false, startX = 0, startScroll = 0;
   carousel._wasDragging = false;
 
+  carousel.addEventListener('click', () => {
+    if (carousel._wasDragging) return;
+    const nav = document.getElementById('viewer-nav');
+    if (!nav) return;
+    if (nav.classList.contains('hidden')) PAGED_UI.show();
+    else PAGED_UI.hide();
+  });
+
+  let dragging = false, startX = 0, startScroll = 0;
   carousel.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') return; // 觸控讓瀏覽器原生處理
+    if (e.pointerType === 'touch') return;
     dragging = true;
     carousel._wasDragging = false;
     startX = e.clientX;
@@ -991,22 +990,22 @@ function renderPaged() {
     if (!dragging || e.pointerType === 'touch') return;
     const dx = e.clientX - startX;
     if (Math.abs(dx) > 6) carousel._wasDragging = true;
-    carousel.scrollLeft = startScroll - dx; // RTL: 右拖 = 往前
+    carousel.scrollLeft = startScroll - dx;
     e.preventDefault();
   }, { passive: false });
 
   const endDrag = (e) => {
     if (!dragging || (e && e.pointerType === 'touch')) return;
     dragging = false;
-    // snap 到最近整頁
-    const snap = Math.round(carousel.scrollLeft / window.innerWidth);
+    const w = pagedGetWidth(carousel);
+    const snap = Math.round(carousel.scrollLeft / w);
     carousel.style.scrollBehavior = 'smooth';
-    carousel.scrollLeft = snap * window.innerWidth;
-    setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 380);
+    carousel.scrollLeft = snap * w;
+    setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 420);
     setTimeout(() => { carousel._wasDragging = false; }, 60);
   };
 
-  carousel.addEventListener('pointerup',     endDrag);
+  carousel.addEventListener('pointerup', endDrag);
   carousel.addEventListener('pointercancel', () => { dragging = false; carousel._wasDragging = false; });
 }
 
@@ -1014,22 +1013,17 @@ function pagedNav(dir) {
   const n = STATE.viewerIndex + dir;
   if (n < 0 || n >= STATE.viewerImages.length) return;
   STATE.viewerIndex = n;
+
   const carousel = document.getElementById('paged-carousel');
   if (!carousel) return;
-  const target = (STATE.viewerImages.length - 1 - n) * window.innerWidth;
-  carousel.style.scrollBehavior = 'smooth';
-  carousel.scrollLeft = target;
-  setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 420);
-  // 更新 UI
+
+  pagedScrollToIndex(carousel, n, true);
+
   const ctr = document.getElementById('paged-counter');
   if (ctr) ctr.textContent = (n + 1) + ' / ' + STATE.viewerImages.length;
   PAGED_UI.updateArrows(n, STATE.viewerImages.length);
   PAGED_UI.show();
 }
-
-function enablePagedGestures() { /* no-op, handled in renderPaged */ }
-
-
 
 function closeViewer() {
   window.onscroll = null;
