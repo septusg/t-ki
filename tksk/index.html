@@ -839,11 +839,10 @@ function renderPaged() {
   const imgs = STATE.viewerImages;
   const i = STATE.viewerIndex;
   const content = document.getElementById('viewer-content');
+  const nav = document.getElementById('viewer-nav');
 
-  // Build carousel: RTL manga = right-to-left, so index 0 = rightmost slide
-  // We use flex-direction:row-reverse so slide 0 is on the right
   const slides = imgs.map((src, idx) =>
-    `<div class="paged-slide" data-idx="${idx}"><img src="${esc(src)}" loading="${idx <= i+1 ? 'eager' : 'lazy'}"></div>`
+    `<div class="paged-slide" data-idx="${idx}"><img src="${esc(src)}" loading="${idx <= i+2 ? 'eager' : 'lazy'}"></div>`
   ).join('');
 
   content.innerHTML =
@@ -851,50 +850,101 @@ function renderPaged() {
     `<div class="paged-counter-overlay" id="paged-counter">${i+1} / ${imgs.length}</div>`;
 
   const carousel = document.getElementById('paged-carousel');
-
-  // Scroll to current index (RTL: index 0 is at the far right, so scroll right-to-left)
-  // In row-reverse, slide[0] is rendered at the right end. To reach slide[i], scroll
-  // from the left end by (totalSlides - 1 - i) * vw
-  const scrollToIndex = (idx) => {
-    const target = (imgs.length - 1 - idx) * window.innerWidth;
-    carousel.scrollLeft = target;
-  };
-
-  // Initial scroll (instant)
-  requestAnimationFrame(() => {
-    carousel.style.scrollBehavior = 'auto';
-    scrollToIndex(i);
-    // After initial snap, re-enable smooth scroll snapping
-    requestAnimationFrame(() => { carousel.style.scrollBehavior = ''; });
-  });
-
-  // Update STATE.viewerIndex and counter as user scrolls
-  let counterTimer;
   const counter = document.getElementById('paged-counter');
 
+  // ── 初始定位 ──
+  const scrollToIndex = (idx, behavior) => {
+    const target = (imgs.length - 1 - idx) * window.innerWidth;
+    if (behavior === 'smooth') {
+      carousel.style.scrollBehavior = 'smooth';
+      carousel.scrollLeft = target;
+      setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 400);
+    } else {
+      carousel.style.scrollBehavior = 'auto';
+      carousel.scrollLeft = target;
+    }
+  };
+
+  requestAnimationFrame(() => {
+    scrollToIndex(i, 'instant');
+  });
+
+  // ── 頁碼 counter 更新 ──
+  let counterTimer;
+  const showCounter = () => {
+    counter.classList.remove('fade');
+    clearTimeout(counterTimer);
+    counterTimer = setTimeout(() => counter.classList.add('fade'), 1800);
+  };
+  counterTimer = setTimeout(() => counter.classList.add('fade'), 2000);
+
   carousel.addEventListener('scroll', () => {
-    const scrollLeft = carousel.scrollLeft;
-    const vw = window.innerWidth;
-    // Calculate which slide is snapped: scrollLeft / vw = (totalSlides-1-idx)
-    const snapPos = Math.round(scrollLeft / vw);
+    const snapPos = Math.round(carousel.scrollLeft / window.innerWidth);
     const newIdx = (imgs.length - 1) - snapPos;
     if (newIdx !== STATE.viewerIndex && newIdx >= 0 && newIdx < imgs.length) {
       STATE.viewerIndex = newIdx;
       counter.textContent = (newIdx + 1) + ' / ' + imgs.length;
-      counter.classList.remove('fade');
-      clearTimeout(counterTimer);
-      counterTimer = setTimeout(() => counter.classList.add('fade'), 1800);
+      showCounter();
     }
   }, { passive: true });
 
-  // Keyboard: handled by handleKey → pagedNav, which now just scrolls
-  // Start fade-out timer for initial counter
-  counterTimer = setTimeout(() => counter.classList.add('fade'), 2000);
+  // ── 點擊切換 nav bar（手機條漫一樣的邏輯）──
+  // 用短暫點擊（非拖曳）觸發
+  carousel.addEventListener('click', (e) => {
+    // 只在沒有拖曳的情況下切換（見下方 isDragging）
+    if (carousel._isDragging) return;
+    nav.classList.toggle('hidden');
+  });
+
+  // ── PC 滑鼠拖曳支援 ──
+  // scroll-snap 容器在桌機必須靠手動拖曳 scrollLeft 才有類似觸控的體驗
+  let mouseDown = false;
+  let mouseStartX = 0;
+  let scrollStartLeft = 0;
+  carousel._isDragging = false;
+
+  carousel.addEventListener('pointerdown', (e) => {
+    // 只攔截主鍵（滑鼠左鍵或觸控），觸控裝置讓瀏覽器原生處理
+    if (e.pointerType === 'touch') return;
+    mouseDown = true;
+    carousel._isDragging = false;
+    mouseStartX = e.clientX;
+    scrollStartLeft = carousel.scrollLeft;
+    carousel.style.scrollBehavior = 'auto';
+    carousel.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  }, { passive: false });
+
+  carousel.addEventListener('pointermove', (e) => {
+    if (!mouseDown || e.pointerType === 'touch') return;
+    const dx = e.clientX - mouseStartX;
+    if (Math.abs(dx) > 5) carousel._isDragging = true;
+    // RTL carousel: 向右拖 → scrollLeft 減少（往故事後面）
+    carousel.scrollLeft = scrollStartLeft - dx;
+    e.preventDefault();
+  }, { passive: false });
+
+  carousel.addEventListener('pointerup', (e) => {
+    if (!mouseDown || e.pointerType === 'touch') return;
+    mouseDown = false;
+    // 釋放後讓 scroll-snap 自動 snap 到最近的頁
+    // 用一點 smooth 幫助 snap
+    carousel.style.scrollBehavior = 'smooth';
+    // 計算最近的 snap 點
+    const snapPos = Math.round(carousel.scrollLeft / window.innerWidth);
+    carousel.scrollLeft = snapPos * window.innerWidth;
+    setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 300);
+    // 延遲清 isDragging，讓 click 事件能先判斷
+    setTimeout(() => { carousel._isDragging = false; }, 50);
+  });
+
+  carousel.addEventListener('pointercancel', () => {
+    mouseDown = false;
+    carousel._isDragging = false;
+  });
 }
 
 function pagedNav(dir) {
-  // dir: +1 = next page (RTL: go left in story = scroll right in DOM row-reverse)
-  //       -1 = prev page
   const n = STATE.viewerIndex + dir;
   if (n < 0 || n >= STATE.viewerImages.length) return;
   STATE.viewerIndex = n;
@@ -903,12 +953,11 @@ function pagedNav(dir) {
   const target = (STATE.viewerImages.length - 1 - n) * window.innerWidth;
   carousel.style.scrollBehavior = 'smooth';
   carousel.scrollLeft = target;
-  setTimeout(() => { if(carousel) carousel.style.scrollBehavior = ''; }, 400);
+  setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 400);
 }
 
 function enablePagedGestures() {
-  // No-op: gestures handled natively by scroll-snap + touch/mouse scroll
-  // Keyboard is handled by handleKey → pagedNav
+  // No-op: 手機觸控由 scroll-snap 原生處理，PC 拖曳在 renderPaged 內處理
 }
 
 
