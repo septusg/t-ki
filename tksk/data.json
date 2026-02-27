@@ -1,4 +1,13 @@
 {
   "version": 1,
-  "works": []
+  "works": [
+    {
+      "id": "upwqjqazmm4vilq2",
+      "title": "Test",
+      "type": "manga",
+      "cover": "",
+      "readMode": "strip",
+      "chapters": []
+    }
+  ]
 }
