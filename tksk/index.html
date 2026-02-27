@@ -118,6 +118,12 @@
   .viewer-strip { padding-top: 52px; }
   .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
   .viewer-paged { padding-top: 52px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  .paged-stage { width: 100%; flex: 1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .paged-track { width: 300%; height: 100%; display: flex; transform: translateX(-100%); }
+  .paged-track.anim { transition: transform 0.22s ease; }
+  .paged-slide { width: 100%; flex: 0 0 100%; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .paged-slide img { max-height: calc(100vh - 120px); max-width: 100%; object-fit: contain; touch-action: none; user-select: none; -webkit-user-select: none; }
   .paged-img-wrap { display: flex; align-items: center; justify-content: center; width: 100%; flex: 1; padding: 20px; }
   .paged-img-wrap img { max-height: calc(100vh - 120px); max-width: 100%; object-fit: contain; touch-action: pan-y; }
   .paged-controls { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.92); border-top: 1px solid #1a2a40; display: flex; align-items: center; justify-content: center; padding: 12px 24px; gap: 24px; }
@@ -798,34 +804,32 @@ let last = 0;
           imgs.map((src,i) => `<img src="${esc(src)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
           `</div>`;
       }
-      if (p.caption) {
-        blocksHtml += `<div class="post-block-text">${esc(p.caption)}</div>`;
-      }
-    }
-
-    const titleHtml = p.title ? `<div class="post-article-title">${esc(p.title)}</div>` : '';
-    const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
-    content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}${blocksHtml}</div></div>`;
-  }
-}
-
-function isTouchDevice() {
-  return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
-}
-
-function renderPaged() {
+      if (p.captiofunction renderPaged() {
   const imgs = STATE.viewerImages;
   const i = STATE.viewerIndex;
   const hideControls = isTouchDevice();
+
+  const prev = imgs[i - 1] || imgs[i];
+  const cur = imgs[i];
+  const next = imgs[i + 1] || imgs[i];
+
   document.getElementById('viewer-content').innerHTML = `
     <div class="viewer-paged">
-      <div class="paged-img-wrap"><img src="${esc(imgs[i])}" id="paged-main-img"></div>
+      <div class="paged-stage" id="paged-stage">
+        <div class="paged-track anim" id="paged-track" style="transform: translateX(-100%);">
+          <div class="paged-slide"><img src="${esc(prev)}" draggable="false"></div>
+          <div class="paged-slide"><img src="${esc(cur)}" id="paged-main-img" draggable="false"></div>
+          <div class="paged-slide"><img src="${esc(next)}" draggable="false"></div>
+        </div>
+      </div>
+
       <div class="paged-controls${hideControls ? ' hidden' : ''}" id="paged-controls">
         <button class="paged-btn" onclick="pagedNav(1)" ${i===imgs.length-1?'disabled':''}>← 下一頁</button>
         <div class="paged-counter">${i+1} / ${imgs.length}</div>
         <button class="paged-btn" onclick="pagedNav(-1)" ${i===0?'disabled':''}>上一頁 →</button>
       </div>
     </div>`;
+
   enablePagedGestures();
 }
 
@@ -837,133 +841,94 @@ function pagedNav(dir) {
 }
 
 function enablePagedGestures() {
-  const img = document.getElementById('paged-main-img');
+  const stage = document.getElementById('paged-stage');
+  const track = document.getElementById('paged-track');
   const controls = document.getElementById('paged-controls');
-  if (!img) return;
+  if (!stage || !track) return;
 
-  let sx = 0, sy = 0, dx = 0, dy = 0, down = false;
+  let down = false;
+  let sx = 0, sy = 0, dx = 0, dy = 0;
+  let w = 0;
+  let locked = false;
+  let pid = 0;
 
-  img.onpointerdown = function(e) {
+  function setX(px, anim) {
+    if (anim) track.className = 'paged-track anim';
+    else track.className = 'paged-track';
+    track.style.transform = 'translateX(' + px + 'px)';
+  }
+
+  function baseX() { return -w; }
+
+  stage.onpointerdown = function(e) {
+    if (locked) return;
     down = true;
+    pid = e.pointerId;
     sx = e.clientX; sy = e.clientY;
     dx = 0; dy = 0;
-    try { img.setPointerCapture(e.pointerId); } catch(e2) {}
+    w = stage.clientWidth || 1;
+    stage.setPointerCapture(pid);
+    setX(baseX(), false);
   };
 
-  img.onpointermove = function(e) {
-    if (!down) return;
+  stage.onpointermove = function(e) {
+    if (!down || e.pointerId != pid) return;
     dx = e.clientX - sx;
     dy = e.clientY - sy;
+
+    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 12) return;
+
+    const i = STATE.viewerIndex;
+    if (i == 0 && dx > 0) dx = dx * 0.35;
+    if (i == STATE.viewerImages.length - 1 && dx < 0) dx = dx * 0.35;
+
+    setX(baseX() + dx, false);
   };
 
-  img.onpointerup = function(e) {
-    if (!down) return;
+  function finish(target) {
+    locked = true;
+    setX(target, true);
+    setTimeout(function() { locked = false; }, 260);
+  }
+
+  stage.onpointerup = function(e) {
+    if (!down || e.pointerId != pid) return;
     down = false;
 
     const ax = Math.abs(dx), ay = Math.abs(dy);
-
     if (ax < 10 && ay < 10) {
       if (controls) controls.classList.toggle('hidden');
+      setX(baseX(), true);
       return;
     }
 
-    if (ax > ay && ax > 40) {
-      if (dx < 0) pagedNav(1);
-      else pagedNav(-1);
+    w = stage.clientWidth || 1;
+    const threshold = Math.max(48, w * 0.18);
+
+    if (ax > ay && ax > threshold) {
+      if (dx < 0 && STATE.viewerIndex < STATE.viewerImages.length - 1) {
+        finish(-2 * w);
+        setTimeout(function() { STATE.viewerIndex++; renderPaged(); }, 230);
+        return;
+      }
+      if (dx > 0 && STATE.viewerIndex > 0) {
+        finish(0);
+        setTimeout(function() { STATE.viewerIndex--; renderPaged(); }, 230);
+        return;
+      }
     }
+
+    finish(baseX());
   };
 
-  img.onpointercancel = function() { down = false; };
+  stage.onpointercancel = function(e) {
+    if (!down || e.pointerId != pid) return;
+    down = false;
+    w = stage.clientWidth || 1;
+    setX(baseX(), true);
+  };
 }
-
-
-function closeViewer() {
-  window.onscroll = null;
-  openWork(STATE.currentWorkId);
-}
-
-// ══════════════════════════════════════════
-// LIGHTBOX
-// ══════════════════════════════════════════
-function openLightbox(index) {
-  STATE.lightboxImages = STATE.viewerImages;
-  STATE.lightboxIndex = index;
-  document.getElementById('lightbox-img').src = STATE.lightboxImages[index];
-  document.getElementById('lightbox').classList.add('open');
-}
-function closeLightbox(e) { if (e.target === document.getElementById('lightbox')) closeLightboxDirect(); }
-function closeLightboxDirect() { document.getElementById('lightbox').classList.remove('open'); }
-function lightboxNav(dir) {
-  const n = STATE.lightboxIndex + dir;
-  if (n < 0 || n >= STATE.lightboxImages.length) return;
-  STATE.lightboxIndex = n;
-  document.getElementById('lightbox-img').src = STATE.lightboxImages[n];
-}
-// For post article: lightbox with explicit image array
-function openLightboxArr(imgs, index) {
-  STATE.lightboxImages = imgs;
-  STATE.lightboxIndex = index;
-  document.getElementById('lightbox-img').src = imgs[index];
-  document.getElementById('lightbox').classList.add('open');
-}
-
-// ══════════════════════════════════════════
-// KEYBOARD
-// ══════════════════════════════════════════
-function handleKey(e) {
-  if (document.getElementById('lightbox').classList.contains('open')) {
-    if (e.key === 'ArrowLeft') lightboxNav(-1);
-    if (e.key === 'ArrowRight') lightboxNav(1);
-    if (e.key === 'Escape') closeLightboxDirect();
-    return;
-  }
-  if (!document.getElementById('page-viewer').classList.contains('active')) return;
-  if (STATE.viewerMode === 'paged') {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') pagedNav(-1);
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') pagedNav(1);
-  }
-  if (e.key === 'Escape') closeViewer();
-}
-
-// ══════════════════════════════════════════
-// ADMIN
-// ══════════════════════════════════════════
-function renderAdmin() {
-  const el = document.getElementById('admin-work-list');
-  if (!STATE.works.length) { el.innerHTML = '<div class="empty-hint">尚無作品，點擊「新增作品」開始</div>'; return; }
-  el.innerHTML = STATE.works.map(w => {
-    const coverHtml = w.cover
-      ? `<img src="${esc(w.cover)}" loading="lazy">`
-      : `<div class="work-list-cover-ph">${w.title.charAt(0)}</div>`;
-    return `
-    <div class="work-list-item">
-      <div class="work-list-header" onclick="toggleWorkExpand('${w.id}')">
-        <div class="work-list-toggle" id="arrow-${w.id}">▶</div>
-        <div class="work-list-cover">${coverHtml}</div>
-        <span class="work-list-name">${esc(w.title)}</span>
-        <span class="work-list-type">${w.type === 'manga' ? (w.readMode === 'paged' ? '頁漫' : '條漫') : '插圖'}</span>
-        <div class="work-list-actions">
-          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openEditWork('${w.id}')">編輯</button>
-          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteWork('${w.id}')">刪除</button>
-        </div>
-      </div>
-      <div class="work-list-body" id="work-body-${w.id}" style="display:none">
-        <div style="padding:12px 0 8px;display:flex;justify-content:flex-end">
-          ${w.type === 'manga'
-            ? `<button class="btn btn-primary btn-sm" onclick="openAddChapter('${w.id}')">+ 新增話數</button>`
-            : `<button class="btn btn-primary btn-sm" onclick="openAddPost('${w.id}')">+ 新增貼文</button>`}
-        </div>
-        ${(w.chapters||[]).map((c,i) => w.type === 'manga' ? `
-          <div class="chapter-edit-item">
-            ${(c.cover||c.images?.[0]) ? `<img src="${esc(c.cover||c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
-            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title)}</span>
-            <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
-            <button class="btn btn-secondary btn-sm" onclick="openEditChapter('${w.id}','${c.id}')">編輯</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
-          </div>` : `
-          <div class="chapter-edit-item">
-            ${c.images?.[0] ? `<img src="${esc(c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
-            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title || (c.caption||'').split('\n')[0].slice(0,30) || '（未命名）')}</span>
+(c.caption||'').split('\n')[0].slice(0,30) || '（未命名）')}</span>
             <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
             <button class="btn btn-secondary btn-sm" onclick="openEditPost('${w.id}','${c.id}')">編輯</button>
             <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
