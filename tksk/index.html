@@ -154,6 +154,24 @@
     transition: opacity 0.3s;
   }
   .paged-counter-overlay.fade { opacity: 0; }
+  /* ‹ › 箭頭按鈕 */
+  .paged-arrow {
+    position: fixed; top: 50%; z-index: 202;
+    transform: translateY(-50%);
+    width: 48px; height: 80px;
+    background: rgba(0,0,0,0.32);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: rgba(255,255,255,0.55);
+    transition: opacity 0.25s, background 0.2s, color 0.2s;
+    user-select: none;
+    border-radius: 4px;
+  }
+  .paged-arrow:hover { background: rgba(0,0,0,0.55); color: rgba(255,255,255,0.9); }
+  .paged-arrow.left  { left: 0; border-radius: 0 4px 4px 0; }
+  .paged-arrow.right { right: 0; border-radius: 4px 0 0 4px; }
+  .paged-arrow.dim   { opacity: 0.18; pointer-events: none; }
+  .paged-arrow.fade  { opacity: 0; pointer-events: none; }
 
   /* illust post article viewer */
   .post-article { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px; }
@@ -847,69 +865,82 @@ function renderPaged() {
 
   content.innerHTML =
     `<div class="paged-carousel rtl" id="paged-carousel">${slides}</div>` +
-    `<div class="paged-counter-overlay" id="paged-counter">${i+1} / ${imgs.length}</div>`;
+    `<div class="paged-counter-overlay" id="paged-counter">${i+1} / ${imgs.length}</div>` +
+    // RTL: 右箭頭 = 上一頁（故事前面），左箭頭 = 下一頁（故事後面）
+    `<button class="paged-arrow right" id="paged-arr-prev" onclick="pagedNav(-1)">&#8250;</button>` +
+    `<button class="paged-arrow left"  id="paged-arr-next" onclick="pagedNav(1)">&#8249;</button>`;
 
   const carousel = document.getElementById('paged-carousel');
-  const counter = document.getElementById('paged-counter');
+  const counter  = document.getElementById('paged-counter');
+  const arrPrev  = document.getElementById('paged-arr-prev'); // 右側 › = 上一頁
+  const arrNext  = document.getElementById('paged-arr-next'); // 左側 ‹ = 下一頁
+
+  // ── UI 顯示控制 ──
+  let uiVisible = true;
+  let uiTimer;
+
+  const updateArrows = (idx) => {
+    arrPrev.classList.toggle('dim', idx === 0);
+    arrNext.classList.toggle('dim', idx === imgs.length - 1);
+  };
+
+  const showUI = () => {
+    uiVisible = true;
+    nav.classList.remove('hidden');
+    counter.classList.remove('fade');
+    arrPrev.classList.remove('fade');
+    arrNext.classList.remove('fade');
+    clearTimeout(uiTimer);
+    uiTimer = setTimeout(hideUI, 3000);
+  };
+
+  const hideUI = () => {
+    uiVisible = false;
+    nav.classList.add('hidden');
+    counter.classList.add('fade');
+    arrPrev.classList.add('fade');
+    arrNext.classList.add('fade');
+  };
+
+  const toggleUI = () => { uiVisible ? hideUI() : showUI(); };
+
+  updateArrows(i);
+  uiTimer = setTimeout(hideUI, 3000); // 3 秒後自動收起
 
   // ── 初始定位 ──
-  const scrollToIndex = (idx, behavior) => {
-    const target = (imgs.length - 1 - idx) * window.innerWidth;
-    if (behavior === 'smooth') {
-      carousel.style.scrollBehavior = 'smooth';
-      carousel.scrollLeft = target;
-      setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 400);
-    } else {
-      carousel.style.scrollBehavior = 'auto';
-      carousel.scrollLeft = target;
-    }
-  };
-
   requestAnimationFrame(() => {
-    scrollToIndex(i, 'instant');
+    carousel.style.scrollBehavior = 'auto';
+    carousel.scrollLeft = (imgs.length - 1 - i) * window.innerWidth;
   });
 
-  // ── 頁碼 counter 更新 ──
-  let counterTimer;
-  const showCounter = () => {
-    counter.classList.remove('fade');
-    clearTimeout(counterTimer);
-    counterTimer = setTimeout(() => counter.classList.add('fade'), 1800);
-  };
-  counterTimer = setTimeout(() => counter.classList.add('fade'), 2000);
-
+  // ── scroll 時更新頁碼 & 箭頭狀態 ──
   carousel.addEventListener('scroll', () => {
     const snapPos = Math.round(carousel.scrollLeft / window.innerWidth);
-    const newIdx = (imgs.length - 1) - snapPos;
-    if (newIdx !== STATE.viewerIndex && newIdx >= 0 && newIdx < imgs.length) {
+    const newIdx  = (imgs.length - 1) - snapPos;
+    if (newIdx >= 0 && newIdx < imgs.length && newIdx !== STATE.viewerIndex) {
       STATE.viewerIndex = newIdx;
       counter.textContent = (newIdx + 1) + ' / ' + imgs.length;
-      showCounter();
+      updateArrows(newIdx);
+      showUI();
     }
   }, { passive: true });
 
-  // ── 點擊切換 nav bar（手機條漫一樣的邏輯）──
-  // 用短暫點擊（非拖曳）觸發
+  // ── 點擊 carousel（非箭頭按鈕、非拖曳）→ toggle UI ──
   carousel.addEventListener('click', (e) => {
-    // 只在沒有拖曳的情況下切換（見下方 isDragging）
     if (carousel._isDragging) return;
-    nav.classList.toggle('hidden');
+    toggleUI();
   });
 
-  // ── PC 滑鼠拖曳支援 ──
-  // scroll-snap 容器在桌機必須靠手動拖曳 scrollLeft 才有類似觸控的體驗
-  let mouseDown = false;
-  let mouseStartX = 0;
-  let scrollStartLeft = 0;
+  // ── PC 滑鼠拖曳 ──
+  let mouseDown = false, mouseStartX = 0, scrollStart = 0;
   carousel._isDragging = false;
 
   carousel.addEventListener('pointerdown', (e) => {
-    // 只攔截主鍵（滑鼠左鍵或觸控），觸控裝置讓瀏覽器原生處理
     if (e.pointerType === 'touch') return;
     mouseDown = true;
     carousel._isDragging = false;
     mouseStartX = e.clientX;
-    scrollStartLeft = carousel.scrollLeft;
+    scrollStart = carousel.scrollLeft;
     carousel.style.scrollBehavior = 'auto';
     carousel.setPointerCapture(e.pointerId);
     e.preventDefault();
@@ -919,28 +950,22 @@ function renderPaged() {
     if (!mouseDown || e.pointerType === 'touch') return;
     const dx = e.clientX - mouseStartX;
     if (Math.abs(dx) > 5) carousel._isDragging = true;
-    // RTL carousel: 向右拖 → scrollLeft 減少（往故事後面）
-    carousel.scrollLeft = scrollStartLeft - dx;
+    carousel.scrollLeft = scrollStart - dx;
     e.preventDefault();
   }, { passive: false });
 
   carousel.addEventListener('pointerup', (e) => {
     if (!mouseDown || e.pointerType === 'touch') return;
     mouseDown = false;
-    // 釋放後讓 scroll-snap 自動 snap 到最近的頁
-    // 用一點 smooth 幫助 snap
-    carousel.style.scrollBehavior = 'smooth';
-    // 計算最近的 snap 點
     const snapPos = Math.round(carousel.scrollLeft / window.innerWidth);
+    carousel.style.scrollBehavior = 'smooth';
     carousel.scrollLeft = snapPos * window.innerWidth;
-    setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 300);
-    // 延遲清 isDragging，讓 click 事件能先判斷
+    setTimeout(() => { if (carousel) carousel.style.scrollBehavior = 'auto'; }, 350);
     setTimeout(() => { carousel._isDragging = false; }, 50);
   });
 
   carousel.addEventListener('pointercancel', () => {
-    mouseDown = false;
-    carousel._isDragging = false;
+    mouseDown = false; carousel._isDragging = false;
   });
 }
 
