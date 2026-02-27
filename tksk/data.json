@@ -7,18 +7,7 @@
       "type": "manga",
       "cover": "https://cdn.discordapp.com/attachments/1413165857286389800/1413165857693241467/2025_0427_Noblemor.jpg?ex=69a25003&is=69a0fe83&hm=4df81ae3895e151bd30f3779a87e52e672d111eba2cde9f30886b44cccb775ce&",
       "readMode": "paged",
-      "chapters": [
-        {
-          "id": "2fjtz6pnmm4wmncz",
-          "title": "【轉瓶蓋小幫手】",
-          "cover": "",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/a1df0050e82b4247.jpg",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3d18bcb408ef43ef.jpg"
-          ],
-          "readMode": null
-        }
-      ]
+      "chapters": []
     }
   ]
 }
