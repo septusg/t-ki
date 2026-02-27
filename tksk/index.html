@@ -475,6 +475,7 @@ let STATE = {
   lightboxImages: [],
   lightboxIndex: 0,
 
+};
 const IS_MOBILE = (function() {
   try {
     if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return true;
@@ -484,7 +485,7 @@ const IS_MOBILE = (function() {
   } catch(e) {}
   return false;
 })();
-};
+
 
 // ══════════════════════════════════════════
 // INIT
