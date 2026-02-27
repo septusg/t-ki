@@ -7,7 +7,17 @@
       "type": "manga",
       "cover": "",
       "readMode": "strip",
-      "chapters": []
+      "chapters": [
+        {
+          "id": "7l7yel7ymm4vjv4u",
+          "title": "001",
+          "cover": "",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/main/uploads/manga/20260227/76c9f0e3a5bb42ae.jpg"
+          ],
+          "readMode": null
+        }
+      ]
     }
   ]
 }
