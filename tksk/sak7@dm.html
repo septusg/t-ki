@@ -335,6 +335,7 @@
       <div class="field-row">
         <button class="btn btn-secondary" onclick="exportData()">匯出 JSON</button>
         <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">匯入 JSON</button>
+        <button class="btn btn-secondary" onclick="updateJSON()">更新JSON</button>
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)">
       </div>
       <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.8">資料儲存於瀏覽器 localStorage。建議定期匯出備份以防資料遺失。</div>
@@ -1134,6 +1135,12 @@ function exportData() {
   a.click();
   toast('已匯出');
 }
+
+async function updateJSON() {
+  try { await pushPublicData(); toast('已更新 data.json'); }
+  catch { toast('更新 data.json 失敗', 'error'); }
+}
+
 function importData(input) {
   const file = input.files[0]; if (!file) return;
   const r = new FileReader();
