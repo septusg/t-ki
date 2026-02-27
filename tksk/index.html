@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usagi Comic Reader</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #090d14;
+    --bg2:    #0f1520;
+    --bg3:    #161e2e;
+    --border: #1e2d45;
+    --accent: #5b9bd5;
+    --acc2:   #3a72a8;
+    --text:   #d4e4f7;
+    --text2:  #7a9fc0;
+    --text3:  #3d5a78;
+    --danger: #c4614a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+  #page-login { align-items: center; justify-content: center; min-height: 100vh; background: radial-gradient(ellipse at 35% 45%, #0d1a2e 0%, #090d14 65%); }
+  #page-login.active { display: flex; }
+
+  /* ── LOGIN ── */
+  .login-box { width: 360px; padding: 48px 40px; border: 1px solid var(--border); background: var(--bg2); position: relative; }
+  .login-box::before { content: ''; position: absolute; top: -1px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+  .login-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; text-align: center; }
+  .login-sub { text-align: center; color: var(--text3); font-size: 11px; letter-spacing: 0.12em; margin-bottom: 32px; }
+  .login-tabs { display: flex; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .login-tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; font-size: 13px; color: var(--text3); letter-spacing: 0.08em; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; }
+  .login-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .login-tab:hover { color: var(--text2); }
+  .pw-input-wrap { margin-bottom: 14px; }
+  .pw-input-wrap input { width: 100%; padding: 12px 16px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 14px; outline: none; letter-spacing: 0.2em; transition: border-color 0.2s; }
+  .pw-input-wrap input:focus { border-color: var(--acc2); }
+  .pw-input-wrap input::placeholder { letter-spacing: 0.05em; color: var(--text3); }
+  .btn-login { width: 100%; padding: 13px; background: var(--accent); color: #090d14; border: none; cursor: pointer; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.15em; transition: background 0.2s; }
+  .btn-login:hover { background: #7ab3e0; }
+  .login-error { color: var(--danger); font-size: 12px; text-align: center; margin-top: 10px; min-height: 18px; }
+
+  /* ── NAV ── */
+  .site-nav { position: sticky; top: 0; z-index: 100; background: rgba(9,13,20,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; height: 56px; gap: 0; }
+  .nav-logo { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 17px; color: var(--accent); letter-spacing: 0.1em; cursor: pointer; margin-right: auto; }
+  .nav-btn { padding: 6px 14px; font-size: 12px; letter-spacing: 0.08em; color: var(--text3); cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
+  .nav-btn:hover { color: var(--accent); }
+  .nav-btn.active { color: var(--accent); }
+  .nav-btn.locked { color: var(--text3); opacity: 0.5; }
+  .nav-btn.locked::after { content: ' 🔒'; font-size: 10px; }
+  .nav-sep { color: var(--border); margin: 0 2px; font-size: 11px; }
+
+  /* ── LIBRARY ── */
+  .page-inner { padding: 40px 24px; max-width: 1000px; margin: 0 auto; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .section-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; color: var(--accent); letter-spacing: 0.1em; }
+  .section-count { font-size: 12px; color: var(--text3); }
+  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .work-card { cursor: pointer; border: 1px solid var(--border); background: var(--bg2); overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+  .work-card:hover { border-color: var(--acc2); transform: translateY(-2px); }
+  .work-cover { aspect-ratio: 3/4; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .work-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .work-cover-placeholder { font-family: 'Noto Serif TC', serif; font-size: 36px; color: var(--border); }
+  .work-info { padding: 12px; }
+  .work-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .work-meta { font-size: 11px; color: var(--text3); }
+  .empty-hint { color: var(--text3); font-size: 13px; text-align: center; padding: 48px 0; border: 1px dashed var(--border); letter-spacing: 0.05em; }
+
+  /* ── WORK DETAIL ── */
+  .work-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 32px 24px 28px; }
+  .work-header-inner { max-width: 800px; margin: 0 auto; }
+  .breadcrumb { font-size: 12px; color: var(--text3); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .breadcrumb span { cursor: pointer; }
+  .breadcrumb span:hover { color: var(--accent); }
+  .work-big-title { font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 900; color: var(--text); letter-spacing: 0.05em; margin-bottom: 8px; }
+  .work-type-badge { display: inline-block; padding: 3px 10px; border: 1px solid var(--border); font-size: 11px; color: var(--text3); letter-spacing: 0.08em; }
+  .chapter-list { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
+
+  /* chapter card with cover */
+  .chapter-item { display: flex; align-items: center; margin-bottom: 8px; border: 1px solid var(--border); background: var(--bg2); cursor: pointer; transition: border-color 0.2s, background 0.2s; overflow: hidden; }
+  .chapter-item:hover { border-color: var(--acc2); background: var(--bg3); }
+  .chapter-thumb { width: 72px; height: 72px; flex-shrink: 0; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .chapter-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .chapter-thumb-placeholder { font-size: 22px; color: var(--border); font-family: 'Noto Serif TC', serif; }
+  .chapter-info { flex: 1; padding: 14px 18px; }
+  .chapter-num { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--acc2); margin-bottom: 2px; }
+  .chapter-name { font-size: 14px; color: var(--text); }
+  .chapter-count { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+  /* ── ILLUST POST LIST (article style) ── */
+  .post-list { max-width: 720px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .post-list-item { border: 1px solid var(--border); background: var(--bg2); cursor: pointer; transition: border-color 0.2s, transform 0.15s; display: flex; overflow: hidden; }
+  .post-list-item:hover { border-color: var(--acc2); transform: translateY(-1px); }
+  .post-list-cover { width: 140px; height: 100px; flex-shrink: 0; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .post-list-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .post-list-cover-ph { font-size: 28px; color: var(--border); }
+  .post-list-body { flex: 1; padding: 14px 18px; display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; }
+  .post-list-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .post-list-excerpt { font-size: 12px; color: var(--text3); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .post-list-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  @media(max-width:480px) { .post-list-cover { width: 100px; height: 80px; } }
+
+  /* ── VIEWER ── */
+  #page-viewer { background: #000; }
+  .viewer-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #1a2a40; display: flex; align-items: center; padding: 0 16px; height: 52px; gap: 8px; transform: translateY(0); transition: transform 0.3s; }
+  .viewer-nav.hidden { transform: translateY(-100%); }
+  .viewer-title { flex: 1; font-size: 13px; color: #6a8fa8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .viewer-close { padding: 5px 12px; font-size: 11px; color: #4a6a85; cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
+  .viewer-close:hover { color: #7ab3e0; }
+  .viewer-mode-label { font-size: 11px; color: #3a5a75; letter-spacing: 0.1em; border: 1px solid #1a2a40; padding: 4px 10px; }
+  .viewer-strip { padding-top: 52px; }
+  .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
+  .viewer-paged { padding-top: 52px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .paged-img-wrap { display: flex; align-items: center; justify-content: center; width: 100%; flex: 1; padding: 20px; }
+  .paged-img-wrap img { max-height: calc(100vh - 120px); max-width: 100%; object-fit: contain; }
+  .paged-controls { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.92); border-top: 1px solid #1a2a40; display: flex; align-items: center; justify-content: center; padding: 12px 24px; gap: 24px; }
+  .paged-btn { padding: 8px 24px; font-size: 13px; letter-spacing: 0.05em; border: 1px solid #1e2d45; background: transparent; color: #6a8fa8; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .paged-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .paged-btn:disabled { opacity: 0.25; cursor: default; }
+  .paged-counter { font-size: 12px; color: #3a5a75; min-width: 80px; text-align: center; }
+
+  /* illust post article viewer */
+  .post-article { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px; }
+  .post-article-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .post-article-meta { font-size: 12px; color: var(--text3); margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  /* text block */
+  .post-block-text { font-size: 14px; color: var(--text2); line-height: 1.9; white-space: pre-wrap; margin-bottom: 20px; }
+  /* image block */
+  .post-block-img { margin-bottom: 12px; }
+  .post-block-img img { display: block; width: 100%; cursor: pointer; border: 1px solid var(--border); transition: opacity 0.2s; }
+  .post-block-img img:hover { opacity: 0.9; }
+  /* multi-image grid */
+  .post-block-imgs { display: grid; gap: 4px; margin-bottom: 12px; }
+  .post-block-imgs.cols-1 { grid-template-columns: 1fr; }
+  .post-block-imgs.cols-2 { grid-template-columns: 1fr 1fr; }
+  .post-block-imgs.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .post-block-imgs img { width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; border: 1px solid var(--border); transition: opacity 0.2s; }
+  .post-block-imgs img:hover { opacity: 0.9; }
+
+  /* gallery grid (fallback for albums without captions) */
+  .viewer-gallery { padding-top: 52px; columns: 2; column-gap: 4px; padding-bottom: 4px; }
+  @media(min-width:600px){.viewer-gallery{columns:3;}}
+  @media(min-width:900px){.viewer-gallery{columns:4;}}
+  .gallery-img { display: block; width: 100%; margin-bottom: 4px; cursor: pointer; transition: opacity 0.2s; break-inside: avoid; }
+  .gallery-img:hover { opacity: 0.8; }
+
+  /* lightbox */
+  .lightbox { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.97); display: none; align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
+  .lightbox-close { position: absolute; top: 16px; right: 20px; font-size: 28px; color: #3a5a75; cursor: pointer; line-height: 1; }
+  .lightbox-close:hover { color: #7ab3e0; }
+  .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); font-size: 32px; color: #2a4a65; cursor: pointer; padding: 20px; user-select: none; }
+  .lightbox-prev:hover, .lightbox-next:hover { color: #7ab3e0; }
+  .lightbox-prev { left: 0; }
+  .lightbox-next { right: 0; }
+
+  /* ── ADMIN ── */
+  .admin-inner { max-width: 860px; margin: 0 auto; padding: 32px 24px; }
+  .admin-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--accent); margin-bottom: 28px; letter-spacing: 0.12em; }
+  .admin-section { margin-bottom: 40px; }
+  .admin-section-title { font-size: 11px; letter-spacing: 0.14em; color: var(--text3); margin-bottom: 16px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .field-row { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 11px; color: var(--text3); margin-bottom: 4px; letter-spacing: 0.06em; }
+  .field input, .field select, .field textarea { width: 100%; padding: 9px 12px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 13px; outline: none; transition: border-color 0.2s; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--acc2); }
+  .field textarea { min-height: 80px; resize: vertical; }
+  select option { background: var(--bg3); }
+  .btn { padding: 9px 20px; font-size: 12px; letter-spacing: 0.08em; cursor: pointer; font-family: inherit; border: none; transition: all 0.2s; }
+  .btn-primary { background: var(--accent); color: #090d14; }
+  .btn-primary:hover { background: #7ab3e0; }
+  .btn-secondary { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--acc2); color: var(--text); }
+  .btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+  .btn-danger:hover { background: var(--danger); color: #fff; }
+  .btn-sm { padding: 5px 12px; font-size: 11px; }
+  .work-list-item { border: 1px solid var(--border); background: var(--bg2); margin-bottom: 10px; overflow: hidden; }
+  .work-list-header { display: flex; align-items: center; cursor: pointer; gap: 10px; }
+  .work-list-header:hover { background: var(--bg3); }
+  /* cover thumbnail in admin list */
+  .work-list-cover { width: 48px; height: 48px; flex-shrink: 0; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .work-list-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .work-list-cover-ph { font-size: 18px; color: var(--border); font-family: 'Noto Serif TC', serif; }
+  .work-list-toggle { padding: 14px 0 14px 14px; color: var(--text3); transition: transform 0.2s; font-size: 11px; }
+  .work-list-toggle.open { transform: rotate(90deg); }
+  .work-list-name { flex: 1; font-size: 14px; padding: 14px 0; }
+  .work-list-type { font-size: 11px; color: var(--text3); letter-spacing: 0.06em; }
+  .work-list-actions { display: flex; gap: 6px; padding: 0 14px; }
+  .work-list-body { padding: 0 16px 16px; border-top: 1px solid var(--border); }
+  .chapter-edit-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--bg3); }
+  .chapter-edit-name { flex: 1; font-size: 13px; color: var(--text2); }
+  .chapter-edit-count { font-size: 11px; color: var(--text3); }
+  .pw-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* post editor */
+  .post-editor { border: 1px solid var(--border); background: var(--bg3); padding: 16px; margin-bottom: 10px; }
+  .post-editor-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 12px; color: var(--text3); letter-spacing: 0.06em; }
+  .post-preview-imgs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .post-preview-img { width: 60px; height: 60px; object-fit: cover; border: 1px solid var(--border); }
+
+  .toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 12px 20px; font-size: 13px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; letter-spacing: 0.05em; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.success { border-color: var(--accent); }
+  .toast.error { border-color: var(--danger); }
+
+  .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 24px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; padding: 32px; }
+  .modal-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--accent); margin-bottom: 24px; letter-spacing: 0.08em; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; }
+
+  /* mini password modal */
+  .mini-modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 320px; padding: 32px; }
+
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="page-login" class="page active">
+  <div class="login-box">
+    <div class="login-title">Usagi Comic Reader</div>
+    <div class="login-sub">PRIVATE READING ROOM</div>
+    <div class="login-tabs">
+      <div class="login-tab active" onclick="selectLoginTab('manga',this)">漫畫</div>
+      <div class="login-tab" onclick="selectLoginTab('illust',this)">插圖</div>
+    </div>
+    <div class="pw-input-wrap">
+      <input type="password" id="pw-input" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">進入</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- ══ LIBRARY ══ -->
+<div id="page-library" class="page">
+  <nav class="site-nav">
+    <div class="nav-logo" onclick="goHome()">閱覽室</div>
+    <button class="nav-btn" id="nav-manga" onclick="navClickSection('manga')">漫畫</button>
+    <span class="nav-sep">·</span>
+    <button class="nav-btn" id="nav-illust" onclick="navClickSection('illust')">插圖</button>
+    <button class="nav-btn" onclick="logout()" style="margin-left:8px">登出</button>
+  </nav>
+  <div class="page-inner">
+    <div id="manga-section">
+      <div class="section-header">
+        <div class="section-title">漫畫</div>
+        <div class="section-count" id="manga-count"></div>
+      </div>
+      <div class="works-grid" id="manga-grid"></div>
+    </div>
+    <div id="illust-section">
+      <div class="section-header">
+        <div class="section-title">插圖</div>
+        <div class="section-count" id="illust-count"></div>
+      </div>
+      <div class="works-grid" id="illust-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WORK DETAIL ══ -->
+<div id="page-work" class="page">
+  <nav class="site-nav">
+    <div class="nav-logo" onclick="goHome()">Usagi</div>
+    <button class="nav-btn" onclick="goHome()">← 返回</button>
+    <button class="nav-btn" onclick="logout()" style="margin-left:auto">登出</button>
+  </nav>
+  <div class="work-header">
+    <div class="work-header-inner">
+      <div class="breadcrumb">
+        <span onclick="goHome()">首頁</span><span>›</span>
+        <span id="work-section-label"></span><span>›</span>
+        <span id="work-breadcrumb-title"></span>
+      </div>
+      <div class="work-big-title" id="work-detail-title"></div>
+      <div class="work-type-badge" id="work-type-badge"></div>
+    </div>
+  </div>
+  <div class="chapter-list" id="chapter-list"></div>
+</div>
+
+<!-- ══ VIEWER ══ -->
+<div id="page-viewer" class="page">
+  <div class="viewer-nav" id="viewer-nav">
+    <button class="viewer-close" onclick="closeViewer()">← 返回</button>
+    <div class="viewer-title" id="viewer-title"></div>
+    <div class="viewer-mode-label" id="viewer-mode-label"></div>
+  </div>
+  <div id="viewer-content"></div>
+</div>
+
+<!-- ══ MODAL: 小密碼視窗 ══ -->
+<div class="modal-overlay" id="modal-unlock">
+  <div class="mini-modal">
+    <div class="modal-title" id="modal-unlock-title">輸入密碼</div>
+    <div class="pw-input-wrap"><input type="password" id="unlock-input" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doUnlock()"></div>
+    <div class="login-error" id="unlock-error"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-unlock')">取消</button>
+      <button class="btn btn-primary" onclick="doUnlock()">進入</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: 新增/編輯作品 ══ -->
+<div class="modal-overlay" id="modal-work">
+  <div class="modal">
+    <div class="modal-title" id="modal-work-title">新增作品</div>
+    <div class="field-row">
+      <div class="field"><label>作品標題</label><input type="text" id="m-work-title" placeholder="作品名稱"></div>
+      <div class="field" style="max-width:120px">
+        <label>分類</label>
+        <select id="m-work-type" onchange="toggleReadMode()">
+          <option value="manga">漫畫</option>
+          <option value="illust">插圖</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" id="read-mode-field">
+      <label>閱讀方式</label>
+      <select id="m-work-readmode">
+        <option value="strip">條漫（垂直滾動）</option>
+        <option value="paged">頁漫（從右至左翻頁）</option>
+      </select>
+    </div>
+    <div class="field"><label>作品封面 URL（選填）</label><input type="text" id="m-work-cover" placeholder="https://..."></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-work')">取消</button>
+      <button class="btn btn-primary" onclick="saveWork()">儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: 新增/編輯漫畫話數 ══ -->
+<div class="modal-overlay" id="modal-chapter">
+  <div class="modal">
+    <div class="modal-title" id="modal-chapter-title">新增話數</div>
+    <div class="field"><label>話數標題</label><input type="text" id="m-ch-title" placeholder="例：第1話、番外篇"></div>
+    <div class="field" style="margin-top:10px"><label>話數封面圖 URL（選填）</label><input type="text" id="m-ch-cover" placeholder="https://...（留空則用第一張圖）"></div>
+	<div class="field" style="margin-top:10px">
+  <label>閱讀模式（預設跟隨作品）</label>
+  <select id="m-ch-readmode">
+    <option value="">跟隨作品設定</option>
+    <option value="strip">條漫</option>
+    <option value="paged">頁漫</option>
+  </select>
+</div>
+    <div style="margin-top:14px;margin-bottom:6px;font-size:11px;color:var(--text3);letter-spacing:0.06em">圖片 URL 列表（每行一張）</div>
+    <div class="field"><textarea id="m-ch-images" placeholder="https://example.com/p001.jpg&#10;https://example.com/p002.jpg" style="min-height:160px;font-family:monospace;font-size:12px"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-chapter')">取消</button>
+      <button class="btn btn-primary" onclick="saveChapter()">儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: 新增/編輯插圖貼文 ══ -->
+<div class="modal-overlay" id="modal-post">
+  <div class="modal">
+    <div class="modal-title" id="modal-post-title">新增貼文</div>
+    <div class="field"><label>貼文標題</label><input type="text" id="m-post-title" placeholder="這篇文章的標題"></div>
+    <div class="field" style="margin-top:10px"><label>封面圖 URL（選填，留空自動用第一張圖）</label><input type="text" id="m-post-cover" placeholder="https://..."></div>
+    
+    <div style="margin-top:14px;margin-bottom:6px">
+      <div style="font-size:11px;color:var(--text3);letter-spacing:0.06em;margin-bottom:6px">文章內文</div>
+      <div style="font-size:11px;color:var(--border);background:var(--bg3);border:1px solid var(--border);padding:10px 12px;line-height:1.9;font-family:monospace">
+        直接貼上圖片 URL 的那一行 → 顯示為圖片<br>
+        其餘文字 → 顯示為段落文字<br>
+        <span style="color:var(--text3)">── 範例 ──</span><br>
+        今天畫了這張：<br>
+        https://i.imgur.com/abc.jpg<br>
+        這邊是後記，想說的話<br>
+        https://i.imgur.com/xyz.jpg<br>
+        最後這張是草稿
+      </div>
+    </div>
+    <div class="field"><textarea id="m-post-body" placeholder="在這裡輸入文章內文，圖片 URL 單獨一行即可插入圖片…" style="min-height:180px;line-height:1.8"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-post')">取消</button>
+      <button class="btn btn-primary" onclick="savePost()">儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightboxDirect()">×</div>
+  <div class="lightbox-prev" onclick="lightboxNav(-1)">‹</div>
+  <img id="lightbox-img" src="">
+  <div class="lightbox-next" onclick="lightboxNav(1)">›</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let STATE = {
+  // loggedIn: Set of unlocked sections. 'admin' means all access.
+  unlocked: new Set(), // e.g. 'manga', 'illust', 'admin'
+  passwords: { manga: '', illust: 'ki' },
+  works: [],
+  viewerImages: [],    // flat array for manga/lightbox
+  viewerPosts: [],     // array of {images, caption} for illust post feed
+  viewerMode: 'strip',
+  viewerIndex: 0,
+  currentWorkId: null,
+  editingWorkId: null,
+  editingChapterId: null,
+  editingWorkIdForChapter: null,
+  editingPostId: null,
+  editingPostWorkId: null,
+  pendingUnlockSection: null, // which section user is trying to unlock
+  lightboxImages: [],
+  lightboxIndex: 0,
+};
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+
+function loadLocalData() {
+  const saved = localStorage.getItem('manga-gallery-data');
+  if (!saved) return null;
+  try { return JSON.parse(saved); } catch(e) { return null; }
+}
+
+async function loadRemoteData() {
+  try {
+    const r = await fetch('data.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return null;
+    const d = await r.json();
+    if (d && Array.isArray(d.works)) return d;
+  } catch(e) {}
+  return null;
+}
+
+async function init() {
+  const remote = await loadRemoteData();
+  if (remote && remote.works) STATE.works = remote.works;
+
+  const local = loadLocalData();
+  if (local) {
+    if (local.passwords) STATE.passwords = { ...STATE.passwords, ...local.passwords };
+    if (!remote && local.works) STATE.works = local.works;
+  }
+
+  STATE.passwords.manga = '';
+  document.addEventListener('keydown', handleKey);
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+  });
+}
+
+function save() {
+  localStorage.setItem('manga-gallery-data', JSON.stringify({
+    passwords: STATE.passwords,
+    works: STATE.works,
+  }));
+}
+
+
+// ══════════════════════════════════════════
+// AUTH — multi-section unlock system
+// ══════════════════════════════════════════
+let loginTarget = 'manga';
+
+function selectLoginTab(type, el) {
+  loginTarget = type;
+  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('login-error').textContent = '';
+}
+
+function doLogin() {
+  const pw = document.getElementById('pw-input').value;
+  if (loginTarget === 'admin') {
+    const err = document.getElementById('login-error');
+    err.textContent = '請使用 admin.html';
+    setTimeout(() => err.textContent = '', 2200);
+    return;
+  }
+  if (pw === STATE.passwords[loginTarget]) {
+    document.getElementById('pw-input').value = '';
+    document.getElementById('login-error').textContent = '';
+    STATE.unlocked.add(loginTarget);
+    showPage('library');
+    renderLibrary(loginTarget);
+  } else {
+    const err = document.getElementById('login-error');
+    err.textContent = '密碼錯誤';
+    setTimeout(() => err.textContent = '', 2000);
+  }
+}
+
+// Called when nav button for a locked section is clicked
+function navClickSection(type) {
+  if (STATE.unlocked.has(type) || STATE.unlocked.has('admin')) {
+    // already unlocked — just switch
+    showPage('library');
+    renderLibrary(type);
+  } else {
+    // need password
+    STATE.pendingUnlockSection = type;
+    const label = type === 'manga' ? '漫畫區' : '插圖區';
+    document.getElementById('modal-unlock-title').textContent = '輸入' + label + '密碼';
+    document.getElementById('unlock-input').value = '';
+    document.getElementById('unlock-error').textContent = '';
+    openModal('modal-unlock');
+    setTimeout(() => document.getElementById('unlock-input').focus(), 100);
+  }
+}
+
+function doUnlock() {
+  const pw = document.getElementById('unlock-input').value;
+  const type = STATE.pendingUnlockSection;
+  if (pw === STATE.passwords[type]) {
+    STATE.unlocked.add(type);
+    closeModal('modal-unlock');
+    showPage('library');
+    renderLibrary(type);
+  } else {
+    const err = document.getElementById('unlock-error');
+    err.textContent = '密碼錯誤';
+    setTimeout(() => err.textContent = '', 2000);
+  }
+}
+
+// Admin nav: go to manga/illust section (admin always has access)
+function adminGoSection(type) {
+  showPage('library');
+  renderLibrary(type);
+}
+
+function logout() {
+  STATE.unlocked = new Set();
+  showPage('login');
+}
+
+function isUnlocked(type) {
+  return STATE.unlocked.has(type) || STATE.unlocked.has('admin');
+}
+
+// ══════════════════════════════════════════
+// PAGES
+// ══════════════════════════════════════════
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  if (isUnlocked('admin')) {
+    // admin: return to whichever section was last viewed, or show admin
+    showPage('admin');
+    renderAdmin();
+  } else {
+    showPage('library');
+    // show first unlocked section
+    const section = STATE.unlocked.has('manga') ? 'manga' : 'illust';
+    renderLibrary(section);
+  }
+}
+
+// ══════════════════════════════════════════
+// LIBRARY
+// ══════════════════════════════════════════
+function renderLibrary(activeSection) {
+  const mangaWorks = STATE.works.filter(w => w.type === 'manga');
+  const illustWorks = STATE.works.filter(w => w.type === 'illust');
+  document.getElementById('manga-count').textContent = mangaWorks.length + ' 部';
+  document.getElementById('illust-count').textContent = illustWorks.length + ' 部';
+  renderGrid('manga-grid', mangaWorks);
+  renderGrid('illust-grid', illustWorks);
+
+  // show/hide sections based on unlock state
+  const showManga = isUnlocked('manga');
+  const showIllust = isUnlocked('illust');
+  document.getElementById('manga-section').style.display = showManga ? '' : 'none';
+  document.getElementById('illust-section').style.display = showIllust ? '' : 'none';
+
+  // nav button states
+  const navManga = document.getElementById('nav-manga');
+  const navIllust = document.getElementById('nav-illust');
+  navManga.classList.toggle('active', activeSection === 'manga');
+  navIllust.classList.toggle('active', activeSection === 'illust');
+  navManga.classList.toggle('locked', !showManga);
+  navIllust.classList.toggle('locked', !showIllust);
+
+  // if both unlocked, show only the active one
+  if (showManga && showIllust) {
+    document.getElementById('manga-section').style.display = activeSection === 'manga' ? '' : 'none';
+    document.getElementById('illust-section').style.display = activeSection === 'illust' ? '' : 'none';
+  }
+}
+
+function renderGrid(id, works) {
+  const el = document.getElementById(id);
+  if (!works.length) { el.innerHTML = '<div class="empty-hint">尚無作品</div>'; return; }
+  el.innerHTML = works.map(w => `
+    <div class="work-card reveal" onclick="openWork('${w.id}')">
+      <div class="work-cover">
+        ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy">` : `<div class="work-cover-placeholder">${w.title.charAt(0)}</div>`}
+      </div>
+      <div class="work-info">
+        <div class="work-title">${esc(w.title)}</div>
+        <div class="work-meta">${w.type === 'manga' ? w.chapters.length + ' 話' : (w.chapters||[]).length + ' 貼文'}</div>
+      </div>
+    </div>
+  `).join('');
+  setTimeout(() => el.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+}
+
+// ══════════════════════════════════════════
+// WORK DETAIL
+// ══════════════════════════════════════════
+function openWork(id) {
+  const w = STATE.works.find(x => x.id === id);
+  if (!w) return;
+  STATE.currentWorkId = id;
+  document.getElementById('work-section-label').textContent = w.type === 'manga' ? '漫畫' : '插圖';
+  document.getElementById('work-breadcrumb-title').textContent = w.title;
+  document.getElementById('work-detail-title').textContent = w.title;
+  document.getElementById('work-type-badge').textContent =
+    w.type === 'illust' ? '插圖集' : (w.readMode === 'paged' ? '頁漫' : '條漫');
+
+  const cl = document.getElementById('chapter-list');
+  if (w.type === 'manga') {
+    renderChapterList(cl, w);
+  } else {
+    renderAlbumList(cl, w);
+  }
+  showPage('work');
+}
+
+function renderChapterList(cl, w) {
+  if (!w.chapters || !w.chapters.length) {
+    cl.innerHTML = '<div class="empty-hint">尚無話數</div>'; return;
+  }
+  cl.innerHTML = w.chapters.map((c, i) => {
+    const thumb = c.cover || (c.images && c.images[0]) || '';
+    return `
+      <div class="chapter-item reveal" onclick="openChapter('${w.id}','${c.id}')">
+        <div class="chapter-thumb">
+          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${String(i+1).padStart(2,'0')}</div>`}
+        </div>
+        <div class="chapter-info">
+          <div class="chapter-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="chapter-name">${esc(c.title)}</div>
+          <div class="chapter-count">${(c.images||[]).length} 張</div>
+        </div>
+      </div>`;
+  }).join('');
+  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+}
+
+function renderAlbumList(cl, w) {
+  const posts = w.chapters || [];
+  if (!posts.length) { cl.innerHTML = '<div class="empty-hint">尚無貼文</div>'; return; }
+  cl.innerHTML = '<div class="post-list">' + posts.map((p, i) => {
+    const coverUrl = p.cover || (p.images && p.images[0]) || '';    const coverHtml = coverUrl
+      ? `<img src="${esc(coverUrl)}" loading="lazy">`
+      : `<div class="post-list-cover-ph">🖼</div>`;
+    // title = first line of caption, or fallback
+    const lines = (p.caption || '').split('\n');
+    const title = p.title || lines[0] || '（未命名貼文）';
+    // excerpt = remaining caption text
+    const excerptLines = p.title ? lines : lines.slice(1);
+    const excerpt = excerptLines.join(' ').trim();
+    return `
+      <div class="post-list-item reveal" onclick="openPost('${w.id}','${p.id}')">
+        <div class="post-list-cover">${coverHtml}</div>
+        <div class="post-list-body">
+          <div class="post-list-title">${esc(title)}</div>
+          ${excerpt ? `<div class="post-list-excerpt">${esc(excerpt)}</div>` : ''}
+          <div class="post-list-meta">${(p.images||[]).length} 張圖片</div>
+        </div>
+      </div>`;
+  }).join('') + '</div>';
+  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+}
+
+// ══════════════════════════════════════════
+// VIEWER — MANGA
+// ══════════════════════════════════════════
+function openChapter(workId, chapterId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const c = w.chapters.find(x => x.id === chapterId);
+  if (!c || !c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
+  STATE.viewerImages = c.images;
+  STATE.viewerIndex = 0;
+  document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
+  showPage('viewer');
+  setMode(c.readMode || w.readMode || 'strip');
+}
+
+// ══════════════════════════════════════════
+// VIEWER — ILLUST POST (single post full view)
+// ══════════════════════════════════════════
+function openPost(workId, postId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const p = w.chapters.find(x => x.id === postId);
+  if (!p) return;
+  STATE.viewerPosts = [p];
+  STATE.viewerImages = p.images || [];
+  STATE.viewerIndex = 0;
+  document.getElementById('viewer-title').textContent = w.title;
+  showPage('viewer');
+  setMode('illust-post');
+}
+
+function setMode(mode) {
+  STATE.viewerMode = mode;
+  const label = document.getElementById('viewer-mode-label');
+  label.textContent = mode === 'strip' ? '條漫' : mode === 'paged' ? '頁漫' : '';
+  const nav = document.getElementById('viewer-nav');
+  const content = document.getElementById('viewer-content');
+  window.onscroll = null;
+
+  if (mode === 'strip') {
+    nav.classList.remove('hidden');
+    content.innerHTML = `<div class="viewer-strip">${
+      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
+    }</div>`;
+    let last = 0;
+    window.onscroll = () => {
+      const cur = window.scrollY;
+      nav.classList.toggle('hidden', cur > last && cur > 100);
+      last = cur;
+    };
+  } else if (mode === 'paged') {
+    nav.classList.remove('hidden');
+    renderPaged();
+  } else if (mode === 'illust-post') {
+    nav.classList.remove('hidden');
+    const p = STATE.viewerPosts[0];
+    // Parse body into blocks: lines starting with [img:URL] are image blocks, rest is text
+    // Format: any line that is a plain URL (http...) = image; text lines = text block
+    // We merge consecutive text lines into one block
+    let allImgUrls = p.images || [];
+    let imgIdx = 0; // for lightbox index tracking across blocks
+    const body = p.body || ''; // structured body if present
+    let blocksHtml = '';
+
+    if (body) {
+      // Parse structured body: segments separated by blank lines or [img] markers
+      // Each paragraph = text block; each URL line = image
+      const lines = body.split('\n');
+      let textBuf = [];
+      const flushText = () => {
+        if (!textBuf.length) return;
+        const t = textBuf.join('\n').trim();
+        if (t) blocksHtml += `<div class="post-block-text">${esc(t)}</div>`;
+        textBuf = [];
+      };
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (/^https?:\/\//i.test(trimmed)) {
+          flushText();
+          const li = imgIdx++;
+          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
+        } else {
+          textBuf.push(line);
+        }
+      }
+      flushText();
+    } else {
+      // Legacy: images array + caption text
+      const imgs = allImgUrls;
+      if (imgs.length === 1) {
+        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
+      } else if (imgs.length > 1) {
+        const cols = imgs.length === 2 ? 'cols-2' : 'cols-3';
+        blocksHtml += `<div class="post-block-imgs ${cols}">` +
+          imgs.map((src,i) => `<img src="${esc(src)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
+          `</div>`;
+      }
+      if (p.caption) {
+        blocksHtml += `<div class="post-block-text">${esc(p.caption)}</div>`;
+      }
+    }
+
+    const titleHtml = p.title ? `<div class="post-article-title">${esc(p.title)}</div>` : '';
+    const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
+    content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}${blocksHtml}</div></div>`;
+  }
+}
+
+function renderPaged() {
+  const imgs = STATE.viewerImages;
+  const i = STATE.viewerIndex;
+  document.getElementById('viewer-content').innerHTML = `
+    <div class="viewer-paged">
+      <div class="paged-img-wrap"><img src="${esc(imgs[i])}" id="paged-main-img"></div>
+      <div class="paged-controls">
+        <button class="paged-btn" onclick="pagedNav(1)" ${i===imgs.length-1?'disabled':''}>← 下一頁</button>
+        <div class="paged-counter">${i+1} / ${imgs.length}</div>
+        <button class="paged-btn" onclick="pagedNav(-1)" ${i===0?'disabled':''}>上一頁 →</button>
+      </div>
+    </div>`;
+}
+
+function pagedNav(dir) {
+  const n = STATE.viewerIndex + dir;
+  if (n < 0 || n >= STATE.viewerImages.length) return;
+  STATE.viewerIndex = n;
+  renderPaged();
+}
+
+function closeViewer() {
+  window.onscroll = null;
+  openWork(STATE.currentWorkId);
+}
+
+// ══════════════════════════════════════════
+// LIGHTBOX
+// ══════════════════════════════════════════
+function openLightbox(index) {
+  STATE.lightboxImages = STATE.viewerImages;
+  STATE.lightboxIndex = index;
+  document.getElementById('lightbox-img').src = STATE.lightboxImages[index];
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(e) { if (e.target === document.getElementById('lightbox')) closeLightboxDirect(); }
+function closeLightboxDirect() { document.getElementById('lightbox').classList.remove('open'); }
+function lightboxNav(dir) {
+  const n = STATE.lightboxIndex + dir;
+  if (n < 0 || n >= STATE.lightboxImages.length) return;
+  STATE.lightboxIndex = n;
+  document.getElementById('lightbox-img').src = STATE.lightboxImages[n];
+}
+// For post article: lightbox with explicit image array
+function openLightboxArr(imgs, index) {
+  STATE.lightboxImages = imgs;
+  STATE.lightboxIndex = index;
+  document.getElementById('lightbox-img').src = imgs[index];
+  document.getElementById('lightbox').classList.add('open');
+}
+
+// ══════════════════════════════════════════
+// KEYBOARD
+// ══════════════════════════════════════════
+function handleKey(e) {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'Escape') closeLightboxDirect();
+    return;
+  }
+  if (!document.getElementById('page-viewer').classList.contains('active')) return;
+  if (STATE.viewerMode === 'paged') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') pagedNav(-1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') pagedNav(1);
+  }
+  if (e.key === 'Escape') closeViewer();
+}
+
+// ══════════════════════════════════════════
+// ADMIN
+// ══════════════════════════════════════════
+function renderAdmin() {
+  const el = document.getElementById('admin-work-list');
+  if (!STATE.works.length) { el.innerHTML = '<div class="empty-hint">尚無作品，點擊「新增作品」開始</div>'; return; }
+  el.innerHTML = STATE.works.map(w => {
+    const coverHtml = w.cover
+      ? `<img src="${esc(w.cover)}" loading="lazy">`
+      : `<div class="work-list-cover-ph">${w.title.charAt(0)}</div>`;
+    return `
+    <div class="work-list-item">
+      <div class="work-list-header" onclick="toggleWorkExpand('${w.id}')">
+        <div class="work-list-toggle" id="arrow-${w.id}">▶</div>
+        <div class="work-list-cover">${coverHtml}</div>
+        <span class="work-list-name">${esc(w.title)}</span>
+        <span class="work-list-type">${w.type === 'manga' ? (w.readMode === 'paged' ? '頁漫' : '條漫') : '插圖'}</span>
+        <div class="work-list-actions">
+          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openEditWork('${w.id}')">編輯</button>
+          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteWork('${w.id}')">刪除</button>
+        </div>
+      </div>
+      <div class="work-list-body" id="work-body-${w.id}" style="display:none">
+        <div style="padding:12px 0 8px;display:flex;justify-content:flex-end">
+          ${w.type === 'manga'
+            ? `<button class="btn btn-primary btn-sm" onclick="openAddChapter('${w.id}')">+ 新增話數</button>`
+            : `<button class="btn btn-primary btn-sm" onclick="openAddPost('${w.id}')">+ 新增貼文</button>`}
+        </div>
+        ${(w.chapters||[]).map((c,i) => w.type === 'manga' ? `
+          <div class="chapter-edit-item">
+            ${(c.cover||c.images?.[0]) ? `<img src="${esc(c.cover||c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
+            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title)}</span>
+            <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
+            <button class="btn btn-secondary btn-sm" onclick="openEditChapter('${w.id}','${c.id}')">編輯</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
+          </div>` : `
+          <div class="chapter-edit-item">
+            ${c.images?.[0] ? `<img src="${esc(c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
+            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title || (c.caption||'').split('\n')[0].slice(0,30) || '（未命名）')}</span>
+            <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
+            <button class="btn btn-secondary btn-sm" onclick="openEditPost('${w.id}','${c.id}')">編輯</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
+          </div>`
+        ).join('')}
+        ${!(w.chapters||[]).length ? '<div style="font-size:12px;color:var(--text3);padding:8px 0">尚無內容</div>' : ''}
+      </div>
+    </div>`
+  }).join('');
+}
+
+function toggleWorkExpand(id) {
+  const body = document.getElementById('work-body-' + id);
+  const arrow = document.getElementById('arrow-' + id);
+  const open = body.style.display === 'none';
+  body.style.display = open ? '' : 'none';
+  arrow.classList.toggle('open', open);
+}
+
+// ── Work CRUD ──
+function openAddWork() {
+  STATE.editingWorkId = null;
+  document.getElementById('modal-work-title').textContent = '新增作品';
+  document.getElementById('m-work-title').value = '';
+  document.getElementById('m-work-type').value = 'manga';
+  document.getElementById('m-work-readmode').value = 'strip';
+  document.getElementById('m-work-cover').value = '';
+  document.getElementById('read-mode-field').style.display = '';
+  openModal('modal-work');
+}
+function openEditWork(id) {
+  const w = STATE.works.find(x => x.id === id);
+  STATE.editingWorkId = id;
+  document.getElementById('modal-work-title').textContent = '編輯作品';
+  document.getElementById('m-work-title').value = w.title;
+  document.getElementById('m-work-type').value = w.type;
+  document.getElementById('m-work-readmode').value = w.readMode || 'strip';
+  document.getElementById('m-work-cover').value = w.cover || '';
+  document.getElementById('read-mode-field').style.display = w.type === 'illust' ? 'none' : '';
+  openModal('modal-work');
+}
+function toggleReadMode() {
+  document.getElementById('read-mode-field').style.display =
+    document.getElementById('m-work-type').value === 'illust' ? 'none' : '';
+}
+function saveWork() {
+  const title = document.getElementById('m-work-title').value.trim();
+  if (!title) { toast('請輸入標題', 'error'); return; }
+  const type = document.getElementById('m-work-type').value;
+  const cover = document.getElementById('m-work-cover').value.trim();
+  const readMode = type === 'manga' ? document.getElementById('m-work-readmode').value : null;
+  if (STATE.editingWorkId) {
+    const w = STATE.works.find(x => x.id === STATE.editingWorkId);
+    w.title = title; w.type = type; w.cover = cover; w.readMode = readMode;
+  } else {
+    STATE.works.push({ id: uid(), title, type, cover, readMode, chapters: [] });
+  }
+  save(); closeModal('modal-work'); renderAdmin(); toast('已儲存');
+}
+function deleteWork(id) {
+  if (!confirm('確定刪除此作品及所有內容？')) return;
+  STATE.works = STATE.works.filter(x => x.id !== id);
+  save(); renderAdmin(); toast('已刪除');
+}
+
+// ── Manga Chapter CRUD ──
+function openAddChapter(workId) {
+  STATE.editingWorkIdForChapter = workId;
+  STATE.editingChapterId = null;
+  document.getElementById('modal-chapter-title').textContent = '新增話數';
+  document.getElementById('m-ch-title').value = '';
+  document.getElementById('m-ch-cover').value = '';
+  document.getElementById('m-ch-readmode').value = '';
+  document.getElementById('m-ch-images').value = '';
+  openModal('modal-chapter');
+}
+function openEditChapter(workId, chapterId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const c = w.chapters.find(x => x.id === chapterId);
+  STATE.editingWorkIdForChapter = workId;
+  STATE.editingChapterId = chapterId;
+  document.getElementById('modal-chapter-title').textContent = '編輯話數';
+  document.getElementById('m-ch-title').value = c.title;
+  document.getElementById('m-ch-cover').value = c.cover || '';
+  document.getElementById('m-ch-readmode').value = c.readMode || '';
+  document.getElementById('m-ch-images').value = (c.images||[]).join('\n');
+  openModal('modal-chapter');
+}
+function saveChapter() {
+  const title = document.getElementById('m-ch-title').value.trim();
+  if (!title) { toast('請輸入標題', 'error'); return; }
+  const readMode = document.getElementById('m-ch-readmode').value || null;
+  const cover = document.getElementById('m-ch-cover').value.trim();
+  const images = document.getElementById('m-ch-images').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const w = STATE.works.find(x => x.id === STATE.editingWorkIdForChapter);
+  if (STATE.editingChapterId) {
+    const c = w.chapters.find(x => x.id === STATE.editingChapterId);
+    c.title = title; c.cover = cover; c.images = images; c.readMode = readMode;
+  } else {
+    w.chapters.push({ id: uid(), title, cover, images, readMode });
+  }
+  save(); closeModal('modal-chapter'); renderAdmin(); toast('已儲存');
+}
+function deleteChapter(workId, chapterId) {
+  if (!confirm('確定刪除？')) return;
+  const w = STATE.works.find(x => x.id === workId);
+  w.chapters = w.chapters.filter(x => x.id !== chapterId);
+  save(); renderAdmin(); toast('已刪除');
+}
+
+// ── Illust Post CRUD ──
+function openAddPost(workId) {
+  STATE.editingPostWorkId = workId;
+  STATE.editingPostId = null;
+  document.getElementById('modal-post-title').textContent = '新增貼文';
+  document.getElementById('m-post-title').value = '';
+  document.getElementById('m-post-cover').value = '';
+  document.getElementById('m-post-body').value = '';
+  openModal('modal-post');
+}
+function openEditPost(workId, postId) {
+  const w = STATE.works.find(x => x.id === workId);
+  const p = w.chapters.find(x => x.id === postId);
+  STATE.editingPostWorkId = workId;
+  STATE.editingPostId = postId;
+  document.getElementById('modal-post-title').textContent = '編輯貼文';
+  document.getElementById('m-post-title').value = p.title || '';
+  document.getElementById('m-post-cover').value = p.cover || '';
+  document.getElementById('m-post-body').value = p.body || p.caption || '';
+  openModal('modal-post');
+}
+function savePost() {
+  const title = document.getElementById('m-post-title').value.trim();
+  const coverInput = document.getElementById('m-post-cover').value.trim();
+  const body = document.getElementById('m-post-body').value;
+
+  const bodyImages = body.split('\n').map(s => s.trim()).filter(s => /^https?:\/\//i.test(s));
+  const cover = coverInput || (bodyImages[0] || '');
+
+  if (!bodyImages.length && !body.trim()) { toast('請輸入圖片或文字內容', 'error'); return; }
+
+  const w = STATE.works.find(x => x.id === STATE.editingPostWorkId);
+  const postData = { title, cover, images: bodyImages, body, caption: '' };
+
+  if (STATE.editingPostId) {
+    const p = w.chapters.find(x => x.id === STATE.editingPostId);
+    Object.assign(p, postData);
+  } else {
+    w.chapters.push({ id: uid(), ...postData });
+  }
+
+  save(); closeModal('modal-post'); renderAdmin(); toast('已儲存');
+}
+
+// ── Passwords ──
+function savePasswords() {
+  const mn = document.getElementById('pw-manga-new').value;
+  const il = document.getElementById('pw-illust-new').value;
+  const ad = document.getElementById('pw-admin-new').value;
+  if (mn) STATE.passwords.manga = mn;
+  if (il) STATE.passwords.illust = il;
+  if (ad) STATE.passwords.admin = ad;
+  save();
+  ['pw-manga-new','pw-illust-new','pw-admin-new'].forEach(id => document.getElementById(id).value = '');
+  toast('密碼已更新');
+}
+
+// ── Backup ──
+function exportData() {
+  const blob = new Blob([JSON.stringify({ passwords: STATE.passwords, works: STATE.works }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'usagi-backup.json';
+  a.click();
+  toast('已匯出');
+}
+function importData(input) {
+  const file = input.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    try {
+      const d = JSON.parse(e.target.result);
+      if (d.passwords) STATE.passwords = { ...STATE.passwords, ...d.passwords };
+      if (d.works) STATE.works = d.works;
+      save(); renderAdmin(); toast('已匯入');
+    } catch { toast('JSON 格式錯誤', 'error'); }
+  };
+  r.readAsText(file);
+  input.value = '';
+}
+
+// ══════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════
+function uid() { return Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg, type='success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = 'toast show ' + type;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+init();
+</script>
+</body>
+</html>
