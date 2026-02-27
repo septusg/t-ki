@@ -119,8 +119,9 @@
   .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
   .viewer-paged { padding-top: 52px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .paged-img-wrap { display: flex; align-items: center; justify-content: center; width: 100%; flex: 1; padding: 20px; }
-  .paged-img-wrap img { max-height: calc(100vh - 120px); max-width: 100%; object-fit: contain; }
+  .paged-img-wrap img { max-height: calc(100vh - 120px); max-width: 100%; object-fit: contain; touch-action: pan-y; }
   .paged-controls { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.92); border-top: 1px solid #1a2a40; display: flex; align-items: center; justify-content: center; padding: 12px 24px; gap: 24px; }
+  .paged-controls.hidden { display: none; }
   .paged-btn { padding: 8px 24px; font-size: 13px; letter-spacing: 0.05em; border: 1px solid #1e2d45; background: transparent; color: #6a8fa8; cursor: pointer; font-family: inherit; transition: all 0.2s; }
   .paged-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
   .paged-btn:disabled { opacity: 0.25; cursor: default; }
@@ -223,6 +224,11 @@
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
   .reveal.visible { opacity: 1; transform: none; }
   @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
+
+  @media(max-width:700px){
+    .paged-img-wrap{padding:10px;}
+    .paged-img-wrap img{width:100%;height:auto;max-height:none;object-fit:contain;}
+  }
 </style>
 </head>
 <body>
@@ -731,13 +737,15 @@ function setMode(mode) {
   const nav = document.getElementById('viewer-nav');
   const content = document.getElementById('viewer-content');
   window.onscroll = null;
+  content.onclick = null;
 
   if (mode === 'strip') {
     nav.classList.remove('hidden');
     content.innerHTML = `<div class="viewer-strip">${
       STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
     }</div>`;
-    let last = 0;
+        content.onclick = function() { nav.classList.toggle('hidden'); };
+let last = 0;
     window.onscroll = () => {
       const cur = window.scrollY;
       nav.classList.toggle('hidden', cur > last && cur > 100);
@@ -801,18 +809,24 @@ function setMode(mode) {
   }
 }
 
+function isTouchDevice() {
+  return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+}
+
 function renderPaged() {
   const imgs = STATE.viewerImages;
   const i = STATE.viewerIndex;
+  const hideControls = isTouchDevice();
   document.getElementById('viewer-content').innerHTML = `
     <div class="viewer-paged">
       <div class="paged-img-wrap"><img src="${esc(imgs[i])}" id="paged-main-img"></div>
-      <div class="paged-controls">
+      <div class="paged-controls${hideControls ? ' hidden' : ''}" id="paged-controls">
         <button class="paged-btn" onclick="pagedNav(1)" ${i===imgs.length-1?'disabled':''}>← 下一頁</button>
         <div class="paged-counter">${i+1} / ${imgs.length}</div>
         <button class="paged-btn" onclick="pagedNav(-1)" ${i===0?'disabled':''}>上一頁 →</button>
       </div>
     </div>`;
+  enablePagedGestures();
 }
 
 function pagedNav(dir) {
@@ -821,6 +835,47 @@ function pagedNav(dir) {
   STATE.viewerIndex = n;
   renderPaged();
 }
+
+function enablePagedGestures() {
+  const img = document.getElementById('paged-main-img');
+  const controls = document.getElementById('paged-controls');
+  if (!img) return;
+
+  let sx = 0, sy = 0, dx = 0, dy = 0, down = false;
+
+  img.onpointerdown = function(e) {
+    down = true;
+    sx = e.clientX; sy = e.clientY;
+    dx = 0; dy = 0;
+    try { img.setPointerCapture(e.pointerId); } catch(e2) {}
+  };
+
+  img.onpointermove = function(e) {
+    if (!down) return;
+    dx = e.clientX - sx;
+    dy = e.clientY - sy;
+  };
+
+  img.onpointerup = function(e) {
+    if (!down) return;
+    down = false;
+
+    const ax = Math.abs(dx), ay = Math.abs(dy);
+
+    if (ax < 10 && ay < 10) {
+      if (controls) controls.classList.toggle('hidden');
+      return;
+    }
+
+    if (ax > ay && ax > 40) {
+      if (dx < 0) pagedNav(1);
+      else pagedNav(-1);
+    }
+  };
+
+  img.onpointercancel = function() { down = false; };
+}
+
 
 function closeViewer() {
   window.onscroll = null;
