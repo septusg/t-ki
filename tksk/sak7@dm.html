@@ -1016,12 +1016,12 @@ function saveWork() {
   } else {
     STATE.works.push({ id: uid(), title, type, cover, readMode, chapters: [] });
   }
-  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); closeModal('modal-work'); renderAdmin(); toast('已儲存');
+  save(); closeModal('modal-work'); renderAdmin(); toast('已儲存（記得按「更新JSON」）');
 }
 function deleteWork(id) {
   if (!confirm('確定刪除此作品及所有內容？')) return;
   STATE.works = STATE.works.filter(x => x.id !== id);
-  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); renderAdmin(); toast('已刪除');
+  save(); renderAdmin(); toast('已刪除（記得按「更新JSON」）');
 }
 
 // ── Manga Chapter CRUD ──
@@ -1060,13 +1060,13 @@ function saveChapter() {
   } else {
     w.chapters.push({ id: uid(), title, cover, images, readMode });
   }
-  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); closeModal('modal-chapter'); renderAdmin(); toast('已儲存');
+  save(); closeModal('modal-chapter'); renderAdmin(); toast('已儲存（記得按「更新JSON」）');
 }
 function deleteChapter(workId, chapterId) {
   if (!confirm('確定刪除？')) return;
   const w = STATE.works.find(x => x.id === workId);
   w.chapters = w.chapters.filter(x => x.id !== chapterId);
-  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); renderAdmin(); toast('已刪除');
+  save(); renderAdmin(); toast('已刪除（記得按「更新JSON」）');
 }
 
 // ── Illust Post CRUD ──
@@ -1110,7 +1110,7 @@ function savePost() {
     w.chapters.push({ id: uid(), ...postData });
   }
 
-  save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); closeModal('modal-post'); renderAdmin(); toast('已儲存');
+  save(); closeModal('modal-post'); renderAdmin(); toast('已儲存（記得按「更新JSON」）');
 }
 
 // ── Passwords ──
@@ -1149,7 +1149,7 @@ function importData(input) {
       const d = JSON.parse(e.target.result);
       if (d.passwords) STATE.passwords = { ...STATE.passwords, ...d.passwords };
       if (d.works) STATE.works = d.works;
-      save(); pushPublicData().catch(() => toast('更新 data.json 失敗', 'error')); renderAdmin(); toast('已匯入');
+      save(); renderAdmin(); toast('已匯入（記得按「更新JSON」）');
     } catch { toast('JSON 格式錯誤', 'error'); }
   };
   r.readAsText(file);

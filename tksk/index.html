@@ -117,15 +117,43 @@
   .viewer-mode-label { font-size: 11px; color: #3a5a75; letter-spacing: 0.1em; border: 1px solid #1a2a40; padding: 4px 10px; }
   .viewer-strip { padding-top: 52px; }
   .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
-  .viewer-paged { padding-top: 52px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .paged-img-wrap { display: flex; align-items: center; justify-content: center; width: 100%; flex: 1; padding: 20px; }
-  .paged-img-wrap img { max-height: calc(100vh - 120px); max-width: 100%; object-fit: contain; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; cursor: grab; }
-  .paged-controls { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.92); border-top: 1px solid #1a2a40; display: flex; align-items: center; justify-content: center; padding: 12px 24px; gap: 24px; }
-  .paged-controls.hidden { display: none; }
-  .paged-btn { padding: 8px 24px; font-size: 13px; letter-spacing: 0.05em; border: 1px solid #1e2d45; background: transparent; color: #6a8fa8; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-  .paged-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-  .paged-btn:disabled { opacity: 0.25; cursor: default; }
-  .paged-counter { font-size: 12px; color: #3a5a75; min-width: 80px; text-align: center; }
+  /* ── PAGED VIEWER — scroll-snap carousel ── */
+  .paged-carousel {
+    position: fixed; inset: 0; top: 52px;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: #000;
+    /* RTL: right-to-left reading, so flex direction reverses */
+  }
+  .paged-carousel.rtl { flex-direction: row-reverse; }
+  .paged-carousel::-webkit-scrollbar { display: none; }
+  .paged-slide {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: calc(100vh - 52px);
+    scroll-snap-align: start;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .paged-slide img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    user-select: none; -webkit-user-select: none;
+    -webkit-user-drag: none; pointer-events: none;
+  }
+  /* counter overlay */
+  .paged-counter-overlay {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.6); color: #6a8fa8;
+    font-size: 12px; padding: 4px 14px; border-radius: 20px;
+    pointer-events: none; z-index: 201; letter-spacing: 0.06em;
+    transition: opacity 0.3s;
+  }
+  .paged-counter-overlay.fade { opacity: 0; }
 
   /* illust post article viewer */
   .post-article { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px; }
@@ -225,10 +253,7 @@
   .reveal.visible { opacity: 1; transform: none; }
   @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
 
-  @media(max-width:700px){
-    .paged-img-wrap{padding:10px;}
-    .paged-img-wrap img{width:100%;height:auto;max-height:none;object-fit:contain;}
-  }
+
 </style>
 </head>
 <body>
@@ -809,124 +834,81 @@ let last = 0;
   }
 }
 
-function isTouchDevice() {
-  return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
-}
 
 function renderPaged() {
   const imgs = STATE.viewerImages;
   const i = STATE.viewerIndex;
-  const hideControls = isTouchDevice();
-  document.getElementById('viewer-content').innerHTML = `
-    <div class="viewer-paged">
-      <div class="paged-img-wrap"><img src="${esc(imgs[i])}" id="paged-main-img"></div>
-      <div class="paged-controls${hideControls ? ' hidden' : ''}" id="paged-controls">
-        <button class="paged-btn" onclick="pagedNav(1)" ${i===imgs.length-1?'disabled':''}>← 下一頁</button>
-        <div class="paged-counter">${i+1} / ${imgs.length}</div>
-        <button class="paged-btn" onclick="pagedNav(-1)" ${i===0?'disabled':''}>上一頁 →</button>
-      </div>
-    </div>`;
-  enablePagedGestures();
+  const content = document.getElementById('viewer-content');
+
+  // Build carousel: RTL manga = right-to-left, so index 0 = rightmost slide
+  // We use flex-direction:row-reverse so slide 0 is on the right
+  const slides = imgs.map((src, idx) =>
+    `<div class="paged-slide" data-idx="${idx}"><img src="${esc(src)}" loading="${idx <= i+1 ? 'eager' : 'lazy'}"></div>`
+  ).join('');
+
+  content.innerHTML =
+    `<div class="paged-carousel rtl" id="paged-carousel">${slides}</div>` +
+    `<div class="paged-counter-overlay" id="paged-counter">${i+1} / ${imgs.length}</div>`;
+
+  const carousel = document.getElementById('paged-carousel');
+
+  // Scroll to current index (RTL: index 0 is at the far right, so scroll right-to-left)
+  // In row-reverse, slide[0] is rendered at the right end. To reach slide[i], scroll
+  // from the left end by (totalSlides - 1 - i) * vw
+  const scrollToIndex = (idx) => {
+    const target = (imgs.length - 1 - idx) * window.innerWidth;
+    carousel.scrollLeft = target;
+  };
+
+  // Initial scroll (instant)
+  requestAnimationFrame(() => {
+    carousel.style.scrollBehavior = 'auto';
+    scrollToIndex(i);
+    // After initial snap, re-enable smooth scroll snapping
+    requestAnimationFrame(() => { carousel.style.scrollBehavior = ''; });
+  });
+
+  // Update STATE.viewerIndex and counter as user scrolls
+  let counterTimer;
+  const counter = document.getElementById('paged-counter');
+
+  carousel.addEventListener('scroll', () => {
+    const scrollLeft = carousel.scrollLeft;
+    const vw = window.innerWidth;
+    // Calculate which slide is snapped: scrollLeft / vw = (totalSlides-1-idx)
+    const snapPos = Math.round(scrollLeft / vw);
+    const newIdx = (imgs.length - 1) - snapPos;
+    if (newIdx !== STATE.viewerIndex && newIdx >= 0 && newIdx < imgs.length) {
+      STATE.viewerIndex = newIdx;
+      counter.textContent = (newIdx + 1) + ' / ' + imgs.length;
+      counter.classList.remove('fade');
+      clearTimeout(counterTimer);
+      counterTimer = setTimeout(() => counter.classList.add('fade'), 1800);
+    }
+  }, { passive: true });
+
+  // Keyboard: handled by handleKey → pagedNav, which now just scrolls
+  // Start fade-out timer for initial counter
+  counterTimer = setTimeout(() => counter.classList.add('fade'), 2000);
 }
 
 function pagedNav(dir) {
+  // dir: +1 = next page (RTL: go left in story = scroll right in DOM row-reverse)
+  //       -1 = prev page
   const n = STATE.viewerIndex + dir;
   if (n < 0 || n >= STATE.viewerImages.length) return;
   STATE.viewerIndex = n;
-  renderPaged();
+  const carousel = document.getElementById('paged-carousel');
+  if (!carousel) { renderPaged(); return; }
+  const target = (STATE.viewerImages.length - 1 - n) * window.innerWidth;
+  carousel.style.scrollBehavior = 'smooth';
+  carousel.scrollLeft = target;
+  setTimeout(() => { if(carousel) carousel.style.scrollBehavior = ''; }, 400);
 }
 
 function enablePagedGestures() {
-  const img = document.getElementById('paged-main-img');
-  const controls = document.getElementById('paged-controls');
-  if (!img) return;
-
-  img.draggable = false;
-  img.ondragstart = function(e) { if (e) e.preventDefault(); return false; };
-
-  let sx = 0, sy = 0, dx = 0, dy = 0, down = false, pid = null;
-
-  function setDragStyle(x) {
-    img.style.transition = 'none';
-    img.style.transform = 'translateX(' + x + 'px)';
-  }
-
-  function resetDragStyle() {
-    img.style.transition = 'transform 180ms ease';
-    img.style.transform = 'translateX(0px)';
-    setTimeout(function(){ img.style.transition = ''; }, 220);
-  }
-
-  function onDown(clientX, clientY, pointerId) {
-    down = true;
-    pid = pointerId;
-    sx = clientX; sy = clientY;
-    dx = 0; dy = 0;
-    img.style.cursor = 'grabbing';
-  }
-
-  function onMove(clientX, clientY) {
-    if (!down) return;
-    dx = clientX - sx;
-    dy = clientY - sy;
-
-    if (Math.abs(dx) > Math.abs(dy)) setDragStyle(dx);
-  }
-
-  function onUp() {
-    if (!down) return;
-    down = false;
-    img.style.cursor = 'grab';
-
-    const ax = Math.abs(dx), ay = Math.abs(dy);
-
-    if (ax < 10 && ay < 10) {
-      if (controls) controls.classList.toggle('hidden');
-      return;
-    }
-
-    if (ax > ay && ax > 60) {
-      if (dx < 0) pagedNav(1);
-      else pagedNav(-1);
-      return;
-    }
-
-    resetDragStyle();
-  }
-
-  if (window.PointerEvent) {
-    img.onpointerdown = function(e) {
-      if (e.button != null && e.button != 0) return;
-      if (e.cancelable) e.preventDefault();
-      onDown(e.clientX, e.clientY, e.pointerId);
-      try { img.setPointerCapture(e.pointerId); } catch(e2) {}
-    };
-
-    img.onpointermove = function(e) {
-      if (!down) return;
-      if (e.cancelable) e.preventDefault();
-      onMove(e.clientX, e.clientY);
-    };
-
-    img.onpointerup = function(e) {
-      if (e.cancelable) e.preventDefault();
-      onUp();
-      pid = null;
-    };
-
-    img.onpointercancel = function(e) {
-      onUp();
-      pid = null;
-    };
-  } else {
-    img.onmousedown = function(e) {
-      if (e.button != 0) return;
-      if (e.preventDefault) e.preventDefault();
-      onDown(e.clientX, e.clientY, null);
-      document.onmousemove = function(ev) { if (ev && ev.preventDefault) ev.preventDefault(); onMove(ev.clientX, ev.clientY); };
-      document.onmouseup = function(ev) { document.onmousemove = null; document.onmouseup = null; onUp(); };
-    };
-  }
+  // No-op: gestures handled natively by scroll-snap + touch/mouse scroll
+  // Keyboard is handled by handleKey → pagedNav
 }
 
 
