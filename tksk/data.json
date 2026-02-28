@@ -152,22 +152,6 @@
       ]
     },
     {
-      "id": "r9k2jtmtmm5qx8k8",
-      "title": "AAD",
-      "type": "illust",
-      "cover": "",
-      "readMode": null,
-      "chapters": []
-    },
-    {
-      "id": "hdx5tvt5mm5qxg2d",
-      "title": "ADSD",
-      "type": "illust",
-      "cover": "",
-      "readMode": null,
-      "chapters": []
-    },
-    {
       "id": "oono65mgmm5xowvw",
       "title": "《 Story of Delta Δ 》",
       "type": "manga",
@@ -347,6 +331,25 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-16.png"
           ],
           "readMode": null
+        }
+      ]
+    },
+    {
+      "id": "fmykz4lcmm6ccn8d",
+      "title": "SoD",
+      "type": "illust",
+      "cover": "",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "hcljzk1omm6cek0k",
+          "title": "西琳・菲利絲",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg"
+          ],
+          "body": "Celine Phyllis\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg\n初設",
+          "caption": ""
         }
       ]
     }
