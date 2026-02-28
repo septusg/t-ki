@@ -2,6 +2,25 @@
   "version": 1,
   "works": [
     {
+      "id": "cnlmvnmxmm51ldqh",
+      "title": "TEST",
+      "type": "manga",
+      "cover": "",
+      "readMode": "strip",
+      "chapters": [
+        {
+          "id": "fewz3wtmmm51mfq8",
+          "title": "A",
+          "cover": "",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3a7c238658d147ed.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3dd898dc7b7f4489.jpg"
+          ],
+          "readMode": null
+        }
+      ]
+    },
+    {
       "id": "7b0ibmfnmm4wkkxj",
       "title": "《Noblemor》",
       "type": "manga",
@@ -21,23 +40,20 @@
       ]
     },
     {
-      "id": "cnlmvnmxmm51ldqh",
-      "title": "TEST",
-      "type": "manga",
+      "id": "r9k2jtmtmm5qx8k8",
+      "title": "AAD",
+      "type": "illust",
       "cover": "",
-      "readMode": "strip",
-      "chapters": [
-        {
-          "id": "fewz3wtmmm51mfq8",
-          "title": "A",
-          "cover": "",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3a7c238658d147ed.jpg",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3dd898dc7b7f4489.jpg"
-          ],
-          "readMode": null
-        }
-      ]
+      "readMode": null,
+      "chapters": []
+    },
+    {
+      "id": "hdx5tvt5mm5qxg2d",
+      "title": "ADSD",
+      "type": "illust",
+      "cover": "",
+      "readMode": null,
+      "chapters": []
     }
   ]
 }
