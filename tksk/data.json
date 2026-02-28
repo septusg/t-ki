@@ -166,6 +166,144 @@
       "cover": "",
       "readMode": null,
       "chapters": []
+    },
+    {
+      "id": "oono65mgmm5xowvw",
+      "title": "《 Story of Delta Δ 》",
+      "type": "manga",
+      "cover": "https://cdn.discordapp.com/attachments/1382598907741077525/1382598908542324807/image.png?ex=69a3d493&is=69a28313&hm=31b74b75d3e3697fadadd5dacd25e001314ae4012bb51c76f88857af1f4852a3&",
+      "readMode": "strip",
+      "chapters": [
+        {
+          "id": "elurnxvrmm5xsq0o",
+          "title": "站住！不許跑！",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477189873902288996/image.png?ex=69a3dbc6&is=69a28a46&hm=604af27a5ab430beaf64950953cce7c560138254c47754de0c4cdff8f2cf0402&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-3.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "028rzi4nmm5xte58",
+          "title": "你在做什麼？",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477192429844172881/image.png?ex=69a3de28&is=69a28ca8&hm=dbee22e12c2c17d4fdb562321658d73c68317721a149b1ebb97fd9379eadfea2&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-3.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "5zo7kh20mm5xtm2b",
+          "title": "因為那樣才合理啊",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477192619460133027/image.png?ex=69a3de55&is=69a28cd5&hm=d7bf74b4efab5f62596233825d65778fecb9687b2e952da9325f09b22e6b88cc&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-3.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "23t8m089mm5xtsuz",
+          "title": "好想吃冰淇淋",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477192741527093338/image.png?ex=69a3de72&is=69a28cf2&hm=d7043bfaba0fb1173147e9bfcd55591e063813f91ab7fe927841b3a7aebec433&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-3.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "dn1nh5ximm5xu653",
+          "title": "【 試煉之塔篇 】呼嗯…？",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477192866664157244/image.png?ex=69a3de90&is=69a28d10&hm=8143db72cbb1a8210b1854a3b350df49840529b14e697dfe32ab17359dadc883&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-3.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-4.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "4lgl8ujfmm5xucyp",
+          "title": "【 試煉之塔篇 】沒有半個正常人呢",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477192991637770282/image.png?ex=69a3deae&is=69a28d2e&hm=5830b3fe945b5dd21ee687d49eb690b4db08eb276f720b1bc1f2e1a633810d68&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-3.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "qg2loi9cmm5xulxn",
+          "title": "【 試煉之塔篇 】德爾塔的繼承人",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477193264170795028/image.png?ex=69a3deef&is=69a28d6f&hm=054a5977a5abcc0a5917fda0dad7e72c3601200f2e5163a14e74b75207f9d73a&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-3.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-4.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-4.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "ykm6jeaamm5xw73w",
+          "title": "【 試煉之塔篇 】這不是才正要開始嘛？",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477193423936294962/image.png?ex=69a3df15&is=69a28d95&hm=c61fe21c290974595ce0e24243a5d015a2576c444c496e9e1cdc67692f6c2729&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-3.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-4.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "xy5uxczymm5xwfdd",
+          "title": "【 試煉之塔篇 】魔術好厲害…",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477193540449734779/image.png?ex=69a3df30&is=69a28db0&hm=dc767b72486d8f8ebc451a9d738faaefff0eb29a99c07d22e080e6e8ba531c8b&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-3.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-4.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "1uxbn0a6mm5xwonl",
+          "title": "【 試煉之塔篇 】沒有比愛心呢",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477193731034710046/image.png?ex=69a3df5e&is=69a28dde&hm=d21a4f9b161433a02f220d9882773fdc842739f2e2e18cbd621ed006de2bb760&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-3.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-4.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-5.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-6.jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "el6w8fjdmm5xwz7z",
+          "title": "【 試煉之塔篇 】差不多也該結束了（上半）",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477193828866854974/image.png?ex=69a3df75&is=69a28df5&hm=da3d6096593ac0889843513ad9a714feeb65ea982bfe3b9ae19ceb087bcc30cb&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-3.jpg"
+          ],
+          "readMode": null
+        }
+      ]
     }
   ]
 }
