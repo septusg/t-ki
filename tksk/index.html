@@ -344,8 +344,8 @@
     <div class="viewer-title" id="viewer-title"></div>
     <div class="viewer-mode-label" id="viewer-mode-label"></div>
   </div>
-  <button id="paged-arr-prev" class="paged-arrow paged-arr-right" onclick="pagedNav(-1)" style="display:none">&#8250;</button>
-  <button id="paged-arr-next" class="paged-arrow paged-arr-left"  onclick="pagedNav(1)"  style="display:none">&#8249;</button>
+  <button id="paged-arr-prev" class="paged-arrow paged-arr-right" onclick="event.stopPropagation();pagedNav(-1)" style="display:none">&#8250;</button>
+  <button id="paged-arr-next" class="paged-arrow paged-arr-left"  onclick="event.stopPropagation();pagedNav(1)"  style="display:none">&#8249;</button>
   <div id="viewer-content"></div>
 </div>
 
@@ -1205,6 +1205,7 @@ function pagedNav(dir) {
   const ctr = document.getElementById('paged-counter');
   if (ctr) ctr.textContent = (n + 1) + ' / ' + STATE.viewerImages.length;
   PAGED_UI.updateArrows(n, STATE.viewerImages.length);
+  PAGED_UI.show();
 }
 
 function closeViewer() {
