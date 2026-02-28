@@ -790,19 +790,15 @@ function setMode(mode) {
   const nav = document.getElementById('viewer-nav');
   const content = document.getElementById('viewer-content');
   window.onscroll = null;
+  STRIP_UI.exitStrip();
   PAGED_UI.exitPaged();
 
   if (mode === 'strip') {
     nav.classList.remove('hidden');
-    content.innerHTML = `<div class="viewer-strip">${
+    content.innerHTML = `<div class="viewer-strip" id="viewer-strip">${
       STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
     }</div>`;
-    let last = 0;
-    window.onscroll = () => {
-      const cur = window.scrollY;
-      nav.classList.toggle('hidden', cur > last && cur > 100);
-      last = cur;
-    };
+    STRIP_UI.enterStrip();
   } else if (mode === 'paged') {
     nav.classList.remove('hidden');
     renderPaged();
@@ -860,6 +856,61 @@ function setMode(mode) {
     content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}${blocksHtml}</div></div>`;
   }
 }
+
+// ══════════════════════════════════════════
+// 條漫 UI 全域控制器
+// ══════════════════════════════════════════
+const STRIP_UI = {
+  timer: null,
+  clickBound: false,
+  nav: () => document.getElementById('viewer-nav'),
+  strip: () => document.getElementById('viewer-strip'),
+
+  show() {
+    clearTimeout(this.timer);
+    const nav = this.nav();
+    if (nav) nav.classList.remove('hidden');
+    this.timer = setTimeout(() => this.hide(), 2500);
+  },
+
+  hide() {
+    const nav = this.nav();
+    if (nav) nav.classList.add('hidden');
+  },
+
+  enterStrip() {
+    const strip = this.strip();
+    let last = window.scrollY || 0;
+
+    this.show();
+
+    window.onscroll = () => {
+      const cur = window.scrollY;
+      if (cur <= 100) this.show();
+      else if (cur > last) this.hide();
+      else this.show();
+      last = cur;
+    };
+
+    if (!strip || this.clickBound) return;
+    this.clickBound = true;
+    strip.addEventListener('click', (e) => {
+      if (!document.getElementById('page-viewer').classList.contains('active')) return;
+      if (STATE.viewerMode != 'strip') return;
+      if (e.target && e.target.tagName && e.target.tagName.toLowerCase() != 'img') return;
+      const nav = this.nav();
+      if (!nav) return;
+      if (nav.classList.contains('hidden')) this.show();
+      else this.hide();
+    });
+  },
+
+  exitStrip() {
+    clearTimeout(this.timer);
+    const nav = this.nav();
+    if (nav) nav.classList.remove('hidden');
+  }
+};
 
 // ══════════════════════════════════════════
 // 頁漫 UI 全域控制器
@@ -1107,6 +1158,7 @@ function pagedNav(dir) {
 
 function closeViewer() {
   window.onscroll = null;
+  STRIP_UI.exitStrip();
   PAGED_UI.exitPaged();
   openWork(STATE.currentWorkId);
 }
