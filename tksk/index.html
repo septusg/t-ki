@@ -128,40 +128,24 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     background: #000;
-    gap: 0;
-    margin: 0;
-    padding: 0;
-    align-items: stretch;
-    overscroll-behavior-x: contain;
   }
   .paged-carousel.rtl { flex-direction: row-reverse; }
   .paged-carousel::-webkit-scrollbar { display: none; }
   .paged-slide {
-    flex: 0 0 100%;
-    width: 100%;
-    min-width: 100%;
+    flex: 0 0 100vw;
+    width: 100vw;
     height: calc(100vh - 52px);
     scroll-snap-align: start;
-    scroll-snap-stop: always;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
-    background: #000;
-    margin: 0;
-    padding: 0;
   }
   .paged-slide img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: none;
-    max-height: none;
+    max-width: 100%; max-height: 100%;
     object-fit: contain;
     user-select: none; -webkit-user-select: none;
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
     draggable: false;
-    background: #000;
-    transform: translateZ(0);
   }
   .paged-counter-overlay {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
@@ -492,6 +476,7 @@ let STATE = {
   lightboxIndex: 0,
   pendingRoute: null,
   ignoreHashChange: false,
+  preloadedImages: {},
 
 };
 const IS_MOBILE = (function() {
@@ -556,6 +541,18 @@ function save() {
     passwords: STATE.passwords,
     works: STATE.works,
   }));
+}
+
+function preloadImages(urls) {
+  if (!urls || !urls.length) return;
+  for (let i = 0; i < urls.length; i++) {
+    const src = urls[i];
+    if (!src || STATE.preloadedImages[src]) continue;
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = src;
+    STATE.preloadedImages[src] = img;
+  }
 }
 
 function setRouteHash(hash) {
@@ -904,6 +901,7 @@ function openChapter(workId, chapterId, skipRoute) {
   STATE.currentWorkId = workId;
   STATE.viewerImages = c.images;
   STATE.viewerIndex = 0;
+  preloadImages(c.images);
   document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
   showPage('viewer');
   setMode(c.readMode || w.readMode || 'strip');
@@ -922,6 +920,7 @@ function openPost(workId, postId, skipRoute) {
   STATE.viewerPosts = [p];
   STATE.viewerImages = p.images || [];
   STATE.viewerIndex = 0;
+  preloadImages(STATE.viewerImages);
   document.getElementById('viewer-title').textContent = w.title;
   showPage('viewer');
   setMode('illust-post');
@@ -940,7 +939,7 @@ function setMode(mode) {
   if (mode === 'strip') {
     nav.classList.remove('hidden');
     content.innerHTML = `<div class="viewer-strip" id="viewer-strip">${
-      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
+      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}">`).join('')
     }</div>`;
     bindStripTapToggle();
   } else if (mode === 'paged') {
@@ -973,7 +972,7 @@ function setMode(mode) {
         if (/^https?:\/\//i.test(trimmed)) {
           flushText();
           const li = imgIdx++;
-          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
+          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
         } else {
           textBuf.push(line);
         }
@@ -983,11 +982,11 @@ function setMode(mode) {
       // Legacy: images array + caption text
       const imgs = allImgUrls;
       if (imgs.length === 1) {
-        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
+        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
       } else if (imgs.length > 1) {
         const cols = imgs.length === 2 ? 'cols-2' : 'cols-3';
         blocksHtml += `<div class="post-block-imgs ${cols}">` +
-          imgs.map((src,i) => `<img src="${esc(src)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
+          imgs.map((src,i) => `<img src="${esc(src)}" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
           `</div>`;
       }
       if (p.caption) {
@@ -1168,13 +1167,7 @@ const PAGED_UI = {
 
 function pagedGetWidth(carousel) {
   const r = carousel.getBoundingClientRect();
-  return Math.round(r.width || window.innerWidth || 1);
-}
-
-function pagedNormalizePosition(carousel) {
-  if (!carousel) return;
-  const idx = Math.max(0, Math.min(STATE.viewerIndex || 0, STATE.viewerImages.length - 1));
-  pagedScrollToIndex(carousel, idx, false);
+  return r.width || window.innerWidth || 1;
 }
 
 function pagedScrollToIndex(carousel, idx, smooth) {
@@ -1217,7 +1210,7 @@ function renderPaged() {
 
   const slides = imgs.map((src, idx) =>
     `<div class="paged-slide" data-idx="${idx}">` +
-    `<img src="${esc(src)}" loading="${idx <= i + 2 ? 'eager' : 'lazy'}">` +
+    `<img src="${esc(src)}">` +
     `</div>`
   ).join('');
 
@@ -1227,24 +1220,13 @@ function renderPaged() {
 
   const carousel = document.getElementById('paged-carousel');
 
-  carousel.querySelectorAll('img').forEach(img => {
-    img.ondragstart = (e) => e.preventDefault();
-    img.onload = function() { pagedNormalizePosition(carousel); };
-  });
+  carousel.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
 
   requestAnimationFrame(() => {
-    pagedNormalizePosition(carousel);
+    pagedScrollToIndex(carousel, i, false);
     PAGED_UI.enterPaged();
     PAGED_UI.updateArrows(i, imgs.length);
   });
-
-  if (window._pagedResizeHandler) window.removeEventListener('resize', window._pagedResizeHandler);
-  let resizeTimer = 0;
-  window._pagedResizeHandler = function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() { pagedNormalizePosition(carousel); }, 60);
-  };
-  window.addEventListener('resize', window._pagedResizeHandler);
 
   let raf = 0;
   let tmr = 0;
