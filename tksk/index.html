@@ -122,32 +122,27 @@
   .paged-carousel {
     position: fixed; inset: 0; top: 52px;
     display: flex;
+    gap: 0;
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     background: #000;
-    gap: 0;
-    margin: 0;
-    padding: 0;
   }
   .paged-carousel.rtl { flex-direction: row-reverse; }
   .paged-carousel::-webkit-scrollbar { display: none; }
   .paged-slide {
-    flex: 0 0 100%;
-    width: 100%;
-    min-width: 100%;
+    flex: 0 0 var(--slide-w, 100vw);
+    width: var(--slide-w, 100vw);
+    min-width: var(--slide-w, 100vw);
     height: calc(100vh - 52px);
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
     background: #000;
-    margin: 0;
-    padding: 0;
   }
   .paged-slide img {
-    display: block;
     max-width: 100%; max-height: 100%;
     object-fit: contain;
     user-select: none; -webkit-user-select: none;
@@ -1212,6 +1207,10 @@ function renderPaged() {
     `<div class="paged-counter-overlay arr-hidden" id="paged-counter">${i+1} / ${imgs.length}</div>`;
 
   const carousel = document.getElementById('paged-carousel');
+
+  // 用容器實際寬度設定 slide 寬度，避免 100vw 與容器寬度有 sub-pixel 落差造成縫隙
+  const slideW = carousel.getBoundingClientRect().width || window.innerWidth;
+  carousel.style.setProperty('--slide-w', slideW + 'px');
 
   carousel.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
 
