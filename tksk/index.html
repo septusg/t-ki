@@ -474,6 +474,8 @@ let STATE = {
   pendingUnlockSection: null, // which section user is trying to unlock
   lightboxImages: [],
   lightboxIndex: 0,
+  pendingRoute: null,
+  ignoreHashChange: false,
 
 };
 const IS_MOBILE = (function() {
@@ -523,6 +525,14 @@ async function init() {
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
   });
+  window.addEventListener('hashchange', function() {
+    if (STATE.ignoreHashChange) {
+      STATE.ignoreHashChange = false;
+      return;
+    }
+    applyRoute();
+  });
+  applyRoute();
 }
 
 function save() {
@@ -530,6 +540,100 @@ function save() {
     passwords: STATE.passwords,
     works: STATE.works,
   }));
+}
+
+function setRouteHash(hash) {
+  if ((location.hash || '') === hash) return;
+  STATE.ignoreHashChange = true;
+  location.hash = hash;
+}
+
+function setLoginTabByType(type) {
+  loginTarget = type;
+  const tabs = document.querySelectorAll('.login-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  if (type === 'illust') {
+    if (tabs[1]) tabs[1].classList.add('active');
+  } else {
+    if (tabs[0]) tabs[0].classList.add('active');
+  }
+  document.getElementById('login-error').textContent = '';
+}
+
+function parseRoute() {
+  const hash = (location.hash || '').replace(/^#/, '');
+  let m = null;
+
+  if (!hash || hash === 'home') return { page: 'home' };
+  if (hash === 'library=manga') return { page: 'library', section: 'manga' };
+  if (hash === 'library=illust') return { page: 'library', section: 'illust' };
+
+  m = /^manga-work=(.+)$/.exec(hash);
+  if (m) return { page: 'work', type: 'manga', workId: decodeURIComponent(m[1]) };
+
+  m = /^illust-work=(.+)$/.exec(hash);
+  if (m) return { page: 'work', type: 'illust', workId: decodeURIComponent(m[1]) };
+
+  m = /^manga-chapter=([^:]+):(.+)$/.exec(hash);
+  if (m) return { page: 'chapter', type: 'manga', workId: decodeURIComponent(m[1]), chapterId: decodeURIComponent(m[2]) };
+
+  m = /^illust-post=([^:]+):(.+)$/.exec(hash);
+  if (m) return { page: 'post', type: 'illust', workId: decodeURIComponent(m[1]), postId: decodeURIComponent(m[2]) };
+
+  return { page: 'home' };
+}
+
+function applyRoute() {
+  const route = parseRoute();
+
+  if (route.page === 'home') {
+    if (STATE.unlocked.size) {
+      goHome(true);
+    } else {
+      showPage('login');
+    }
+    return;
+  }
+
+  if (route.page === 'library') {
+    if (!isUnlocked(route.section)) {
+      STATE.pendingRoute = route;
+      setLoginTabByType(route.section);
+      showPage('login');
+      return;
+    }
+    STATE.pendingRoute = null;
+    showPage('library');
+    renderLibrary(route.section);
+    return;
+  }
+
+  if (!isUnlocked(route.type)) {
+    STATE.pendingRoute = route;
+    setLoginTabByType(route.type);
+    showPage('login');
+    return;
+  }
+
+  if (route.page === 'work') {
+    STATE.pendingRoute = null;
+    openWork(route.workId, true);
+    return;
+  }
+
+  if (route.page === 'chapter') {
+    STATE.pendingRoute = null;
+    openChapter(route.workId, route.chapterId, true);
+    return;
+  }
+
+  if (route.page === 'post') {
+    STATE.pendingRoute = null;
+    openPost(route.workId, route.postId, true);
+    return;
+  }
+
+  showPage('login');
 }
 
 
@@ -557,8 +661,13 @@ function doLogin() {
     document.getElementById('pw-input').value = '';
     document.getElementById('login-error').textContent = '';
     STATE.unlocked.add(loginTarget);
-    showPage('library');
-    renderLibrary(loginTarget);
+    if (STATE.pendingRoute) {
+      applyRoute();
+    } else {
+      showPage('library');
+      renderLibrary(loginTarget);
+      setRouteHash('#library=' + loginTarget);
+    }
   } else {
     const err = document.getElementById('login-error');
     err.textContent = '密碼錯誤';
@@ -572,6 +681,7 @@ function navClickSection(type) {
     // already unlocked — just switch
     showPage('library');
     renderLibrary(type);
+    setRouteHash('#library=' + type);
   } else {
     // need password
     STATE.pendingUnlockSection = type;
@@ -590,8 +700,13 @@ function doUnlock() {
   if (pw === STATE.passwords[type]) {
     STATE.unlocked.add(type);
     closeModal('modal-unlock');
-    showPage('library');
-    renderLibrary(type);
+    if (STATE.pendingRoute) {
+      applyRoute();
+    } else {
+      showPage('library');
+      renderLibrary(type);
+      setRouteHash('#library=' + type);
+    }
   } else {
     const err = document.getElementById('unlock-error');
     err.textContent = '密碼錯誤';
@@ -603,11 +718,14 @@ function doUnlock() {
 function adminGoSection(type) {
   showPage('library');
   renderLibrary(type);
+  setRouteHash('#library=' + type);
 }
 
 function logout() {
   STATE.unlocked = new Set();
+  STATE.pendingRoute = null;
   showPage('login');
+  setRouteHash('#home');
 }
 
 function isUnlocked(type) {
@@ -623,16 +741,18 @@ function showPage(name) {
   window.scrollTo(0, 0);
 }
 
-function goHome() {
+function goHome(skipRoute) {
   if (isUnlocked('admin')) {
     // admin: return to whichever section was last viewed, or show admin
     showPage('admin');
     renderAdmin();
+    if (!skipRoute) setRouteHash('#home');
   } else {
     showPage('library');
     // show first unlocked section
     const section = STATE.unlocked.has('manga') ? 'manga' : 'illust';
     renderLibrary(section);
+    if (!skipRoute) setRouteHash('#library=' + section);
   }
 }
 
@@ -688,7 +808,7 @@ function renderGrid(id, works) {
 // ══════════════════════════════════════════
 // WORK DETAIL
 // ══════════════════════════════════════════
-function openWork(id) {
+function openWork(id, skipRoute) {
   const w = STATE.works.find(x => x.id === id);
   if (!w) return;
   STATE.currentWorkId = id;
@@ -705,6 +825,7 @@ function openWork(id) {
     renderAlbumList(cl, w);
   }
   showPage('work');
+  if (!skipRoute) setRouteHash('#' + (w.type === 'manga' ? 'manga-work=' : 'illust-work=') + encodeURIComponent(id));
 }
 
 function renderChapterList(cl, w) {
@@ -759,30 +880,36 @@ function renderAlbumList(cl, w) {
 // ══════════════════════════════════════════
 // VIEWER — MANGA
 // ══════════════════════════════════════════
-function openChapter(workId, chapterId) {
+function openChapter(workId, chapterId, skipRoute) {
   const w = STATE.works.find(x => x.id === workId);
+  if (!w) return;
   const c = w.chapters.find(x => x.id === chapterId);
   if (!c || !c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
+  STATE.currentWorkId = workId;
   STATE.viewerImages = c.images;
   STATE.viewerIndex = 0;
   document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
   showPage('viewer');
   setMode(c.readMode || w.readMode || 'strip');
+  if (!skipRoute) setRouteHash('#manga-chapter=' + encodeURIComponent(workId) + ':' + encodeURIComponent(chapterId));
 }
 
 // ══════════════════════════════════════════
 // VIEWER — ILLUST POST (single post full view)
 // ══════════════════════════════════════════
-function openPost(workId, postId) {
+function openPost(workId, postId, skipRoute) {
   const w = STATE.works.find(x => x.id === workId);
+  if (!w) return;
   const p = w.chapters.find(x => x.id === postId);
   if (!p) return;
+  STATE.currentWorkId = workId;
   STATE.viewerPosts = [p];
   STATE.viewerImages = p.images || [];
   STATE.viewerIndex = 0;
   document.getElementById('viewer-title').textContent = w.title;
   showPage('viewer');
   setMode('illust-post');
+  if (!skipRoute) setRouteHash('#illust-post=' + encodeURIComponent(workId) + ':' + encodeURIComponent(postId));
 }
 
 function setMode(mode) {
