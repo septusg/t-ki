@@ -1096,7 +1096,6 @@ function renderPaged() {
         STATE.viewerIndex = idx;
         if (ctr) ctr.textContent = (idx + 1) + ' / ' + imgs.length;
         PAGED_UI.updateArrows(idx, imgs.length);
-        if (!IS_MOBILE) PAGED_UI.show();
       }
     });
   }, { passive: true });
