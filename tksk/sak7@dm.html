@@ -336,6 +336,10 @@
         <span>作品管理</span>
         <button class="btn btn-primary btn-sm" onclick="openAddWork()">+ 新增作品</button>
       </div>
+      <div class="admin-work-tabs">
+        <button class="admin-work-tab active" id="admin-tab-manga" onclick="setAdminWorkTab('manga')">漫畫</button>
+        <button class="admin-work-tab" id="admin-tab-illust" onclick="setAdminWorkTab('illust')">插畫</button>
+      </div>
       <div id="admin-work-list"></div>
     </div>
     <div class="admin-section">
