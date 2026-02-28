@@ -1205,7 +1205,6 @@ function pagedNav(dir) {
   const ctr = document.getElementById('paged-counter');
   if (ctr) ctr.textContent = (n + 1) + ' / ' + STATE.viewerImages.length;
   PAGED_UI.updateArrows(n, STATE.viewerImages.length);
-  PAGED_UI.show();
 }
 
 function closeViewer() {
