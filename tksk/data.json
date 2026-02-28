@@ -304,6 +304,51 @@
           "readMode": null
         }
       ]
+    },
+    {
+      "id": "h2vbij59mm5yvat3",
+      "title": "《 SR 》",
+      "type": "manga",
+      "cover": "https://cdn.discordapp.com/attachments/1382600994331824200/1382600994461843476/image.png?ex=69a3d684&is=69a28504&hm=67945b450f05934e0abd01777a14c5a39bcc3a7fc5bceec03ac3e5040ac17277&",
+      "readMode": "paged",
+      "chapters": [
+        {
+          "id": "vublqc8umm5yxagy",
+          "title": "討厭死了…",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477197734426705970/image.png?ex=69a3e318&is=69a29198&hm=2d132aea10c8aaa68385285bbb8c1a1eb0c259b5b7fe8f780b2ff93c7026533a&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-1.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-2.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-3.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-4.jpg"
+          ],
+          "readMode": "strip"
+        },
+        {
+          "id": "mwkok85tmm5yxx6s",
+          "title": "有沒有人說過妳的性格很差？",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477197818652397751/image.png?ex=69a3e32c&is=69a291ac&hm=5ad4921e7326fdac55484455f03d4cd602021568c0c49e1ff199bda73c8feefb&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-1.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-2.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-3.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-4.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-5.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-6.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-7.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-8.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-9.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-10.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-11.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-12.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-13.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-14.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-15.png",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-16.png"
+          ],
+          "readMode": null
+        }
+      ]
     }
   ]
 }
