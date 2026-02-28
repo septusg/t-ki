@@ -195,6 +195,14 @@
   .work-list-type { font-size: 11px; color: var(--text3); letter-spacing: 0.06em; }
   .work-list-actions { display: flex; gap: 6px; padding: 0 14px; }
   .work-list-body { padding: 0 16px 16px; border-top: 1px solid var(--border); }
+
+  .admin-work-tabs { display:flex; gap:8px; margin: 10px 0 12px; }
+  .admin-work-tab { padding: 6px 12px; font-size: 11px; letter-spacing: 0.08em; cursor: pointer; border: 1px solid var(--border); background: var(--bg3); color: var(--text3); font-family: inherit; transition: all 0.2s; }
+  .admin-work-tab:hover { border-color: var(--acc2); color: var(--text2); }
+  .admin-work-tab.active { border-color: var(--accent); color: var(--accent); }
+  .drag-handle { padding: 14px 6px 14px 10px; color: var(--text3); cursor: grab; user-select: none; }
+  .work-list-item.dragging { opacity: 0.55; }
+  .work-list-item.drag-over { outline: 1px dashed var(--acc2); }
   .chapter-edit-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--bg3); }
   .chapter-edit-name { flex: 1; font-size: 13px; color: var(--text2); }
   .chapter-edit-count { font-size: 11px; color: var(--text3); }
@@ -485,6 +493,7 @@ let STATE = {
   pendingUnlockSection: null, // which section user is trying to unlock
   lightboxImages: [],
   lightboxIndex: 0,
+  adminWorkTab: 'manga',
 };
 
 // ══════════════════════════════════════════
@@ -923,17 +932,102 @@ function handleKey(e) {
 // ══════════════════════════════════════════
 // ADMIN
 // ══════════════════════════════════════════
+
+function setAdminWorkTab(t) {
+  STATE.adminWorkTab = t;
+  const a = document.getElementById('admin-tab-manga');
+  const b = document.getElementById('admin-tab-illust');
+  if (a) a.classList.toggle('active', t === 'manga');
+  if (b) b.classList.toggle('active', t === 'illust');
+  renderAdmin();
+}
+
+function reorderWorksWithinType(type, orderedIds) {
+  const idxs = [];
+  const byId = {};
+  STATE.works.forEach((w, i) => { if (w.type === type) { idxs.push(i); byId[w.id] = w; } });
+  const next = orderedIds.map(id => byId[id]).filter(Boolean);
+  if (next.length !== idxs.length) return;
+  for (let i = 0; i < idxs.length; i++) STATE.works[idxs[i]] = next[i];
+}
+
+function setupWorkDnD() {
+  const list = document.getElementById('admin-work-list');
+  if (!list) return;
+
+  let draggingId = null;
+
+  const items = list.querySelectorAll('.work-list-item');
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const id = item.getAttribute('data-work-id');
+    const handle = item.querySelector('.drag-handle');
+    if (!id || !handle) continue;
+
+    handle.setAttribute('draggable', 'true');
+
+    handle.addEventListener('dragstart', (e) => {
+      draggingId = id;
+      item.classList.add('dragging');
+      try { e.dataTransfer.setData('text/plain', id); } catch(err) {}
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    handle.addEventListener('dragend', () => {
+      draggingId = null;
+      item.classList.remove('dragging');
+      const all = list.querySelectorAll('.work-list-item');
+      for (let k = 0; k < all.length; k++) all[k].classList.remove('drag-over', 'dragging');
+    });
+
+    item.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (!draggingId || draggingId === id) return;
+      item.classList.add('drag-over');
+      e.dataTransfer.dropEffect = 'move';
+    });
+
+    item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
+
+    item.addEventListener('drop', (e) => {
+      e.preventDefault();
+      item.classList.remove('drag-over');
+
+      const fromId = draggingId || (() => { try { return e.dataTransfer.getData('text/plain'); } catch(err) { return ''; } })();
+      const toId = id;
+      if (!fromId || !toId || fromId === toId) return;
+
+      const type = STATE.adminWorkTab || 'manga';
+      const cur = STATE.works.filter(w => w.type === type).map(w => w.id);
+      const fromIdx = cur.indexOf(fromId);
+      const toIdx = cur.indexOf(toId);
+      if (fromIdx < 0 || toIdx < 0) return;
+
+      cur.splice(fromIdx, 1);
+      cur.splice(toIdx, 0, fromId);
+
+      reorderWorksWithinType(type, cur);
+      save();
+      renderAdmin();
+      toast('已調整順序（記得按「更新JSON」）');
+    });
+  }
+}
+
 function renderAdmin() {
   const el = document.getElementById('admin-work-list');
-  if (!STATE.works.length) { el.innerHTML = '<div class="empty-hint">尚無作品，點擊「新增作品」開始</div>'; return; }
-  el.innerHTML = STATE.works.map(w => {
+  const t = STATE.adminWorkTab || 'manga';
+  const list = STATE.works.filter(w => w.type === t);
+  if (!list.length) { el.innerHTML = '<div class="empty-hint">尚無作品（可按右上「新增作品」建立）</div>'; return; }
+  el.innerHTML = list.map(w => {
     const coverHtml = w.cover
       ? `<img src="${esc(w.cover)}" loading="lazy">`
       : `<div class="work-list-cover-ph">${w.title.charAt(0)}</div>`;
     return `
-    <div class="work-list-item">
+    <div class="work-list-item" data-work-id="${w.id}">
       <div class="work-list-header" onclick="toggleWorkExpand('${w.id}')">
         <div class="work-list-toggle" id="arrow-${w.id}">▶</div>
+        <div class="drag-handle" title="拖曳排序">≡</div>
         <div class="work-list-cover">${coverHtml}</div>
         <span class="work-list-name">${esc(w.title)}</span>
         <span class="work-list-type">${w.type === 'manga' ? (w.readMode === 'paged' ? '頁漫' : '條漫') : '插圖'}</span>
@@ -968,6 +1062,7 @@ function renderAdmin() {
       </div>
     </div>`
   }).join('');
+  setupWorkDnD();
 }
 
 function toggleWorkExpand(id) {
