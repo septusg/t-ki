@@ -2,25 +2,6 @@
   "version": 1,
   "works": [
     {
-      "id": "cnlmvnmxmm51ldqh",
-      "title": "TEST",
-      "type": "manga",
-      "cover": "",
-      "readMode": "strip",
-      "chapters": [
-        {
-          "id": "fewz3wtmmm51mfq8",
-          "title": "A",
-          "cover": "",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3a7c238658d147ed.jpg",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3dd898dc7b7f4489.jpg"
-          ],
-          "readMode": null
-        }
-      ]
-    },
-    {
       "id": "7b0ibmfnmm4wkkxj",
       "title": "《Noblemor》",
       "type": "manga",
@@ -32,8 +13,20 @@
           "title": "【轉瓶蓋小幫手】",
           "cover": "",
           "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3a7c238658d147ed.jpg",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/uploads/manga/20260227/3dd898dc7b7f4489.jpg"
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/01/pg (1).jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/01/pg (2).jpg"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "dn9ffbv2mm5tnebf",
+          "title": "【熱紅茶】",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477160664119115928/image.png?ex=69a3c092&is=69a26f12&hm=cbb4279d7a65cc25fb6371f1b9224b1a0b9ddfaaabd6055f1a1abc695c90aac6&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/02/bloodtea (1).jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/02/bloodtea (2).jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/02/bloodtea (3).jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/02/bloodtea (4).jpg"
           ],
           "readMode": null
         }
