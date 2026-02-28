@@ -122,33 +122,46 @@
   .paged-carousel {
     position: fixed; inset: 0; top: 52px;
     display: flex;
-    gap: 0;
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     background: #000;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+    overscroll-behavior-x: contain;
   }
   .paged-carousel.rtl { flex-direction: row-reverse; }
   .paged-carousel::-webkit-scrollbar { display: none; }
   .paged-slide {
-    flex: 0 0 var(--slide-w, 100vw);
-    width: var(--slide-w, 100vw);
-    min-width: var(--slide-w, 100vw);
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
     height: calc(100vh - 52px);
-    scroll-snap-align: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
     background: #000;
+    margin: 0;
+    padding: 0;
   }
   .paged-slide img {
-    max-width: 100%; max-height: 100%;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    max-height: none;
     object-fit: contain;
     user-select: none; -webkit-user-select: none;
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
     draggable: false;
+    background: #000;
+    transform: translateZ(0);
   }
   .paged-counter-overlay {
     position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
@@ -1155,7 +1168,13 @@ const PAGED_UI = {
 
 function pagedGetWidth(carousel) {
   const r = carousel.getBoundingClientRect();
-  return r.width || window.innerWidth || 1;
+  return Math.round(r.width || window.innerWidth || 1);
+}
+
+function pagedNormalizePosition(carousel) {
+  if (!carousel) return;
+  const idx = Math.max(0, Math.min(STATE.viewerIndex || 0, STATE.viewerImages.length - 1));
+  pagedScrollToIndex(carousel, idx, false);
 }
 
 function pagedScrollToIndex(carousel, idx, smooth) {
@@ -1208,17 +1227,24 @@ function renderPaged() {
 
   const carousel = document.getElementById('paged-carousel');
 
-  // 用容器實際寬度設定 slide 寬度，避免 100vw 與容器寬度有 sub-pixel 落差造成縫隙
-  const slideW = carousel.getBoundingClientRect().width || window.innerWidth;
-  carousel.style.setProperty('--slide-w', slideW + 'px');
-
-  carousel.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
+  carousel.querySelectorAll('img').forEach(img => {
+    img.ondragstart = (e) => e.preventDefault();
+    img.onload = function() { pagedNormalizePosition(carousel); };
+  });
 
   requestAnimationFrame(() => {
-    pagedScrollToIndex(carousel, i, false);
+    pagedNormalizePosition(carousel);
     PAGED_UI.enterPaged();
     PAGED_UI.updateArrows(i, imgs.length);
   });
+
+  if (window._pagedResizeHandler) window.removeEventListener('resize', window._pagedResizeHandler);
+  let resizeTimer = 0;
+  window._pagedResizeHandler = function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() { pagedNormalizePosition(carousel); }, 60);
+  };
+  window.addEventListener('resize', window._pagedResizeHandler);
 
   let raf = 0;
   let tmr = 0;
