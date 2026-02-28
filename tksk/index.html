@@ -116,11 +116,11 @@
   .viewer-close { padding: 5px 12px; font-size: 11px; color: #4a6a85; cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
   .viewer-close:hover { color: #7ab3e0; }
   .viewer-mode-label { font-size: 11px; color: #3a5a75; letter-spacing: 0.1em; border: 1px solid #1a2a40; padding: 4px 10px; }
-  .viewer-strip { padding-top: 52px; }
+  .viewer-strip { padding-top: 0; }
   .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
     /* ── PAGED VIEWER — scroll-snap carousel ── */
   .paged-carousel {
-    position: fixed; inset: 0; top: 52px;
+    position: fixed; inset: 0; top: 0;
     display: flex;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -134,7 +134,7 @@
   .paged-slide {
     flex: 0 0 100vw;
     width: 100vw;
-    height: calc(100vh - 52px);
+    height: 100vh;
     scroll-snap-align: start;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
