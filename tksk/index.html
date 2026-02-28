@@ -147,13 +147,8 @@
     -webkit-touch-callout: none;
     draggable: false;
   }
-
-  @media (max-width: 768px), (pointer: coarse) {
-    .paged-carousel {
-      gap: 0;
-      margin: 0;
-      padding: 0;
-    }
+  @media(max-width:768px) {
+    .paged-carousel { gap: 0; }
     .paged-slide {
       flex: 0 0 100%;
       width: 100%;
@@ -161,17 +156,17 @@
       margin: 0;
       padding: 0;
       background: #000;
-      align-items: flex-start;
     }
     .paged-slide img {
       display: block;
       width: 100%;
-      max-width: none;
+      max-width: 100%;
       height: auto;
       max-height: none;
       margin: 0;
-      background: #000;
+      padding: 0;
       object-fit: fill;
+      background: #000;
     }
   }
   .paged-counter-overlay {
@@ -347,7 +342,7 @@
 <div id="page-work" class="page">
   <nav class="site-nav">
     <div class="nav-logo" onclick="goHome()">Usagi</div>
-    <button class="nav-btn" onclick="goHome()">← 返回</button>
+    <button class="nav-btn" onclick="goBack()">← 返回</button>
     <button class="nav-btn" onclick="logout()" style="margin-left:auto">登出</button>
   </nav>
   <div class="work-header">
@@ -367,7 +362,7 @@
 <!-- ══ VIEWER ══ -->
 <div id="page-viewer" class="page">
   <div class="viewer-nav" id="viewer-nav">
-    <button class="viewer-close" onclick="closeViewer()">← 返回</button>
+    <button class="viewer-close" onclick="goBack()">← 返回</button>
     <div class="viewer-title" id="viewer-title"></div>
     <div class="viewer-mode-label" id="viewer-mode-label"></div>
   </div>
@@ -501,6 +496,9 @@ let STATE = {
   pendingUnlockSection: null, // which section user is trying to unlock
   lightboxImages: [],
   lightboxIndex: 0,
+  pendingRoute: null,
+  ignoreHashChange: false,
+  preloadedImages: {},
 
 };
 const IS_MOBILE = (function() {
@@ -550,6 +548,14 @@ async function init() {
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
   });
+  window.addEventListener('hashchange', function() {
+    if (STATE.ignoreHashChange) {
+      STATE.ignoreHashChange = false;
+      return;
+    }
+    applyRoute();
+  });
+  applyRoute();
 }
 
 function save() {
@@ -557,6 +563,112 @@ function save() {
     passwords: STATE.passwords,
     works: STATE.works,
   }));
+}
+
+function preloadImages(urls) {
+  if (!urls || !urls.length) return;
+  for (let i = 0; i < urls.length; i++) {
+    const src = urls[i];
+    if (!src || STATE.preloadedImages[src]) continue;
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = src;
+    STATE.preloadedImages[src] = img;
+  }
+}
+
+function setRouteHash(hash) {
+  if ((location.hash || '') === hash) return;
+  STATE.ignoreHashChange = true;
+  location.hash = hash;
+}
+
+function setLoginTabByType(type) {
+  loginTarget = type;
+  const tabs = document.querySelectorAll('.login-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  if (type === 'illust') {
+    if (tabs[1]) tabs[1].classList.add('active');
+  } else {
+    if (tabs[0]) tabs[0].classList.add('active');
+  }
+  document.getElementById('login-error').textContent = '';
+}
+
+function parseRoute() {
+  const hash = (location.hash || '').replace(/^#/, '');
+  let m = null;
+
+  if (!hash || hash === 'home') return { page: 'home' };
+  if (hash === 'library=manga') return { page: 'library', section: 'manga' };
+  if (hash === 'library=illust') return { page: 'library', section: 'illust' };
+
+  m = /^manga-work=(.+)$/.exec(hash);
+  if (m) return { page: 'work', type: 'manga', workId: decodeURIComponent(m[1]) };
+
+  m = /^illust-work=(.+)$/.exec(hash);
+  if (m) return { page: 'work', type: 'illust', workId: decodeURIComponent(m[1]) };
+
+  m = /^manga-chapter=([^:]+):(.+)$/.exec(hash);
+  if (m) return { page: 'chapter', type: 'manga', workId: decodeURIComponent(m[1]), chapterId: decodeURIComponent(m[2]) };
+
+  m = /^illust-post=([^:]+):(.+)$/.exec(hash);
+  if (m) return { page: 'post', type: 'illust', workId: decodeURIComponent(m[1]), postId: decodeURIComponent(m[2]) };
+
+  return { page: 'home' };
+}
+
+function applyRoute() {
+  const route = parseRoute();
+
+  if (route.page === 'home') {
+    if (STATE.unlocked.size) {
+      goHome(true);
+    } else {
+      showPage('login');
+    }
+    return;
+  }
+
+  if (route.page === 'library') {
+    if (!isUnlocked(route.section)) {
+      STATE.pendingRoute = route;
+      setLoginTabByType(route.section);
+      showPage('login');
+      return;
+    }
+    STATE.pendingRoute = null;
+    showPage('library');
+    renderLibrary(route.section);
+    return;
+  }
+
+  if (!isUnlocked(route.type)) {
+    STATE.pendingRoute = route;
+    setLoginTabByType(route.type);
+    showPage('login');
+    return;
+  }
+
+  if (route.page === 'work') {
+    STATE.pendingRoute = null;
+    openWork(route.workId, true);
+    return;
+  }
+
+  if (route.page === 'chapter') {
+    STATE.pendingRoute = null;
+    openChapter(route.workId, route.chapterId, true);
+    return;
+  }
+
+  if (route.page === 'post') {
+    STATE.pendingRoute = null;
+    openPost(route.workId, route.postId, true);
+    return;
+  }
+
+  showPage('login');
 }
 
 
@@ -584,8 +696,13 @@ function doLogin() {
     document.getElementById('pw-input').value = '';
     document.getElementById('login-error').textContent = '';
     STATE.unlocked.add(loginTarget);
-    showPage('library');
-    renderLibrary(loginTarget);
+    if (STATE.pendingRoute) {
+      applyRoute();
+    } else {
+      showPage('library');
+      renderLibrary(loginTarget);
+      setRouteHash('#library=' + loginTarget);
+    }
   } else {
     const err = document.getElementById('login-error');
     err.textContent = '密碼錯誤';
@@ -599,6 +716,7 @@ function navClickSection(type) {
     // already unlocked — just switch
     showPage('library');
     renderLibrary(type);
+    setRouteHash('#library=' + type);
   } else {
     // need password
     STATE.pendingUnlockSection = type;
@@ -617,8 +735,13 @@ function doUnlock() {
   if (pw === STATE.passwords[type]) {
     STATE.unlocked.add(type);
     closeModal('modal-unlock');
-    showPage('library');
-    renderLibrary(type);
+    if (STATE.pendingRoute) {
+      applyRoute();
+    } else {
+      showPage('library');
+      renderLibrary(type);
+      setRouteHash('#library=' + type);
+    }
   } else {
     const err = document.getElementById('unlock-error');
     err.textContent = '密碼錯誤';
@@ -630,11 +753,14 @@ function doUnlock() {
 function adminGoSection(type) {
   showPage('library');
   renderLibrary(type);
+  setRouteHash('#library=' + type);
 }
 
 function logout() {
   STATE.unlocked = new Set();
+  STATE.pendingRoute = null;
   showPage('login');
+  setRouteHash('#home');
 }
 
 function isUnlocked(type) {
@@ -650,16 +776,18 @@ function showPage(name) {
   window.scrollTo(0, 0);
 }
 
-function goHome() {
+function goHome(skipRoute) {
   if (isUnlocked('admin')) {
     // admin: return to whichever section was last viewed, or show admin
     showPage('admin');
     renderAdmin();
+    if (!skipRoute) setRouteHash('#home');
   } else {
     showPage('library');
     // show first unlocked section
     const section = STATE.unlocked.has('manga') ? 'manga' : 'illust';
     renderLibrary(section);
+    if (!skipRoute) setRouteHash('#library=' + section);
   }
 }
 
@@ -715,7 +843,7 @@ function renderGrid(id, works) {
 // ══════════════════════════════════════════
 // WORK DETAIL
 // ══════════════════════════════════════════
-function openWork(id) {
+function openWork(id, skipRoute) {
   const w = STATE.works.find(x => x.id === id);
   if (!w) return;
   STATE.currentWorkId = id;
@@ -732,21 +860,24 @@ function openWork(id) {
     renderAlbumList(cl, w);
   }
   showPage('work');
+  if (!skipRoute) setRouteHash('#' + (w.type === 'manga' ? 'manga-work=' : 'illust-work=') + encodeURIComponent(id));
 }
 
 function renderChapterList(cl, w) {
   if (!w.chapters || !w.chapters.length) {
     cl.innerHTML = '<div class="empty-hint">尚無話數</div>'; return;
   }
-  cl.innerHTML = w.chapters.map((c, i) => {
+  var chapters = w.chapters.slice().reverse();
+  cl.innerHTML = chapters.map((c, i) => {
     const thumb = c.cover || (c.images && c.images[0]) || '';
+    const num = String(chapters.length - i).padStart(2,'0');
     return `
       <div class="chapter-item reveal" onclick="openChapter('${w.id}','${c.id}')">
         <div class="chapter-thumb">
-          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${String(i+1).padStart(2,'0')}</div>`}
+          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${num}</div>`}
         </div>
         <div class="chapter-info">
-          <div class="chapter-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="chapter-num">${num}</div>
           <div class="chapter-name">${esc(c.title)}</div>
           <div class="chapter-count">${(c.images||[]).length} 張</div>
         </div>
@@ -784,30 +915,38 @@ function renderAlbumList(cl, w) {
 // ══════════════════════════════════════════
 // VIEWER — MANGA
 // ══════════════════════════════════════════
-function openChapter(workId, chapterId) {
+function openChapter(workId, chapterId, skipRoute) {
   const w = STATE.works.find(x => x.id === workId);
+  if (!w) return;
   const c = w.chapters.find(x => x.id === chapterId);
   if (!c || !c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
+  STATE.currentWorkId = workId;
   STATE.viewerImages = c.images;
   STATE.viewerIndex = 0;
+  preloadImages(c.images);
   document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
   showPage('viewer');
   setMode(c.readMode || w.readMode || 'strip');
+  if (!skipRoute) setRouteHash('#manga-chapter=' + encodeURIComponent(workId) + ':' + encodeURIComponent(chapterId));
 }
 
 // ══════════════════════════════════════════
 // VIEWER — ILLUST POST (single post full view)
 // ══════════════════════════════════════════
-function openPost(workId, postId) {
+function openPost(workId, postId, skipRoute) {
   const w = STATE.works.find(x => x.id === workId);
+  if (!w) return;
   const p = w.chapters.find(x => x.id === postId);
   if (!p) return;
+  STATE.currentWorkId = workId;
   STATE.viewerPosts = [p];
   STATE.viewerImages = p.images || [];
   STATE.viewerIndex = 0;
+  preloadImages(STATE.viewerImages);
   document.getElementById('viewer-title').textContent = w.title;
   showPage('viewer');
   setMode('illust-post');
+  if (!skipRoute) setRouteHash('#illust-post=' + encodeURIComponent(workId) + ':' + encodeURIComponent(postId));
 }
 
 function setMode(mode) {
@@ -822,7 +961,7 @@ function setMode(mode) {
   if (mode === 'strip') {
     nav.classList.remove('hidden');
     content.innerHTML = `<div class="viewer-strip" id="viewer-strip">${
-      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
+      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}">`).join('')
     }</div>`;
     bindStripTapToggle();
   } else if (mode === 'paged') {
@@ -855,7 +994,7 @@ function setMode(mode) {
         if (/^https?:\/\//i.test(trimmed)) {
           flushText();
           const li = imgIdx++;
-          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
+          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
         } else {
           textBuf.push(line);
         }
@@ -865,11 +1004,11 @@ function setMode(mode) {
       // Legacy: images array + caption text
       const imgs = allImgUrls;
       if (imgs.length === 1) {
-        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
+        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
       } else if (imgs.length > 1) {
         const cols = imgs.length === 2 ? 'cols-2' : 'cols-3';
         blocksHtml += `<div class="post-block-imgs ${cols}">` +
-          imgs.map((src,i) => `<img src="${esc(src)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
+          imgs.map((src,i) => `<img src="${esc(src)}" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
           `</div>`;
       }
       if (p.caption) {
@@ -1093,7 +1232,7 @@ function renderPaged() {
 
   const slides = imgs.map((src, idx) =>
     `<div class="paged-slide" data-idx="${idx}">` +
-    `<img src="${esc(src)}" loading="${idx <= i + 2 ? 'eager' : 'lazy'}">` +
+    `<img src="${esc(src)}">` +
     `</div>`
   ).join('');
 
@@ -1233,10 +1372,34 @@ function pagedNav(dir) {
   PAGED_UI.updateArrows(n, STATE.viewerImages.length);
 }
 
-function closeViewer() {
+function goBack(skipRoute) {
+  const viewerPage = document.getElementById('page-viewer');
+  const workPage = document.getElementById('page-work');
+
+  if (viewerPage && viewerPage.classList.contains('active')) {
+    closeViewer(skipRoute);
+    return;
+  }
+
+  if (workPage && workPage.classList.contains('active')) {
+    const w = STATE.works.find(x => x.id === STATE.currentWorkId);
+    if (!w) {
+      goHome(skipRoute);
+      return;
+    }
+    showPage('library');
+    renderLibrary(w.type);
+    if (!skipRoute) setRouteHash('#library=' + w.type);
+    return;
+  }
+
+  goHome(skipRoute);
+}
+
+function closeViewer(skipRoute) {
   window.onscroll = null;
   PAGED_UI.exitPaged();
-  openWork(STATE.currentWorkId);
+  openWork(STATE.currentWorkId, skipRoute);
 }
 
 // ══════════════════════════════════════════
