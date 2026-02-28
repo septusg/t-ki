@@ -320,7 +320,7 @@
 <div id="page-work" class="page">
   <nav class="site-nav">
     <div class="nav-logo" onclick="goHome()">Usagi</div>
-    <button class="nav-btn" onclick="goHome()">← 返回</button>
+    <button class="nav-btn" onclick="goBack()">← 返回</button>
     <button class="nav-btn" onclick="logout()" style="margin-left:auto">登出</button>
   </nav>
   <div class="work-header">
@@ -340,7 +340,7 @@
 <!-- ══ VIEWER ══ -->
 <div id="page-viewer" class="page">
   <div class="viewer-nav" id="viewer-nav">
-    <button class="viewer-close" onclick="closeViewer()">← 返回</button>
+    <button class="viewer-close" onclick="goBack()">← 返回</button>
     <div class="viewer-title" id="viewer-title"></div>
     <div class="viewer-mode-label" id="viewer-mode-label"></div>
   </div>
@@ -1335,10 +1335,34 @@ function pagedNav(dir) {
   PAGED_UI.updateArrows(n, STATE.viewerImages.length);
 }
 
-function closeViewer() {
+function goBack(skipRoute) {
+  const viewerPage = document.getElementById('page-viewer');
+  const workPage = document.getElementById('page-work');
+
+  if (viewerPage && viewerPage.classList.contains('active')) {
+    closeViewer(skipRoute);
+    return;
+  }
+
+  if (workPage && workPage.classList.contains('active')) {
+    const w = STATE.works.find(x => x.id === STATE.currentWorkId);
+    if (!w) {
+      goHome(skipRoute);
+      return;
+    }
+    showPage('library');
+    renderLibrary(w.type);
+    if (!skipRoute) setRouteHash('#library=' + w.type);
+    return;
+  }
+
+  goHome(skipRoute);
+}
+
+function closeViewer(skipRoute) {
   window.onscroll = null;
   PAGED_UI.exitPaged();
-  openWork(STATE.currentWorkId);
+  openWork(STATE.currentWorkId, skipRoute);
 }
 
 // ══════════════════════════════════════════
