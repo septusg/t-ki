@@ -711,15 +711,17 @@ function renderChapterList(cl, w) {
   if (!w.chapters || !w.chapters.length) {
     cl.innerHTML = '<div class="empty-hint">尚無話數</div>'; return;
   }
-  cl.innerHTML = w.chapters.map((c, i) => {
+  var chapters = w.chapters.slice().reverse();
+  cl.innerHTML = chapters.map((c, i) => {
     const thumb = c.cover || (c.images && c.images[0]) || '';
+    const num = String(chapters.length - i).padStart(2,'0');
     return `
       <div class="chapter-item reveal" onclick="openChapter('${w.id}','${c.id}')">
         <div class="chapter-thumb">
-          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${String(i+1).padStart(2,'0')}</div>`}
+          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${num}</div>`}
         </div>
         <div class="chapter-info">
-          <div class="chapter-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="chapter-num">${num}</div>
           <div class="chapter-name">${esc(c.title)}</div>
           <div class="chapter-count">${(c.images||[]).length} 張</div>
         </div>
