@@ -923,6 +923,8 @@ function bindStripTapToggle() {
 // ══════════════════════════════════════════
 const PAGED_UI = {
   timer: null,
+  hoverMoveBound: false,
+  hoverLeaveBound: false,
   nav:     () => document.getElementById('viewer-nav'),
   counter: () => document.getElementById('paged-counter'),
   arrPrev: () => document.getElementById('paged-arr-prev'),
@@ -946,6 +948,49 @@ const PAGED_UI = {
     if (an)  an.classList.add('arr-hidden');
   },
 
+  syncArrowState() {
+    const nav = this.nav(), ap = this.arrPrev(), an = this.arrNext();
+    if (!ap || !an) return;
+    if (nav && nav.classList.contains('hidden')) {
+      ap.classList.add('arr-hidden');
+      an.classList.add('arr-hidden');
+    } else {
+      ap.classList.remove('arr-hidden');
+      an.classList.remove('arr-hidden');
+    }
+  },
+
+  bindArrowHover() {
+    if (IS_MOBILE || this.hoverMoveBound) return;
+
+    document.addEventListener('mousemove', (e) => {
+      if (STATE.viewerMode != 'paged') return;
+      if (!document.getElementById('page-viewer').classList.contains('active')) return;
+
+      const ap = this.arrPrev(), an = this.arrNext();
+      if (!ap || !an || ap.style.display == 'none' || an.style.display == 'none') return;
+
+      const inRect = (r) => e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      const rp = ap.getBoundingClientRect();
+      const rn = an.getBoundingClientRect();
+
+      if (inRect(rp) || inRect(rn)) {
+        ap.classList.remove('arr-hidden');
+        an.classList.remove('arr-hidden');
+      } else {
+        this.syncArrowState();
+      }
+    });
+    this.hoverMoveBound = true;
+
+    if (!this.hoverLeaveBound) {
+      document.addEventListener('mouseleave', () => {
+        if (STATE.viewerMode == 'paged') this.syncArrowState();
+      });
+      this.hoverLeaveBound = true;
+    }
+  },
+
   updateArrows(idx, total) {
     const ap = this.arrPrev(), an = this.arrNext();
     if (!ap || !an) return;
@@ -958,6 +1003,7 @@ const PAGED_UI = {
     if (!IS_MOBILE) {
       if (ap) ap.style.display = 'flex';
       if (an) an.style.display = 'flex';
+      this.bindArrowHover();
     } else {
       if (ap) ap.style.display = 'none';
       if (an) an.style.display = 'none';
