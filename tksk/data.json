@@ -339,6 +339,32 @@
       ]
     },
     {
+      "id": "kqolxapxmm7ql1q4",
+      "title": "Practice",
+      "type": "illust",
+      "cover": "",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "w1ugix89mm7qmg5d",
+          "title": "速寫",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk01.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk02.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk03.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk04.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk05.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk06.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk07.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk08.jpg"
+          ],
+          "body": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk01.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk02.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk03.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk04.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk05.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk06.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk07.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/sk08.jpg",
+          "caption": ""
+        }
+      ]
+    },
+    {
       "id": "fmykz4lcmm6ccn8d",
       "title": "SoD",
       "type": "illust",
