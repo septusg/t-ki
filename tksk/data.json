@@ -3,7 +3,7 @@
   "works": [
     {
       "id": "7b0ibmfnmm4wkkxj",
-      "title": "《 Noblemor 》",
+      "title": "🔞《 Noblemor 》",
       "type": "manga",
       "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/ir/nbm.jpg",
       "readMode": "paged",
@@ -70,7 +70,7 @@
         },
         {
           "id": "ez0dnv8jmm5u49e0",
-          "title": "【 變身藥水 】🔞",
+          "title": "【 變身藥水 】",
           "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/06/om.jpg",
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/06/om (1).jpg",
@@ -98,7 +98,7 @@
         },
         {
           "id": "r2ak6cajmm5ubg2n",
-          "title": "【 讀者 】🔞",
+          "title": "【 讀者 】",
           "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/08/rd.jpg",
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/08/rd (1).jpg",
@@ -157,7 +157,7 @@
     },
     {
       "id": "oono65mgmm5xowvw",
-      "title": "《 Story of Delta Δ 》",
+      "title": "《 SoD 》",
       "type": "manga",
       "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/sod.jpg",
       "readMode": "strip",
@@ -347,7 +347,7 @@
       "chapters": [
         {
           "id": "w1ugix89mm7qmg5d",
-          "title": "速寫",
+          "title": "Sketch",
           "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg",
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg",
