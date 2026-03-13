@@ -53,116 +53,10 @@
   .nav-btn { padding: 6px 14px; font-size: 12px; letter-spacing: 0.08em; color: var(--text3); cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
   .nav-btn:hover { color: var(--accent); }
   .nav-btn.active { color: var(--accent); }
-  .nav-btn.locked { color: var(--text3); opacity: 0.5; }
-  .nav-btn.locked::after { content: ' 🔒'; font-size: 10px; }
   .nav-sep { color: var(--border); margin: 0 2px; font-size: 11px; }
 
-  /* ── LIBRARY ── */
-  .page-inner { padding: 40px 24px; max-width: 1000px; margin: 0 auto; }
-  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-  .section-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; color: var(--accent); letter-spacing: 0.1em; }
-  .section-count { font-size: 12px; color: var(--text3); }
-  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin-bottom: 48px; }
-  .work-card { cursor: pointer; border: 1px solid var(--border); background: var(--bg2); overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
-  .work-card:hover { border-color: var(--acc2); transform: translateY(-2px); }
-  .work-cover { aspect-ratio: 3/4; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-  .work-cover img { width: 100%; height: 100%; object-fit: cover; }
-  .work-cover-placeholder { font-family: 'Noto Serif TC', serif; font-size: 36px; color: var(--border); }
-  .work-info { padding: 12px; }
-  .work-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .work-meta { font-size: 11px; color: var(--text3); }
-  .empty-hint { color: var(--text3); font-size: 13px; text-align: center; padding: 48px 0; border: 1px dashed var(--border); letter-spacing: 0.05em; }
-
-  /* ── WORK DETAIL ── */
-  .work-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 32px 24px 28px; }
-  .work-header-inner { max-width: 800px; margin: 0 auto; }
-  .breadcrumb { font-size: 12px; color: var(--text3); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .breadcrumb span { cursor: pointer; }
-  .breadcrumb span:hover { color: var(--accent); }
-  .work-big-title { font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 900; color: var(--text); letter-spacing: 0.05em; margin-bottom: 8px; }
-  .work-type-badge { display: inline-block; padding: 3px 10px; border: 1px solid var(--border); font-size: 11px; color: var(--text3); letter-spacing: 0.08em; }
-  .chapter-list { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
-
-  /* chapter card with cover */
-  .chapter-item { display: flex; align-items: center; margin-bottom: 8px; border: 1px solid var(--border); background: var(--bg2); cursor: pointer; transition: border-color 0.2s, background 0.2s; overflow: hidden; }
-  .chapter-item:hover { border-color: var(--acc2); background: var(--bg3); }
-  .chapter-thumb { width: 72px; height: 72px; flex-shrink: 0; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-  .chapter-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .chapter-thumb-placeholder { font-size: 22px; color: var(--border); font-family: 'Noto Serif TC', serif; }
-  .chapter-info { flex: 1; padding: 14px 18px; }
-  .chapter-num { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--acc2); margin-bottom: 2px; }
-  .chapter-name { font-size: 14px; color: var(--text); }
-  .chapter-count { font-size: 11px; color: var(--text3); margin-top: 3px; }
-
-  /* ── ILLUST POST LIST (article style) ── */
-  .post-list { max-width: 720px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
-  .post-list-item { border: 1px solid var(--border); background: var(--bg2); cursor: pointer; transition: border-color 0.2s, transform 0.15s; display: flex; overflow: hidden; }
-  .post-list-item:hover { border-color: var(--acc2); transform: translateY(-1px); }
-  .post-list-cover { width: 140px; height: 100px; flex-shrink: 0; background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-  .post-list-cover img { width: 100%; height: 100%; object-fit: cover; }
-  .post-list-cover-ph { font-size: 28px; color: var(--border); }
-  .post-list-body { flex: 1; padding: 14px 18px; display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; }
-  .post-list-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .post-list-excerpt { font-size: 12px; color: var(--text3); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .post-list-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
-  @media(max-width:480px) { .post-list-cover { width: 100px; height: 80px; } }
-
-  /* ── VIEWER ── */
-  #page-viewer { background: #000; }
-  .viewer-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #1a2a40; display: flex; align-items: center; padding: 0 16px; height: 52px; gap: 8px; transform: translateY(0); transition: transform 0.3s; }
-  .viewer-nav.hidden { transform: translateY(-100%); }
-  .viewer-title { flex: 1; font-size: 13px; color: #6a8fa8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .viewer-close { padding: 5px 12px; font-size: 11px; color: #4a6a85; cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
-  .viewer-close:hover { color: #7ab3e0; }
-  .viewer-mode-label { font-size: 11px; color: #3a5a75; letter-spacing: 0.1em; border: 1px solid #1a2a40; padding: 4px 10px; }
-  .viewer-strip { padding-top: 52px; }
-  .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
-  .viewer-paged { padding-top: 52px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .paged-img-wrap { display: flex; align-items: center; justify-content: center; width: 100%; flex: 1; padding: 20px; }
-  .paged-img-wrap img { max-height: calc(100vh - 120px); max-width: 100%; object-fit: contain; }
-  .paged-controls { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.92); border-top: 1px solid #1a2a40; display: flex; align-items: center; justify-content: center; padding: 12px 24px; gap: 24px; }
-  .paged-btn { padding: 8px 24px; font-size: 13px; letter-spacing: 0.05em; border: 1px solid #1e2d45; background: transparent; color: #6a8fa8; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-  .paged-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-  .paged-btn:disabled { opacity: 0.25; cursor: default; }
-  .paged-counter { font-size: 12px; color: #3a5a75; min-width: 80px; text-align: center; }
-
-  /* illust post article viewer */
-  .post-article { max-width: 680px; margin: 0 auto; padding: 32px 24px 60px; }
-  .post-article-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
-  .post-article-meta { font-size: 12px; color: var(--text3); margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-  /* text block */
-  .post-block-text { font-size: 14px; color: var(--text2); line-height: 1.9; white-space: pre-wrap; margin-bottom: 20px; }
-  /* image block */
-  .post-block-img { margin-bottom: 12px; }
-  .post-block-img img { display: block; width: 100%; cursor: pointer; border: 1px solid var(--border); transition: opacity 0.2s; }
-  .post-block-img img:hover { opacity: 0.9; }
-  /* multi-image grid */
-  .post-block-imgs { display: grid; gap: 4px; margin-bottom: 12px; }
-  .post-block-imgs.cols-1 { grid-template-columns: 1fr; }
-  .post-block-imgs.cols-2 { grid-template-columns: 1fr 1fr; }
-  .post-block-imgs.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-  .post-block-imgs img { width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; border: 1px solid var(--border); transition: opacity 0.2s; }
-  .post-block-imgs img:hover { opacity: 0.9; }
-
-  /* gallery grid (fallback for albums without captions) */
-  .viewer-gallery { padding-top: 52px; columns: 2; column-gap: 4px; padding-bottom: 4px; }
-  @media(min-width:600px){.viewer-gallery{columns:3;}}
-  @media(min-width:900px){.viewer-gallery{columns:4;}}
-  .gallery-img { display: block; width: 100%; margin-bottom: 4px; cursor: pointer; transition: opacity 0.2s; break-inside: avoid; }
-  .gallery-img:hover { opacity: 0.8; }
-
-  /* lightbox */
-  .lightbox { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.97); display: none; align-items: center; justify-content: center; }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
-  .lightbox-close { position: absolute; top: 16px; right: 20px; font-size: 28px; color: #3a5a75; cursor: pointer; line-height: 1; }
-  .lightbox-close:hover { color: #7ab3e0; }
-  .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); font-size: 32px; color: #2a4a65; cursor: pointer; padding: 20px; user-select: none; }
-  .lightbox-prev:hover, .lightbox-next:hover { color: #7ab3e0; }
-  .lightbox-prev { left: 0; }
-  .lightbox-next { right: 0; }
-
   /* ── ADMIN ── */
+  .empty-hint { color: var(--text3); font-size: 13px; text-align: center; padding: 48px 0; border: 1px dashed var(--border); letter-spacing: 0.05em; }
   .admin-inner { max-width: 860px; margin: 0 auto; padding: 32px 24px; }
   .admin-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--accent); margin-bottom: 28px; letter-spacing: 0.12em; }
   .admin-section { margin-bottom: 40px; }
@@ -208,12 +102,6 @@
   .chapter-edit-count { font-size: 11px; color: var(--text3); }
   .pw-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-  /* post editor */
-  .post-editor { border: 1px solid var(--border); background: var(--bg3); padding: 16px; margin-bottom: 10px; }
-  .post-editor-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 12px; color: var(--text3); letter-spacing: 0.06em; }
-  .post-preview-imgs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .post-preview-img { width: 60px; height: 60px; object-fit: cover; border: 1px solid var(--border); }
-
   .toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 12px 20px; font-size: 13px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; letter-spacing: 0.05em; }
   .toast.show { opacity: 1; transform: translateY(0); }
   .toast.success { border-color: var(--accent); }
@@ -225,12 +113,7 @@
   .modal-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--accent); margin-bottom: 24px; letter-spacing: 0.08em; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; }
 
-  /* mini password modal */
-  .mini-modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 320px; padding: 32px; }
-
-  .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
-  .reveal.visible { opacity: 1; transform: none; }
-  @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
+  @media(max-width:480px){ .pw-settings{grid-template-columns:1fr;} }
 
   /* ── Markdown Editor ── */
   .md-toolbar { display: flex; gap: 4px; padding: 6px 0; flex-wrap: wrap; }
@@ -280,64 +163,6 @@
   </div>
 </div>
 
-<!-- ══ LIBRARY ══ -->
-<div id="page-library" class="page">
-  <nav class="site-nav">
-    <div class="nav-logo" onclick="goHome()">Usagi</div>
-    <button class="nav-btn" id="nav-manga" onclick="navClickSection('manga')">漫畫</button>
-    <span class="nav-sep">·</span>
-    <button class="nav-btn" id="nav-illust" onclick="navClickSection('illust')">插圖</button>
-    <button class="nav-btn" onclick="logout()" style="margin-left:8px">登出</button>
-  </nav>
-  <div class="page-inner">
-    <div id="manga-section">
-      <div class="section-header">
-        <div class="section-title">漫畫</div>
-        <div class="section-count" id="manga-count"></div>
-      </div>
-      <div class="works-grid" id="manga-grid"></div>
-    </div>
-    <div id="illust-section">
-      <div class="section-header">
-        <div class="section-title">插圖</div>
-        <div class="section-count" id="illust-count"></div>
-      </div>
-      <div class="works-grid" id="illust-grid"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ WORK DETAIL ══ -->
-<div id="page-work" class="page">
-  <nav class="site-nav">
-    <div class="nav-logo" onclick="goHome()">Usagi</div>
-    <button class="nav-btn" onclick="goHome()">← 返回</button>
-    <button class="nav-btn" onclick="logout()" style="margin-left:auto">登出</button>
-  </nav>
-  <div class="work-header">
-    <div class="work-header-inner">
-      <div class="breadcrumb">
-        <span onclick="goHome()">首頁</span><span>›</span>
-        <span id="work-section-label"></span><span>›</span>
-        <span id="work-breadcrumb-title"></span>
-      </div>
-      <div class="work-big-title" id="work-detail-title"></div>
-      <div class="work-type-badge" id="work-type-badge"></div>
-    </div>
-  </div>
-  <div class="chapter-list" id="chapter-list"></div>
-</div>
-
-<!-- ══ VIEWER ══ -->
-<div id="page-viewer" class="page">
-  <div class="viewer-nav" id="viewer-nav">
-    <button class="viewer-close" onclick="closeViewer()">← 返回</button>
-    <div class="viewer-title" id="viewer-title"></div>
-    <div class="viewer-mode-label" id="viewer-mode-label"></div>
-  </div>
-  <div id="viewer-content"></div>
-</div>
-
 <!-- ══ ADMIN ══ -->
 <div id="page-admin" class="page">
   <nav class="site-nav">
@@ -380,19 +205,6 @@
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)">
       </div>
       <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.8">資料儲存於瀏覽器 localStorage。建議定期匯出備份以防資料遺失。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL: 小密碼視窗 ══ -->
-<div class="modal-overlay" id="modal-unlock">
-  <div class="mini-modal">
-    <div class="modal-title" id="modal-unlock-title">輸入密碼</div>
-    <div class="pw-input-wrap"><input type="password" id="unlock-input" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doUnlock()"></div>
-    <div class="login-error" id="unlock-error"></div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('modal-unlock')">取消</button>
-      <button class="btn btn-primary" onclick="doUnlock()">進入</button>
     </div>
   </div>
 </div>
@@ -440,8 +252,9 @@
     <option value="paged">頁漫</option>
   </select>
 </div>
-    <div style="margin-top:14px;margin-bottom:6px;font-size:11px;color:var(--text3);letter-spacing:0.06em">圖片 URL 列表（每行一張）</div>
-    <div class="field"><textarea id="m-ch-images" placeholder="https://example.com/p001.jpg&#10;https://example.com/p002.jpg" style="min-height:160px;font-family:monospace;font-size:12px"></textarea></div>
+    <div style="margin-top:14px;margin-bottom:6px;font-size:11px;color:var(--text3);letter-spacing:0.06em">圖片 URL 列表（每行一張，<span style="color:var(--accent)">||URL||</span> = 爆雷圖片）</div>
+    <div style="margin-bottom:6px"><button type="button" class="btn btn-secondary btn-sm" onclick="toggleChSpoiler()" title="將選取的 URL 加上/移除 || 爆雷標記">爆雷切換</button></div>
+    <div class="field"><textarea id="m-ch-images" placeholder="https://example.com/p001.jpg&#10;||https://example.com/spoiler.jpg||&#10;https://example.com/p003.jpg" style="min-height:160px;font-family:monospace;font-size:12px"></textarea></div>
     <div class="field-row" style="margin-top:10px;align-items:center">
       <input type="file" id="m-ch-files" accept="image/*" multiple style="display:none" onchange="uploadPickedFiles(this,'m-ch-images','manga')">
       <button class="btn btn-secondary btn-sm" onclick="document.getElementById('m-ch-files').click()">從本機選圖並上傳</button>
@@ -492,14 +305,6 @@
   </div>
 </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <div class="lightbox-close" onclick="closeLightboxDirect()">×</div>
-  <div class="lightbox-prev" onclick="lightboxNav(-1)">‹</div>
-  <img id="lightbox-img" src="">
-  <div class="lightbox-next" onclick="lightboxNav(1)">›</div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -514,23 +319,14 @@ const UPLOAD_SITE_BASE = location.origin;
 // STATE
 // ══════════════════════════════════════════
 let STATE = {
-  // loggedIn: Set of unlocked sections. 'admin' means all access.
-  unlocked: new Set(), // e.g. 'manga', 'illust', 'admin'
+  unlocked: new Set(),
   passwords: { manga: '', illust: 'ki', admin: 'ad777' },
   works: [],
-  viewerImages: [],    // flat array for manga/lightbox
-  viewerPosts: [],     // array of {images, caption} for illust post feed
-  viewerMode: 'strip',
-  viewerIndex: 0,
-  currentWorkId: null,
   editingWorkId: null,
   editingChapterId: null,
   editingWorkIdForChapter: null,
   editingPostId: null,
   editingPostWorkId: null,
-  pendingUnlockSection: null, // which section user is trying to unlock
-  lightboxImages: [],
-  lightboxIndex: 0,
   adminWorkTab: 'manga',
 };
 
@@ -604,45 +400,6 @@ function doLogin() {
   }
 }
 
-// Called when nav button for a locked section is clicked
-function navClickSection(type) {
-  if (STATE.unlocked.has(type) || STATE.unlocked.has('admin')) {
-    // already unlocked — just switch
-    showPage('library');
-    renderLibrary(type);
-  } else {
-    // need password
-    STATE.pendingUnlockSection = type;
-    const label = type === 'manga' ? '漫畫區' : '插圖區';
-    document.getElementById('modal-unlock-title').textContent = '輸入' + label + '密碼';
-    document.getElementById('unlock-input').value = '';
-    document.getElementById('unlock-error').textContent = '';
-    openModal('modal-unlock');
-    setTimeout(() => document.getElementById('unlock-input').focus(), 100);
-  }
-}
-
-function doUnlock() {
-  const pw = document.getElementById('unlock-input').value;
-  const type = STATE.pendingUnlockSection;
-  if (pw === STATE.passwords[type]) {
-    STATE.unlocked.add(type);
-    closeModal('modal-unlock');
-    showPage('library');
-    renderLibrary(type);
-  } else {
-    const err = document.getElementById('unlock-error');
-    err.textContent = '密碼錯誤';
-    setTimeout(() => err.textContent = '', 2000);
-  }
-}
-
-// Admin nav: go to manga/illust section (admin always has access)
-function adminGoSection(type) {
-  showPage('library');
-  renderLibrary(type);
-}
-
 function logout() {
   STATE.unlocked = new Set();
   showPage('login');
@@ -662,309 +419,15 @@ function showPage(name) {
 }
 
 function goHome() {
-  if (isUnlocked('admin')) {
-    // admin: return to whichever section was last viewed, or show admin
-    showPage('admin');
-    renderAdmin();
-  } else {
-    showPage('library');
-    // show first unlocked section
-    const section = STATE.unlocked.has('manga') ? 'manga' : 'illust';
-    renderLibrary(section);
-  }
-}
-
-// ══════════════════════════════════════════
-// LIBRARY
-// ══════════════════════════════════════════
-function renderLibrary(activeSection) {
-  const mangaWorks = STATE.works.filter(w => w.type === 'manga');
-  const illustWorks = STATE.works.filter(w => w.type === 'illust');
-  document.getElementById('manga-count').textContent = mangaWorks.length + ' 部';
-  document.getElementById('illust-count').textContent = illustWorks.length + ' 部';
-  renderGrid('manga-grid', mangaWorks);
-  renderGrid('illust-grid', illustWorks);
-
-  // show/hide sections based on unlock state
-  const showManga = isUnlocked('manga');
-  const showIllust = isUnlocked('illust');
-  document.getElementById('manga-section').style.display = showManga ? '' : 'none';
-  document.getElementById('illust-section').style.display = showIllust ? '' : 'none';
-
-  // nav button states
-  const navManga = document.getElementById('nav-manga');
-  const navIllust = document.getElementById('nav-illust');
-  navManga.classList.toggle('active', activeSection === 'manga');
-  navIllust.classList.toggle('active', activeSection === 'illust');
-  navManga.classList.toggle('locked', !showManga);
-  navIllust.classList.toggle('locked', !showIllust);
-
-  // if both unlocked, show only the active one
-  if (showManga && showIllust) {
-    document.getElementById('manga-section').style.display = activeSection === 'manga' ? '' : 'none';
-    document.getElementById('illust-section').style.display = activeSection === 'illust' ? '' : 'none';
-  }
-}
-
-function renderGrid(id, works) {
-  const el = document.getElementById(id);
-  if (!works.length) { el.innerHTML = '<div class="empty-hint">尚無作品</div>'; return; }
-  el.innerHTML = works.map(w => `
-    <div class="work-card reveal" onclick="openWork('${w.id}')">
-      <div class="work-cover">
-        ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy">` : `<div class="work-cover-placeholder">${w.title.charAt(0)}</div>`}
-      </div>
-      <div class="work-info">
-        <div class="work-title">${esc(w.title)}</div>
-        <div class="work-meta">${w.type === 'manga' ? w.chapters.length + ' 話' : (w.chapters||[]).length + ' 貼文'}</div>
-      </div>
-    </div>
-  `).join('');
-  setTimeout(() => el.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
-}
-
-// ══════════════════════════════════════════
-// WORK DETAIL
-// ══════════════════════════════════════════
-function openWork(id) {
-  const w = STATE.works.find(x => x.id === id);
-  if (!w) return;
-  STATE.currentWorkId = id;
-  document.getElementById('work-section-label').textContent = w.type === 'manga' ? '漫畫' : '插圖';
-  document.getElementById('work-breadcrumb-title').textContent = w.title;
-  document.getElementById('work-detail-title').textContent = w.title;
-  document.getElementById('work-type-badge').textContent =
-    w.type === 'illust' ? '插圖集' : (w.readMode === 'paged' ? '頁漫' : '條漫');
-
-  const cl = document.getElementById('chapter-list');
-  if (w.type === 'manga') {
-    renderChapterList(cl, w);
-  } else {
-    renderAlbumList(cl, w);
-  }
-  showPage('work');
-}
-
-function renderChapterList(cl, w) {
-  if (!w.chapters || !w.chapters.length) {
-    cl.innerHTML = '<div class="empty-hint">尚無話數</div>'; return;
-  }
-  cl.innerHTML = w.chapters.map((c, i) => {
-    const thumb = c.cover || (c.images && c.images[0]) || '';
-    return `
-      <div class="chapter-item reveal" onclick="openChapter('${w.id}','${c.id}')">
-        <div class="chapter-thumb">
-          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${String(i+1).padStart(2,'0')}</div>`}
-        </div>
-        <div class="chapter-info">
-          <div class="chapter-num">${String(i+1).padStart(2,'0')}</div>
-          <div class="chapter-name">${esc(c.title)}</div>
-          <div class="chapter-count">${(c.images||[]).length} 張</div>
-        </div>
-      </div>`;
-  }).join('');
-  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
-}
-
-function renderAlbumList(cl, w) {
-  const posts = w.chapters || [];
-  if (!posts.length) { cl.innerHTML = '<div class="empty-hint">尚無貼文</div>'; return; }
-  cl.innerHTML = '<div class="post-list">' + posts.map((p, i) => {
-    const coverUrl = p.cover || (p.images && p.images[0]) || '';    const coverHtml = coverUrl
-      ? `<img src="${esc(coverUrl)}" loading="lazy">`
-      : `<div class="post-list-cover-ph">🖼</div>`;
-    // title = first line of caption, or fallback
-    const lines = (p.caption || '').split('\n');
-    const title = p.title || lines[0] || '（未命名貼文）';
-    // excerpt = remaining caption text
-    const excerptLines = p.title ? lines : lines.slice(1);
-    const excerpt = excerptLines.join(' ').trim();
-    return `
-      <div class="post-list-item reveal" onclick="openPost('${w.id}','${p.id}')">
-        <div class="post-list-cover">${coverHtml}</div>
-        <div class="post-list-body">
-          <div class="post-list-title">${esc(title)}</div>
-          ${excerpt ? `<div class="post-list-excerpt">${esc(excerpt)}</div>` : ''}
-          <div class="post-list-meta">${(p.images||[]).length} 張圖片</div>
-        </div>
-      </div>`;
-  }).join('') + '</div>';
-  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
-}
-
-// ══════════════════════════════════════════
-// VIEWER — MANGA
-// ══════════════════════════════════════════
-function openChapter(workId, chapterId) {
-  const w = STATE.works.find(x => x.id === workId);
-  const c = w.chapters.find(x => x.id === chapterId);
-  if (!c || !c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
-  STATE.viewerImages = c.images;
-  STATE.viewerIndex = 0;
-  document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
-  showPage('viewer');
-  setMode(c.readMode || w.readMode || 'strip');
-}
-
-// ══════════════════════════════════════════
-// VIEWER — ILLUST POST (single post full view)
-// ══════════════════════════════════════════
-function openPost(workId, postId) {
-  const w = STATE.works.find(x => x.id === workId);
-  const p = w.chapters.find(x => x.id === postId);
-  if (!p) return;
-  STATE.viewerPosts = [p];
-  STATE.viewerImages = p.images || [];
-  STATE.viewerIndex = 0;
-  document.getElementById('viewer-title').textContent = w.title;
-  showPage('viewer');
-  setMode('illust-post');
-}
-
-function setMode(mode) {
-  STATE.viewerMode = mode;
-  const label = document.getElementById('viewer-mode-label');
-  label.textContent = mode === 'strip' ? '條漫' : mode === 'paged' ? '頁漫' : '';
-  const nav = document.getElementById('viewer-nav');
-  const content = document.getElementById('viewer-content');
-  window.onscroll = null;
-
-  if (mode === 'strip') {
-    nav.classList.remove('hidden');
-    content.innerHTML = `<div class="viewer-strip">${
-      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}" loading="lazy">`).join('')
-    }</div>`;
-    let last = 0;
-    window.onscroll = () => {
-      const cur = window.scrollY;
-      nav.classList.toggle('hidden', cur > last && cur > 100);
-      last = cur;
-    };
-  } else if (mode === 'paged') {
-    nav.classList.remove('hidden');
-    renderPaged();
-  } else if (mode === 'illust-post') {
-    nav.classList.remove('hidden');
-    const p = STATE.viewerPosts[0];
-    // Parse body into blocks: lines starting with [img:URL] are image blocks, rest is text
-    // Format: any line that is a plain URL (http...) = image; text lines = text block
-    // We merge consecutive text lines into one block
-    let allImgUrls = p.images || [];
-    let imgIdx = 0; // for lightbox index tracking across blocks
-    const body = p.body || ''; // structured body if present
-    let blocksHtml = '';
-
-    if (body) {
-      // Parse structured body: segments separated by blank lines or [img] markers
-      // Each paragraph = text block; each URL line = image
-      const lines = body.split('\n');
-      let textBuf = [];
-      const flushText = () => {
-        if (!textBuf.length) return;
-        const t = textBuf.join('\n').trim();
-        if (t) blocksHtml += `<div class="post-block-text">${esc(t)}</div>`;
-        textBuf = [];
-      };
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (/^https?:\/\//i.test(trimmed)) {
-          flushText();
-          const li = imgIdx++;
-          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
-        } else {
-          textBuf.push(line);
-        }
-      }
-      flushText();
-    } else {
-      // Legacy: images array + caption text
-      const imgs = allImgUrls;
-      if (imgs.length === 1) {
-        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
-      } else if (imgs.length > 1) {
-        const cols = imgs.length === 2 ? 'cols-2' : 'cols-3';
-        blocksHtml += `<div class="post-block-imgs ${cols}">` +
-          imgs.map((src,i) => `<img src="${esc(src)}" loading="lazy" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
-          `</div>`;
-      }
-      if (p.caption) {
-        blocksHtml += `<div class="post-block-text">${esc(p.caption)}</div>`;
-      }
-    }
-
-    const titleHtml = p.title ? `<div class="post-article-title">${esc(p.title)}</div>` : '';
-    const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
-    content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}${blocksHtml}</div></div>`;
-  }
-}
-
-function renderPaged() {
-  const imgs = STATE.viewerImages;
-  const i = STATE.viewerIndex;
-  document.getElementById('viewer-content').innerHTML = `
-    <div class="viewer-paged">
-      <div class="paged-img-wrap"><img src="${esc(imgs[i])}" id="paged-main-img"></div>
-      <div class="paged-controls">
-        <button class="paged-btn" onclick="pagedNav(1)" ${i===imgs.length-1?'disabled':''}>← 下一頁</button>
-        <div class="paged-counter">${i+1} / ${imgs.length}</div>
-        <button class="paged-btn" onclick="pagedNav(-1)" ${i===0?'disabled':''}>上一頁 →</button>
-      </div>
-    </div>`;
-}
-
-function pagedNav(dir) {
-  const n = STATE.viewerIndex + dir;
-  if (n < 0 || n >= STATE.viewerImages.length) return;
-  STATE.viewerIndex = n;
-  renderPaged();
-}
-
-function closeViewer() {
-  window.onscroll = null;
-  openWork(STATE.currentWorkId);
-}
-
-// ══════════════════════════════════════════
-// LIGHTBOX
-// ══════════════════════════════════════════
-function openLightbox(index) {
-  STATE.lightboxImages = STATE.viewerImages;
-  STATE.lightboxIndex = index;
-  document.getElementById('lightbox-img').src = STATE.lightboxImages[index];
-  document.getElementById('lightbox').classList.add('open');
-}
-function closeLightbox(e) { if (e.target === document.getElementById('lightbox')) closeLightboxDirect(); }
-function closeLightboxDirect() { document.getElementById('lightbox').classList.remove('open'); }
-function lightboxNav(dir) {
-  const n = STATE.lightboxIndex + dir;
-  if (n < 0 || n >= STATE.lightboxImages.length) return;
-  STATE.lightboxIndex = n;
-  document.getElementById('lightbox-img').src = STATE.lightboxImages[n];
-}
-// For post article: lightbox with explicit image array
-function openLightboxArr(imgs, index) {
-  STATE.lightboxImages = imgs;
-  STATE.lightboxIndex = index;
-  document.getElementById('lightbox-img').src = imgs[index];
-  document.getElementById('lightbox').classList.add('open');
+  showPage('admin');
+  renderAdmin();
 }
 
 // ══════════════════════════════════════════
 // KEYBOARD
 // ══════════════════════════════════════════
 function handleKey(e) {
-  if (document.getElementById('lightbox').classList.contains('open')) {
-    if (e.key === 'ArrowLeft') lightboxNav(-1);
-    if (e.key === 'ArrowRight') lightboxNav(1);
-    if (e.key === 'Escape') closeLightboxDirect();
-    return;
-  }
-  if (!document.getElementById('page-viewer').classList.contains('active')) return;
-  if (STATE.viewerMode === 'paged') {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') pagedNav(-1);
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') pagedNav(1);
-  }
-  if (e.key === 'Escape') closeViewer();
+  // reserved for future use
 }
 
 // ══════════════════════════════════════════
@@ -1450,6 +913,30 @@ function updatePostPreview() {
   var body = document.getElementById('m-post-body').value;
   var preview = document.getElementById('m-post-preview');
   if (preview) preview.innerHTML = parseMd(body);
+}
+
+function toggleChSpoiler() {
+  var ta = document.getElementById('m-ch-images');
+  var start = ta.selectionStart;
+  var end = ta.selectionEnd;
+  var val = ta.value;
+  // expand selection to full lines
+  while (start > 0 && val.charAt(start - 1) !== '\n') start--;
+  while (end < val.length && val.charAt(end) !== '\n') end++;
+  var selected = val.substring(start, end);
+  var lines = selected.split('\n');
+  var toggled = lines.map(function(line) {
+    var t = line.trim();
+    if (!t) return line;
+    if (/^\|\|/.test(t) && /\|\|$/.test(t)) {
+      return t.replace(/^\|\|/, '').replace(/\|\|$/, '');
+    } else {
+      return '||' + t + '||';
+    }
+  });
+  ta.value = val.substring(0, start) + toggled.join('\n') + val.substring(end);
+  ta.focus();
+  ta.setSelectionRange(start, start + toggled.join('\n').length);
 }
 
 init();
