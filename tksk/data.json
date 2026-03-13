@@ -159,7 +159,7 @@
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/06/om (1).jpg",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/06/om (2).jpg",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/06/om (3).jpg",
+            "||https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/06/om (3).jpg||",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/06/om (4).jpg"
           ],
           "readMode": null
@@ -417,7 +417,7 @@
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg"
           ],
-          "body": "Celine Phyllis\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg\n初設",
+          "body": "# Celine Phyllis\n||https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg||\n初設",
           "caption": ""
         }
       ]
