@@ -230,6 +230,33 @@
 
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
   .reveal.visible { opacity: 1; transform: none; }
+  /* ── Markdown editor ── */
+  .md-toolbar { display: flex; gap: 4px; margin-bottom: 6px; }
+  .md-toolbar button { padding: 4px 10px; font-size: 13px; background: var(--bg); border: 1px solid var(--border); color: var(--text2); cursor: pointer; font-family: inherit; transition: border-color 0.2s, color 0.2s; line-height: 1.4; }
+  .md-toolbar button:hover { border-color: var(--acc2); color: var(--accent); }
+  .md-preview-wrap { margin-top: 10px; }
+  .md-preview-label { font-size: 11px; color: var(--text3); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .md-preview { border: 1px solid var(--border); background: var(--bg); padding: 16px; min-height: 80px; max-height: 320px; overflow-y: auto; font-size: 14px; color: var(--text2); line-height: 1.8; }
+  .md-preview .pv-p { margin-bottom: 12px; white-space: pre-wrap; }
+  .md-preview .pv-img { margin-bottom: 12px; }
+  .md-preview .pv-img img { display: block; width: 100%; max-width: 100%; border: 1px solid var(--border); }
+  .md-preview .pv-h { font-family: 'Noto Serif TC', serif; color: var(--text); margin: 16px 0 8px; }
+  .md-preview h1.pv-h { font-size: 20px; }
+  .md-preview h2.pv-h { font-size: 17px; }
+  .md-preview h3.pv-h { font-size: 15px; }
+  .md-preview .pv-hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+  .md-preview code { background: var(--bg3); padding: 1px 5px; font-size: 12px; border-radius: 2px; }
+  .md-preview strong { color: var(--text); }
+
+  /* ── Spoiler ── */
+  .spoiler-img { position: relative; cursor: pointer; margin: 12px 0; overflow: hidden; }
+  .spoiler-img img { display: block; width: 100%; max-width: 100%; filter: blur(28px) brightness(0.5); transition: filter 0.35s; border: 1px solid var(--border); }
+  .spoiler-img.revealed img { filter: none; }
+  .spoiler-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text3); font-size: 13px; letter-spacing: 0.1em; z-index: 1; transition: opacity 0.3s; pointer-events: none; }
+  .spoiler-img.revealed .spoiler-overlay { opacity: 0; }
+  .spoiler-text { background: var(--text3); color: transparent; cursor: pointer; padding: 0 3px; border-radius: 2px; transition: all 0.2s; }
+  .spoiler-text.revealed { background: var(--bg3); color: var(--text2); }
+
   @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
 </style>
 </head>
@@ -336,10 +363,6 @@
         <span>作品管理</span>
         <button class="btn btn-primary btn-sm" onclick="openAddWork()">+ 新增作品</button>
       </div>
-      <div class="admin-work-tabs">
-        <button class="admin-work-tab active" id="admin-tab-manga" onclick="setAdminWorkTab('manga')">漫畫</button>
-        <button class="admin-work-tab" id="admin-tab-illust" onclick="setAdminWorkTab('illust')">插畫</button>
-      </div>
       <div id="admin-work-list"></div>
     </div>
     <div class="admin-section">
@@ -433,24 +456,25 @@
     <div class="field" style="margin-top:10px"><label>封面圖 URL（選填，留空自動用第一張圖）</label><input type="text" id="m-post-cover" placeholder="https://..."></div>
     
     <div style="margin-top:14px;margin-bottom:6px">
-      <div style="font-size:11px;color:var(--text3);letter-spacing:0.06em;margin-bottom:6px">文章內文</div>
-      <div style="font-size:11px;color:var(--border);background:var(--bg3);border:1px solid var(--border);padding:10px 12px;line-height:1.9;font-family:monospace">
-        直接貼上圖片 URL 的那一行 → 顯示為圖片<br>
-        其餘文字 → 顯示為段落文字<br>
-        <span style="color:var(--text3)">── 範例 ──</span><br>
-        今天畫了這張：<br>
-        https://i.imgur.com/abc.jpg<br>
-        這邊是後記，想說的話<br>
-        https://i.imgur.com/xyz.jpg<br>
-        最後這張是草稿
-      </div>
+      <div style="font-size:11px;color:var(--text3);letter-spacing:0.06em;margin-bottom:6px">文章內文（支援 Markdown，圖片 URL 單獨一行即為圖片，<code>||URL||</code> 為爆雷圖）</div>
     </div>
-    <div class="field"><textarea id="m-post-body" placeholder="在這裡輸入文章內文，圖片 URL 單獨一行即可插入圖片…" style="min-height:180px;line-height:1.8"></textarea>
+    <div class="md-toolbar">
+      <button type="button" onclick="mdInsert('**','**')" title="粗體"><b>B</b></button>
+      <button type="button" onclick="mdInsert('*','*')" title="斜體"><i>I</i></button>
+      <button type="button" onclick="mdInsert('~~','~~')" title="刪除線"><s>S</s></button>
+      <button type="button" onclick="mdInsert('`','`')" title="行內代碼">&lt;/&gt;</button>
+      <button type="button" onclick="mdInsert('||','||')" title="爆雷">⚠ 爆雷</button>
+    </div>
+    <div class="field"><textarea id="m-post-body" placeholder="在這裡輸入文章內文…" style="min-height:180px;line-height:1.8" oninput="updateMdPreview()"></textarea>
     <div class="field-row" style="margin-top:10px;align-items:center">
       <input type="file" id="m-post-files" accept="image/*" multiple style="display:none" onchange="uploadPickedFiles(this,'m-post-body','illust')">
       <button class="btn btn-secondary btn-sm" onclick="document.getElementById('m-post-files').click()">從本機選圖並上傳</button>
       <div id="m-post-upload-status" style="font-size:11px;color:var(--text3)"></div>
     </div></div>
+    <div class="md-preview-wrap">
+      <div class="md-preview-label">即時預覽</div>
+      <div class="md-preview" id="md-preview"></div>
+    </div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeModal('modal-post')">取消</button>
       <button class="btn btn-primary" onclick="savePost()">儲存</button>
@@ -497,7 +521,6 @@ let STATE = {
   pendingUnlockSection: null, // which section user is trying to unlock
   lightboxImages: [],
   lightboxIndex: 0,
-  adminWorkTab: 'manga',
 };
 
 // ══════════════════════════════════════════
@@ -937,24 +960,6 @@ function handleKey(e) {
 // ADMIN
 // ══════════════════════════════════════════
 
-function setAdminWorkTab(t) {
-  STATE.adminWorkTab = t;
-  const a = document.getElementById('admin-tab-manga');
-  const b = document.getElementById('admin-tab-illust');
-  if (a) a.classList.toggle('active', t === 'manga');
-  if (b) b.classList.toggle('active', t === 'illust');
-  renderAdmin();
-}
-
-function reorderWorksWithinType(type, orderedIds) {
-  const idxs = [];
-  const byId = {};
-  STATE.works.forEach((w, i) => { if (w.type === type) { idxs.push(i); byId[w.id] = w; } });
-  const next = orderedIds.map(id => byId[id]).filter(Boolean);
-  if (next.length !== idxs.length) return;
-  for (let i = 0; i < idxs.length; i++) STATE.works[idxs[i]] = next[i];
-}
-
 function setupWorkDnD() {
   const list = document.getElementById('admin-work-list');
   if (!list) return;
@@ -1001,16 +1006,13 @@ function setupWorkDnD() {
       const toId = id;
       if (!fromId || !toId || fromId === toId) return;
 
-      const type = STATE.adminWorkTab || 'manga';
-      const cur = STATE.works.filter(w => w.type === type).map(w => w.id);
-      const fromIdx = cur.indexOf(fromId);
-      const toIdx = cur.indexOf(toId);
+      const fromIdx = STATE.works.findIndex(w => w.id === fromId);
+      const toIdx = STATE.works.findIndex(w => w.id === toId);
       if (fromIdx < 0 || toIdx < 0) return;
 
-      cur.splice(fromIdx, 1);
-      cur.splice(toIdx, 0, fromId);
+      const moved = STATE.works.splice(fromIdx, 1)[0];
+      STATE.works.splice(toIdx, 0, moved);
 
-      reorderWorksWithinType(type, cur);
       save();
       renderAdmin();
       toast('已調整順序（記得按「更新JSON」）');
@@ -1020,8 +1022,7 @@ function setupWorkDnD() {
 
 function renderAdmin() {
   const el = document.getElementById('admin-work-list');
-  const t = STATE.adminWorkTab || 'manga';
-  const list = STATE.works.filter(w => w.type === t);
+  const list = STATE.works;
   if (!list.length) { el.innerHTML = '<div class="empty-hint">尚無作品（可按右上「新增作品」建立）</div>'; return; }
   el.innerHTML = list.map(w => {
     const coverHtml = w.cover
@@ -1177,6 +1178,7 @@ function openAddPost(workId) {
   document.getElementById('m-post-cover').value = '';
   document.getElementById('m-post-body').value = '';
   openModal('modal-post');
+  updateMdPreview();
 }
 function openEditPost(workId, postId) {
   const w = STATE.works.find(x => x.id === workId);
@@ -1188,13 +1190,14 @@ function openEditPost(workId, postId) {
   document.getElementById('m-post-cover').value = p.cover || '';
   document.getElementById('m-post-body').value = p.body || p.caption || '';
   openModal('modal-post');
+  updateMdPreview();
 }
 function savePost() {
   const title = document.getElementById('m-post-title').value.trim();
   const coverInput = document.getElementById('m-post-cover').value.trim();
   const body = document.getElementById('m-post-body').value;
 
-  const bodyImages = body.split('\n').map(s => s.trim()).filter(s => /^https?:\/\//i.test(s));
+  const bodyImages = extractImagesFromBody(body);
   const cover = coverInput || (bodyImages[0] || '');
 
   if (!bodyImages.length && !body.trim()) { toast('請輸入圖片或文字內容', 'error'); return; }
@@ -1270,6 +1273,119 @@ function toast(msg, type='success') {
 }
 
 init();
+
+// ══════════════════════════════════════════
+// MARKDOWN PREVIEW & SPOILER
+// ══════════════════════════════════════════
+function extractImagesFromBody(body) {
+  var urls = [];
+  var lines = body.split('\n');
+  for (var i = 0; i < lines.length; i++) {
+    var trimmed = lines[i].trim();
+    // Plain URL
+    if (/^https?:\/\/\S+$/i.test(trimmed)) { urls.push(trimmed); continue; }
+    // Spoiler image: ||URL||
+    var sm = trimmed.match(/^\|\|(https?:\/\/[^\s|]+)\|\|$/);
+    if (sm) { urls.push(sm[1]); continue; }
+    // Markdown image: ![alt](url)
+    var imgRe = /!\[[^\]]*\]\((https?:\/\/[^)]+)\)/g;
+    var m;
+    while ((m = imgRe.exec(trimmed)) !== null) { urls.push(m[1]); }
+  }
+  return urls;
+}
+
+function updateMdPreview() {
+  var ta = document.getElementById('m-post-body');
+  var pv = document.getElementById('md-preview');
+  if (!ta || !pv) return;
+  pv.innerHTML = renderMdPreview(ta.value);
+}
+
+function renderMdPreview(raw) {
+  if (!raw || !raw.trim()) return '<div style="color:var(--text3);font-size:13px">在上方輸入內容後，這裡會即時顯示預覽</div>';
+  var lines = raw.split('\n');
+  var html = '';
+  var textBuf = [];
+
+  function flushText() {
+    if (!textBuf.length) return;
+    var joined = textBuf.join('\n');
+    if (joined.trim()) html += '<div class="pv-p">' + applyInlineMd(joined) + '</div>';
+    textBuf = [];
+  }
+
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    var trimmed = line.trim();
+
+    // Empty line = flush
+    if (!trimmed) { flushText(); continue; }
+
+    // Spoiler image: ||URL||
+    var sm = trimmed.match(/^\|\|(https?:\/\/[^\s|]+)\|\|$/);
+    if (sm) {
+      flushText();
+      html += '<div class="spoiler-img" onclick="this.classList.toggle(\'revealed\')">' +
+        '<div class="spoiler-overlay">⚠ 爆雷 — 點擊顯示</div>' +
+        '<img src="' + sm[1] + '"></div>';
+      continue;
+    }
+
+    // Plain URL = image
+    if (/^https?:\/\/\S+$/i.test(trimmed)) {
+      flushText();
+      html += '<div class="pv-img"><img src="' + trimmed + '"></div>';
+      continue;
+    }
+
+    // Heading: # ## ###
+    var hm = trimmed.match(/^(#{1,3})\s+(.+)$/);
+    if (hm) {
+      flushText();
+      html += '<h' + hm[1].length + ' class="pv-h">' + applyInlineMd(esc(hm[2])) + '</h' + hm[1].length + '>';
+      continue;
+    }
+
+    // Horizontal rule
+    if (/^(-{3,}|\*{3,})$/.test(trimmed)) { flushText(); html += '<hr class="pv-hr">'; continue; }
+
+    textBuf.push(line);
+  }
+  flushText();
+  return html;
+}
+
+function applyInlineMd(text) {
+  var s = esc(text);
+  // ||spoiler||
+  s = s.replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text" onclick="this.classList.toggle(\'revealed\')">$1</span>');
+  // **bold**
+  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // *italic*
+  s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  // ~~strikethrough~~
+  s = s.replace(/~~(.+?)~~/g, '<del>$1</del>');
+  // `code`
+  s = s.replace(/`(.+?)`/g, '<code>$1</code>');
+  // newlines within a block
+  s = s.replace(/\n/g, '<br>');
+  return s;
+}
+
+function mdInsert(before, after) {
+  var ta = document.getElementById('m-post-body');
+  if (!ta) return;
+  var start = ta.selectionStart;
+  var end = ta.selectionEnd;
+  var text = ta.value;
+  var selected = text.substring(start, end);
+  ta.value = text.substring(0, start) + before + selected + after + text.substring(end);
+  ta.selectionStart = start + before.length;
+  ta.selectionEnd = end + before.length;
+  ta.focus();
+  updateMdPreview();
+}
 
 // ══════════════════════════════════════════
 // FILE UPLOAD (local -> Worker -> GitHub -> URL)
