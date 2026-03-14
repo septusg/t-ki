@@ -201,14 +201,14 @@
   .post-block-text { font-size: 14px; color: var(--text2); line-height: 1.9; white-space: pre-wrap; margin-bottom: 20px; padding: 0 24px; }
   /* image block */
   .post-block-img { margin-bottom: 0; }
-  .post-block-img img { display: block; width: 100%; cursor: pointer; border: none; transition: opacity 0.2s; }
+  .post-block-img img { display: block; width: 100%; border: none; transition: opacity 0.2s; }
   .post-block-img img:hover { opacity: 0.9; }
   /* multi-image grid */
   .post-block-imgs { display: grid; gap: 4px; margin-bottom: 12px; padding: 0 24px; }
   .post-block-imgs.cols-1 { grid-template-columns: 1fr; }
   .post-block-imgs.cols-2 { grid-template-columns: 1fr 1fr; }
   .post-block-imgs.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-  .post-block-imgs img { width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; border: 1px solid var(--border); transition: opacity 0.2s; }
+  .post-block-imgs img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--border); transition: opacity 0.2s; }
   .post-block-imgs img:hover { opacity: 0.9; }
 
   /* gallery grid (fallback for albums without captions) */
@@ -254,8 +254,7 @@
   .md-content code { background: var(--bg3); padding: 2px 6px; font-family: monospace; font-size: 12px; color: var(--accent); border-radius: 2px; }
   .md-content pre { background: var(--bg3); border: 1px solid var(--border); padding: 12px; margin: 8px 24px; overflow-x: auto; border-radius: 2px; }
   .md-content pre code { background: none; padding: 0; }
-  .md-content img { display: block; width: 100%; margin: 0; border: none; cursor: pointer; }
-  .md-content img:hover { opacity: 0.9; }
+  .md-content img { display: block; width: 100%; margin: 0; border: none; }
   .md-content .spoiler-img { width: 100%; }
   .md-content .spoiler-img img { cursor: default; }
   .md-content hr { border: none; border-top: 1px solid var(--border); margin: 12px 24px; }
@@ -1020,11 +1019,11 @@ function setMode(mode) {
       // Legacy: images array + caption text
       const imgs = allImgUrls;
       if (imgs.length === 1) {
-        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}" onclick="openLightboxArr(${JSON.stringify(imgs)},0)"></div>`;
+        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}"></div>`;
       } else if (imgs.length > 1) {
         const cols = imgs.length === 2 ? 'cols-2' : 'cols-3';
         blocksHtml += `<div class="post-block-imgs ${cols}">` +
-          imgs.map((src,i) => `<img src="${esc(src)}" onclick="openLightboxArr(${JSON.stringify(imgs)},${i})">`).join('') +
+          imgs.map((src,i) => `<img src="${esc(src)}">`).join('') +
           `</div>`;
       }
       if (p.caption) {
@@ -1035,22 +1034,6 @@ function setMode(mode) {
     const titleHtml = p.title ? `<div class="post-article-title">${esc(p.title)}</div>` : '';
     const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
     content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}<div class="md-content">${blocksHtml}</div></div></div>`;
-
-    // 為 md-content 內的圖片綁定 lightbox（排除爆雷圖片）
-    var mdImgs = content.querySelectorAll('.md-content img');
-    var mdImgUrls = [];
-    var mdImgEls = [];
-    for (var mi = 0; mi < mdImgs.length; mi++) {
-      if (mdImgs[mi].closest('.spoiler-img')) continue;
-      mdImgUrls.push(mdImgs[mi].getAttribute('src'));
-      mdImgEls.push(mdImgs[mi]);
-    }
-    for (var mi = 0; mi < mdImgEls.length; mi++) {
-      (function(idx, urls) {
-        mdImgEls[idx].style.cursor = 'pointer';
-        mdImgEls[idx].onclick = function(e) { e.stopPropagation(); openLightboxArr(urls, idx); };
-      })(mi, mdImgUrls);
-    }
   }
 }
 
