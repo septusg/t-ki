@@ -398,7 +398,7 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg"
           ],
-          "body": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg",
+          "body": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg\n\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg\na\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg\nb\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg\nc\n||https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg||\n```\n爆雷測試\n```",
           "caption": ""
         }
       ]
@@ -417,7 +417,7 @@
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg"
           ],
-          "body": "# Celine Phyllis\n||https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg||\n初設",
+          "body": "# Celine Phyllis\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg\n初設",
           "caption": ""
         }
       ]
