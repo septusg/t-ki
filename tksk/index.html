@@ -229,6 +229,37 @@
   .lightbox-prev { left: 0; }
   .lightbox-next { right: 0; }
 
+  /* ── Spoiler ── */
+  .spoiler-text { background: var(--text3); color: transparent; cursor: pointer; padding: 2px 6px; border-radius: 2px; user-select: none; transition: all 0.2s; }
+  .spoiler-text.revealed { color: var(--text); background: var(--bg3); }
+  .spoiler-img { position: relative; cursor: pointer; overflow: hidden; }
+  .spoiler-img img { filter: blur(20px) brightness(0.5); transition: filter 0.3s; }
+  .spoiler-img.revealed img { filter: none; }
+  .spoiler-img .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: var(--text3); font-size: 13px; letter-spacing: 0.1em; transition: opacity 0.3s; }
+  .spoiler-img.revealed .spoiler-cover { opacity: 0; pointer-events: none; }
+  .strip-spoiler { margin: 0 auto; max-width: 720px; }
+  .strip-spoiler img.strip-img { filter: blur(20px) brightness(0.5); transition: filter 0.3s; }
+  .strip-spoiler.revealed img.strip-img { filter: none; }
+  .paged-spoiler { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .paged-spoiler img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+  /* ── Markdown in Viewer ── */
+  .md-content h1 { font-size: 20px; font-weight: 900; color: var(--text); margin: 12px 0 8px; font-family: 'Noto Serif TC', serif; }
+  .md-content h2 { font-size: 17px; font-weight: 900; color: var(--text); margin: 10px 0 6px; font-family: 'Noto Serif TC', serif; }
+  .md-content h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 8px 0 4px; }
+  .md-content p { margin-bottom: 8px; font-size: 14px; color: var(--text2); line-height: 1.9; }
+  .md-content strong { color: var(--text); }
+  .md-content em { font-style: italic; }
+  .md-content del { color: var(--text3); }
+  .md-content code { background: var(--bg3); padding: 2px 6px; font-family: monospace; font-size: 12px; color: var(--accent); border-radius: 2px; }
+  .md-content pre { background: var(--bg3); border: 1px solid var(--border); padding: 12px; margin: 8px 0; overflow-x: auto; border-radius: 2px; }
+  .md-content pre code { background: none; padding: 0; }
+  .md-content img { display: block; max-width: 100%; margin: 8px 0; border: 1px solid var(--border); cursor: pointer; }
+  .md-content img:hover { opacity: 0.9; }
+  .md-content hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+  .md-content ul, .md-content ol { padding-left: 20px; margin-bottom: 8px; }
+  .md-content li { margin-bottom: 4px; font-size: 14px; color: var(--text2); line-height: 1.9; }
+
   /* ── ADMIN ── */
   .admin-inner { max-width: 860px; margin: 0 auto; padding: 32px 24px; }
   .admin-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--accent); margin-bottom: 28px; letter-spacing: 0.12em; }
@@ -290,35 +321,6 @@
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
   .reveal.visible { opacity: 1; transform: none; }
   @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
-
-  /* ── Spoiler (manga viewer) ── */
-  .spoiler-img { position: relative; cursor: pointer; }
-  .spoiler-img > img { display: block; width: 100%; filter: blur(20px) brightness(0.5); transition: filter 0.3s; }
-  .spoiler-img.revealed > img { filter: none; }
-  .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.5); font-size: 13px; letter-spacing: 0.12em; pointer-events: none; transition: opacity 0.3s; }
-  .spoiler-img.revealed .spoiler-cover { opacity: 0; }
-
-  /* ── Markdown (illust post article) ── */
-  .post-article h1 { font-size: 20px; font-weight: 900; color: var(--text); margin: 12px 0 8px; font-family: 'Noto Serif TC', serif; }
-  .post-article h2 { font-size: 17px; font-weight: 900; color: var(--text); margin: 10px 0 6px; font-family: 'Noto Serif TC', serif; }
-  .post-article h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 8px 0 4px; }
-  .post-article p { font-size: 14px; color: var(--text2); line-height: 1.9; margin-bottom: 8px; }
-  .post-article strong { color: var(--text); }
-  .post-article em { font-style: italic; }
-  .post-article del { color: var(--text3); }
-  .post-article code { background: var(--bg3); padding: 2px 6px; font-family: monospace; font-size: 12px; color: var(--accent); border-radius: 2px; }
-  .post-article pre { background: var(--bg3); border: 1px solid var(--border); padding: 12px; margin: 8px 0; overflow-x: auto; border-radius: 2px; }
-  .post-article pre code { background: none; padding: 0; }
-  .post-article hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
-  .post-article ul, .post-article ol { padding-left: 20px; margin-bottom: 8px; font-size: 14px; color: var(--text2); line-height: 1.9; }
-  .post-article li { margin-bottom: 4px; }
-  .post-article .spoiler-text { background: var(--text3); color: transparent; cursor: pointer; padding: 2px 6px; border-radius: 2px; user-select: none; -webkit-user-select: none; transition: all 0.2s; }
-  .post-article .spoiler-text.revealed { color: var(--text); background: var(--bg3); }
-  .post-article .spoiler-img { position: relative; cursor: pointer; margin: 8px 0; overflow: hidden; }
-  .post-article .spoiler-img img { display: block; max-width: 100%; filter: blur(20px) brightness(0.5); transition: filter 0.3s; border: 1px solid var(--border); }
-  .post-article .spoiler-img.revealed img { filter: none; }
-  .post-article .spoiler-img .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: var(--text3); font-size: 13px; letter-spacing: 0.1em; transition: opacity 0.3s; }
-  .post-article .spoiler-img.revealed .spoiler-cover { opacity: 0; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -516,6 +518,7 @@ let STATE = {
   viewerPosts: [],     // array of {images, caption} for illust post feed
   viewerMode: 'strip',
   viewerIndex: 0,
+  viewerSpoilers: [],
   currentWorkId: null,
   editingWorkId: null,
   editingChapterId: null,
@@ -597,10 +600,8 @@ function save() {
 function preloadImages(urls) {
   if (!urls || !urls.length) return;
   for (let i = 0; i < urls.length; i++) {
-    const raw = urls[i];
-    if (!raw) continue;
-    const src = raw.replace(/^\|\|/, '').replace(/\|\|$/, '');
-    if (STATE.preloadedImages[src]) continue;
+    const src = urls[i];
+    if (!src || STATE.preloadedImages[src]) continue;
     const img = new Image();
     img.decoding = 'async';
     img.src = src;
@@ -952,9 +953,10 @@ function openChapter(workId, chapterId, skipRoute) {
   const c = w.chapters.find(x => x.id === chapterId);
   if (!c || !c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
   STATE.currentWorkId = workId;
-  STATE.viewerImages = c.images;
+  STATE.viewerSpoilers = c.images.map(function(s) { var t = s.trim(); return /^\|\|/.test(t) && /\|\|$/.test(t); });
+  STATE.viewerImages = c.images.map(function(s) { var t = s.trim(); if (/^\|\|/.test(t) && /\|\|$/.test(t)) return t.replace(/^\|\|/, '').replace(/\|\|$/, ''); return t; });
   STATE.viewerIndex = 0;
-  preloadImages(c.images);
+  preloadImages(STATE.viewerImages);
   document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
   showPage('viewer');
   setMode(c.readMode || w.readMode || 'strip');
@@ -992,10 +994,11 @@ function setMode(mode) {
   if (mode === 'strip') {
     nav.classList.remove('hidden');
     content.innerHTML = `<div class="viewer-strip" id="viewer-strip">${
-      STATE.viewerImages.map(function(src) {
-        var s = stripSpoilerMark(src);
-        if (s.isSpoiler) return renderSpoilerImg(s.url, 'strip-img');
-        return '<img class="strip-img" src="' + esc(s.url) + '">';
+      STATE.viewerImages.map(function(src, i) {
+        if (STATE.viewerSpoilers[i]) {
+          return '<div class="spoiler-img strip-spoiler" onclick="event.stopPropagation();this.classList.toggle(\'revealed\')"><img class="strip-img" src="' + esc(src) + '"><div class="spoiler-cover">點擊顯示</div></div>';
+        }
+        return '<img class="strip-img" src="' + esc(src) + '">';
       }).join('')
     }</div>`;
     bindStripTapToggle();
@@ -1005,12 +1008,12 @@ function setMode(mode) {
   } else if (mode === 'illust-post') {
     nav.classList.remove('hidden');
     const p = STATE.viewerPosts[0];
-    let allImgUrls = (p.images || []).map(cleanImageUrl);
+    let allImgUrls = p.images || [];
     const body = p.body || '';
     let blocksHtml = '';
 
     if (body) {
-      blocksHtml = parseMdViewer(body, allImgUrls);
+      blocksHtml = parseMd(body);
     } else {
       // Legacy: images array + caption text
       const imgs = allImgUrls;
@@ -1029,7 +1032,18 @@ function setMode(mode) {
 
     const titleHtml = p.title ? `<div class="post-article-title">${esc(p.title)}</div>` : '';
     const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
-    content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}${blocksHtml}</div></div>`;
+    content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}<div class="md-content">${blocksHtml}</div></div></div>`;
+
+    // 為 md-content 內的圖片綁定 lightbox
+    var mdImgs = content.querySelectorAll('.md-content img');
+    var mdImgUrls = [];
+    for (var mi = 0; mi < mdImgs.length; mi++) mdImgUrls.push(mdImgs[mi].getAttribute('src'));
+    for (var mi = 0; mi < mdImgs.length; mi++) {
+      (function(idx, urls) {
+        mdImgs[idx].style.cursor = 'pointer';
+        mdImgs[idx].onclick = function(e) { e.stopPropagation(); openLightboxArr(urls, idx); };
+      })(mi, mdImgUrls);
+    }
   }
 }
 
@@ -1241,12 +1255,16 @@ function renderPaged() {
   const i    = STATE.viewerIndex;
   const content = document.getElementById('viewer-content');
 
-  const slides = imgs.map((src, idx) => {
-    var s = stripSpoilerMark(src);
-    var inner = s.isSpoiler
-      ? renderSpoilerImg(s.url)
-      : '<img src="' + esc(s.url) + '">';
-    return '<div class="paged-slide" data-idx="' + idx + '">' + inner + '</div>';
+  const slides = imgs.map(function(src, idx) {
+    if (STATE.viewerSpoilers[idx]) {
+      return '<div class="paged-slide" data-idx="' + idx + '">' +
+        '<div class="spoiler-img paged-spoiler" onclick="event.stopPropagation();this.classList.toggle(\'revealed\')">' +
+        '<img src="' + esc(src) + '">' +
+        '<div class="spoiler-cover">點擊顯示</div></div></div>';
+    }
+    return '<div class="paged-slide" data-idx="' + idx + '">' +
+      '<img src="' + esc(src) + '">' +
+      '</div>';
   }).join('');
 
   content.innerHTML =
@@ -1703,89 +1721,76 @@ function toast(msg, type='success') {
 }
 
 // ══════════════════════════════════════════
-// SPOILER & MARKDOWN
+// MARKDOWN PARSER
 // ══════════════════════════════════════════
-function stripSpoilerMark(src) {
-  if (/^\|\|/.test(src) && /\|\|$/.test(src)) {
-    return { url: src.replace(/^\|\|/, '').replace(/\|\|$/, ''), isSpoiler: true };
-  }
-  return { url: src, isSpoiler: false };
-}
-
-function cleanImageUrl(src) { return stripSpoilerMark(src).url; }
-
-function renderSpoilerImg(url, extraClass) {
-  return '<div class="spoiler-img ' + (extraClass || '') + '" onclick="this.classList.toggle(\'revealed\')">' +
-    '<img src="' + esc(url) + '">' +
-    '<div class="spoiler-cover">點擊顯示</div></div>';
-}
-
 function parseMd(text) {
   if (!text) return '';
   var lines = text.split('\n');
   var html = '';
   var inCode = false;
   var codeBuf = '';
-  for (var i = 0; i < lines.length; i++) {
-    var line = lines[i];
-    if (/^```/.test(line.trim())) {
-      if (!inCode) { inCode = true; codeBuf = ''; }
-      else { html += '<pre><code>' + esc(codeBuf) + '</code></pre>'; inCode = false; }
-      continue;
-    }
-    if (inCode) { codeBuf += (codeBuf ? '\n' : '') + line; continue; }
-    var t = line.trim();
-    if (!t) continue;
-    if (/^(-{3,}|\*{3,})$/.test(t)) { html += '<hr>'; continue; }
-    var sm = t.match(/^\|\|(https?:\/\/\S+)\|\|$/);
-    if (sm) { html += renderSpoilerImg(sm[1]); continue; }
-    if (/^https?:\/\/\S+$/i.test(t)) { html += '<div class="post-block-img"><img src="' + esc(t) + '"></div>'; continue; }
-    if (/^[-*] /.test(t)) { html += '<ul><li>' + inlineMd(t.replace(/^[-*] /, '')) + '</li></ul>'; continue; }
-    if (/^\d+\. /.test(t)) { html += '<ol><li>' + inlineMd(t.replace(/^\d+\. /, '')) + '</li></ol>'; continue; }
-    if (/^### /.test(t)) { html += '<h3>' + inlineMd(t.slice(4)) + '</h3>'; continue; }
-    if (/^## /.test(t))  { html += '<h2>' + inlineMd(t.slice(3)) + '</h2>'; continue; }
-    if (/^# /.test(t))   { html += '<h1>' + inlineMd(t.slice(2)) + '</h1>'; continue; }
-    html += '<p>' + inlineMd(t) + '</p>';
-  }
-  if (inCode) html += '<pre><code>' + esc(codeBuf) + '</code></pre>';
-  html = html.replace(/<\/ul><ul>/g, '').replace(/<\/ol><ol>/g, '');
-  return html;
-}
 
-function parseMdViewer(text, allImgUrls) {
-  if (!text) return '';
-  var lines = text.split('\n');
-  var html = '';
-  var inCode = false;
-  var codeBuf = '';
-  var imgIdx = 0;
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i];
+
     if (/^```/.test(line.trim())) {
-      if (!inCode) { inCode = true; codeBuf = ''; }
-      else { html += '<pre><code>' + esc(codeBuf) + '</code></pre>'; inCode = false; }
+      if (!inCode) {
+        inCode = true;
+        codeBuf = '';
+      } else {
+        html += '<pre><code>' + esc(codeBuf) + '</code></pre>';
+        inCode = false;
+      }
       continue;
     }
-    if (inCode) { codeBuf += (codeBuf ? '\n' : '') + line; continue; }
+
+    if (inCode) {
+      codeBuf += (codeBuf ? '\n' : '') + line;
+      continue;
+    }
+
     var t = line.trim();
-    if (!t) continue;
+
+    if (!t) { continue; }
+
     if (/^(-{3,}|\*{3,})$/.test(t)) { html += '<hr>'; continue; }
+
+    // spoiler image: ||URL||
     var sm = t.match(/^\|\|(https?:\/\/\S+)\|\|$/);
-    if (sm) { imgIdx++; html += renderSpoilerImg(sm[1]); continue; }
-    if (/^https?:\/\/\S+$/i.test(t)) {
-      var li = imgIdx++;
-      html += '<div class="post-block-img"><img src="' + esc(t) + '" onclick="openLightboxArr(' + JSON.stringify(allImgUrls) + ',' + li + ')"></div>';
+    if (sm) {
+      html += '<div class="spoiler-img" onclick="this.classList.toggle(\'revealed\')">'
+            + '<img src="' + esc(sm[1]) + '">'
+            + '<div class="spoiler-cover">點擊顯示</div></div>';
       continue;
     }
+
+    // plain image URL
+    if (/^https?:\/\/\S+$/i.test(t)) {
+      html += '<div class="post-block-img"><img src="' + esc(t) + '"></div>';
+      continue;
+    }
+
+    // unordered list
     if (/^[-*] /.test(t)) { html += '<ul><li>' + inlineMd(t.replace(/^[-*] /, '')) + '</li></ul>'; continue; }
+
+    // ordered list
     if (/^\d+\. /.test(t)) { html += '<ol><li>' + inlineMd(t.replace(/^\d+\. /, '')) + '</li></ol>'; continue; }
+
+    // headers
     if (/^### /.test(t)) { html += '<h3>' + inlineMd(t.slice(4)) + '</h3>'; continue; }
     if (/^## /.test(t))  { html += '<h2>' + inlineMd(t.slice(3)) + '</h2>'; continue; }
     if (/^# /.test(t))   { html += '<h1>' + inlineMd(t.slice(2)) + '</h1>'; continue; }
+
+    // paragraph
     html += '<p>' + inlineMd(t) + '</p>';
   }
-  if (inCode) html += '<pre><code>' + esc(codeBuf) + '</code></pre>';
-  html = html.replace(/<\/ul><ul>/g, '').replace(/<\/ol><ol>/g, '');
+
+  if (inCode) { html += '<pre><code>' + esc(codeBuf) + '</code></pre>'; }
+
+  // merge consecutive <ul>/<ol> tags
+  html = html.replace(/<\/ul><ul>/g, '');
+  html = html.replace(/<\/ol><ol>/g, '');
+
   return html;
 }
 
@@ -1800,5 +1805,6 @@ function inlineMd(text) {
 }
 
 init();
+</script>
 </body>
 </html>
