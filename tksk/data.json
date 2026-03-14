@@ -407,17 +407,37 @@
       "id": "fmykz4lcmm6ccn8d",
       "title": "SoD",
       "type": "illust",
-      "cover": "",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg",
       "readMode": null,
       "chapters": [
         {
           "id": "hcljzk1omm6cek0k",
           "title": "西琳・菲利絲",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg",
           "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg"
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg"
           ],
-          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg\n2024／07／19\n初設\n---",
+          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg\n2024／07／19\n初設\n---",
+          "caption": ""
+        },
+        {
+          "id": "8znr57etmmq9p4ey",
+          "title": "希比爾",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg"
+          ],
+          "body": "# Sibyl｜シビル\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg\n2024／11／08\n---",
+          "caption": ""
+        },
+        {
+          "id": "jaxeo2ghmmq9re1l",
+          "title": "莉西 ＆ 莉沙・陣化裳埜",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg"
+          ],
+          "body": "# Lisi ＆ Lisa｜リシ ＆ リサ・ジンケモノ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg\n2025／08／18\n---",
           "caption": ""
         }
       ]
