@@ -405,7 +405,7 @@
     },
     {
       "id": "fmykz4lcmm6ccn8d",
-      "title": "SoD",
+      "title": "【Alomega】ＳｏＤ",
       "type": "illust",
       "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg",
       "readMode": null,
@@ -484,6 +484,162 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-16.png"
           ],
           "readMode": null
+        }
+      ]
+    },
+    {
+      "id": "y6veixfemmqa81gn",
+      "title": "【Velyrion】ＳＲ",
+      "type": "illust",
+      "cover": "",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "3szgi05wmmqaibdg",
+          "title": "瑟蕾娜・波維希",
+          "cover": "",
+          "images": [],
+          "body": "# Serena Powehi｜セレナ・ポウェシ\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "wgtev9zjmmqap0gt",
+          "title": "米莉恩・埃凌娜",
+          "cover": "",
+          "images": [],
+          "body": "# Miriam Elena｜ミリエン・エレナ\n---\n\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "ryevrf7zmmqa8b4l",
+      "title": "【Velyrion】ＧＣ",
+      "type": "illust",
+      "cover": "",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "c66iisx1mmqaka33",
+          "title": "陳澗",
+          "cover": "",
+          "images": [],
+          "body": "# Jian Chen\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "czy9nj5wmmqan48i",
+          "title": "星咲 結依",
+          "cover": "",
+          "images": [],
+          "body": "# ほしざき ゆい｜Hoshizaki Yui\n---\n\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "ce1ewcsqmmqa8r5f",
+      "title": "【Velyrion】ＮＢＭ",
+      "type": "illust",
+      "cover": "",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "3ckzkocummqarufp",
+          "title": "貝雷特・波維希",
+          "cover": "",
+          "images": [],
+          "body": "# Beleth Powehi\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "yexqdh62mmqasl9m",
+          "title": "泰芙拉・艾克斯班",
+          "cover": "",
+          "images": [],
+          "body": "# Tevrah Axebane\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "6bhso7ivmmqat32v",
+          "title": "莉莉絲・安普莎",
+          "cover": "",
+          "images": [],
+          "body": "# Lilith Empusa\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "hm0nffh9mmqatj79",
+          "title": "卡庫・維雷斯",
+          "cover": "",
+          "images": [],
+          "body": "# Carku Vireth\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "gsb5i22ammqauif1",
+          "title": "菲尼克斯・塔那托斯",
+          "cover": "",
+          "images": [],
+          "body": "# Phoenix Thanatos\n## 【靈魂演奏者】\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "q8gxlxa8mmqav5kh",
+          "title": "羅景峻",
+          "cover": "",
+          "images": [],
+          "body": "# Jing-Jun Luo\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "3chifv2qmmqavy36",
+          "title": "米娜・利維坦諾娃",
+          "cover": "",
+          "images": [],
+          "body": "# Mina Leviathanova\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "3ugw20uzmmqawjpk",
+          "title": "希薇雅・菲利絲",
+          "cover": "",
+          "images": [],
+          "body": "# Sylvia Phyllis\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "gwoyiddwmmqaxv8w",
+          "title": "御蕾 靜奈",
+          "cover": "",
+          "images": [],
+          "body": "# 御蕾 静奈｜Mirai Shizuna\n### みらい しずな\n---\n\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "scrg0r67mmqabx3x",
+      "title": "【Aeternum】Ｒａｂｉ",
+      "type": "illust",
+      "cover": "",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "mg14k3n2mmqaep4n",
+          "title": "Tawa",
+          "cover": "",
+          "images": [],
+          "body": "# 羽紗 戯｜Hanesa Tawa\n### はねさ たわ\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "wwvpwpwpmmqagm4g",
+          "title": "Saki",
+          "cover": "",
+          "images": [],
+          "body": "# 咲｜Saki\n### さき\n---\n\n---",
+          "caption": ""
         }
       ]
     }
