@@ -254,8 +254,10 @@
   .md-content code { background: var(--bg3); padding: 2px 6px; font-family: monospace; font-size: 12px; color: var(--accent); border-radius: 2px; }
   .md-content pre { background: var(--bg3); border: 1px solid var(--border); padding: 12px; margin: 8px 0; overflow-x: auto; border-radius: 2px; }
   .md-content pre code { background: none; padding: 0; }
-  .md-content img { display: block; max-width: 100%; margin: 8px 0; border: 1px solid var(--border); cursor: pointer; }
+  .md-content img { display: block; width: 100%; margin: 8px 0; border: 1px solid var(--border); cursor: pointer; }
   .md-content img:hover { opacity: 0.9; }
+  .md-content .spoiler-img { width: 100%; }
+  .md-content .spoiler-img img { cursor: default; }
   .md-content hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
   .md-content ul, .md-content ol { padding-left: 20px; margin-bottom: 8px; }
   .md-content li { margin-bottom: 4px; font-size: 14px; color: var(--text2); line-height: 1.9; }
@@ -1034,14 +1036,19 @@ function setMode(mode) {
     const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
     content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}<div class="md-content">${blocksHtml}</div></div></div>`;
 
-    // 為 md-content 內的圖片綁定 lightbox
+    // 為 md-content 內的圖片綁定 lightbox（排除爆雷圖片）
     var mdImgs = content.querySelectorAll('.md-content img');
     var mdImgUrls = [];
-    for (var mi = 0; mi < mdImgs.length; mi++) mdImgUrls.push(mdImgs[mi].getAttribute('src'));
+    var mdImgEls = [];
     for (var mi = 0; mi < mdImgs.length; mi++) {
+      if (mdImgs[mi].closest('.spoiler-img')) continue;
+      mdImgUrls.push(mdImgs[mi].getAttribute('src'));
+      mdImgEls.push(mdImgs[mi]);
+    }
+    for (var mi = 0; mi < mdImgEls.length; mi++) {
       (function(idx, urls) {
-        mdImgs[idx].style.cursor = 'pointer';
-        mdImgs[idx].onclick = function(e) { e.stopPropagation(); openLightboxArr(urls, idx); };
+        mdImgEls[idx].style.cursor = 'pointer';
+        mdImgEls[idx].onclick = function(e) { e.stopPropagation(); openLightboxArr(urls, idx); };
       })(mi, mdImgUrls);
     }
   }
