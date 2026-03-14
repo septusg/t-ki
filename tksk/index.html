@@ -290,6 +290,35 @@
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
   .reveal.visible { opacity: 1; transform: none; }
   @media(max-width:480px){ .works-grid{grid-template-columns:repeat(2,1fr);} .pw-settings{grid-template-columns:1fr;} }
+
+  /* ── Spoiler (manga viewer) ── */
+  .spoiler-img { position: relative; cursor: pointer; }
+  .spoiler-img > img { display: block; width: 100%; filter: blur(20px) brightness(0.5); transition: filter 0.3s; }
+  .spoiler-img.revealed > img { filter: none; }
+  .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.5); font-size: 13px; letter-spacing: 0.12em; pointer-events: none; transition: opacity 0.3s; }
+  .spoiler-img.revealed .spoiler-cover { opacity: 0; }
+
+  /* ── Markdown (illust post article) ── */
+  .post-article h1 { font-size: 20px; font-weight: 900; color: var(--text); margin: 12px 0 8px; font-family: 'Noto Serif TC', serif; }
+  .post-article h2 { font-size: 17px; font-weight: 900; color: var(--text); margin: 10px 0 6px; font-family: 'Noto Serif TC', serif; }
+  .post-article h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 8px 0 4px; }
+  .post-article p { font-size: 14px; color: var(--text2); line-height: 1.9; margin-bottom: 8px; }
+  .post-article strong { color: var(--text); }
+  .post-article em { font-style: italic; }
+  .post-article del { color: var(--text3); }
+  .post-article code { background: var(--bg3); padding: 2px 6px; font-family: monospace; font-size: 12px; color: var(--accent); border-radius: 2px; }
+  .post-article pre { background: var(--bg3); border: 1px solid var(--border); padding: 12px; margin: 8px 0; overflow-x: auto; border-radius: 2px; }
+  .post-article pre code { background: none; padding: 0; }
+  .post-article hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+  .post-article ul, .post-article ol { padding-left: 20px; margin-bottom: 8px; font-size: 14px; color: var(--text2); line-height: 1.9; }
+  .post-article li { margin-bottom: 4px; }
+  .post-article .spoiler-text { background: var(--text3); color: transparent; cursor: pointer; padding: 2px 6px; border-radius: 2px; user-select: none; -webkit-user-select: none; transition: all 0.2s; }
+  .post-article .spoiler-text.revealed { color: var(--text); background: var(--bg3); }
+  .post-article .spoiler-img { position: relative; cursor: pointer; margin: 8px 0; overflow: hidden; }
+  .post-article .spoiler-img img { display: block; max-width: 100%; filter: blur(20px) brightness(0.5); transition: filter 0.3s; border: 1px solid var(--border); }
+  .post-article .spoiler-img.revealed img { filter: none; }
+  .post-article .spoiler-img .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: var(--text3); font-size: 13px; letter-spacing: 0.1em; transition: opacity 0.3s; }
+  .post-article .spoiler-img.revealed .spoiler-cover { opacity: 0; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -568,8 +597,10 @@ function save() {
 function preloadImages(urls) {
   if (!urls || !urls.length) return;
   for (let i = 0; i < urls.length; i++) {
-    const src = urls[i];
-    if (!src || STATE.preloadedImages[src]) continue;
+    const raw = urls[i];
+    if (!raw) continue;
+    const src = raw.replace(/^\|\|/, '').replace(/\|\|$/, '');
+    if (STATE.preloadedImages[src]) continue;
     const img = new Image();
     img.decoding = 'async';
     img.src = src;
@@ -961,7 +992,11 @@ function setMode(mode) {
   if (mode === 'strip') {
     nav.classList.remove('hidden');
     content.innerHTML = `<div class="viewer-strip" id="viewer-strip">${
-      STATE.viewerImages.map(src => `<img class="strip-img" src="${esc(src)}">`).join('')
+      STATE.viewerImages.map(function(src) {
+        var s = stripSpoilerMark(src);
+        if (s.isSpoiler) return renderSpoilerImg(s.url, 'strip-img');
+        return '<img class="strip-img" src="' + esc(s.url) + '">';
+      }).join('')
     }</div>`;
     bindStripTapToggle();
   } else if (mode === 'paged') {
@@ -970,36 +1005,12 @@ function setMode(mode) {
   } else if (mode === 'illust-post') {
     nav.classList.remove('hidden');
     const p = STATE.viewerPosts[0];
-    // Parse body into blocks: lines starting with [img:URL] are image blocks, rest is text
-    // Format: any line that is a plain URL (http...) = image; text lines = text block
-    // We merge consecutive text lines into one block
-    let allImgUrls = p.images || [];
-    let imgIdx = 0; // for lightbox index tracking across blocks
-    const body = p.body || ''; // structured body if present
+    let allImgUrls = (p.images || []).map(cleanImageUrl);
+    const body = p.body || '';
     let blocksHtml = '';
 
     if (body) {
-      // Parse structured body: segments separated by blank lines or [img] markers
-      // Each paragraph = text block; each URL line = image
-      const lines = body.split('\n');
-      let textBuf = [];
-      const flushText = () => {
-        if (!textBuf.length) return;
-        const t = textBuf.join('\n').trim();
-        if (t) blocksHtml += `<div class="post-block-text">${esc(t)}</div>`;
-        textBuf = [];
-      };
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (/^https?:\/\//i.test(trimmed)) {
-          flushText();
-          const li = imgIdx++;
-          blocksHtml += `<div class="post-block-img"><img src="${esc(trimmed)}" onclick="openLightboxArr(${JSON.stringify(allImgUrls)},${li})"></div>`;
-        } else {
-          textBuf.push(line);
-        }
-      }
-      flushText();
+      blocksHtml = parseMdViewer(body, allImgUrls);
     } else {
       // Legacy: images array + caption text
       const imgs = allImgUrls;
@@ -1230,11 +1241,13 @@ function renderPaged() {
   const i    = STATE.viewerIndex;
   const content = document.getElementById('viewer-content');
 
-  const slides = imgs.map((src, idx) =>
-    `<div class="paged-slide" data-idx="${idx}">` +
-    `<img src="${esc(src)}">` +
-    `</div>`
-  ).join('');
+  const slides = imgs.map((src, idx) => {
+    var s = stripSpoilerMark(src);
+    var inner = s.isSpoiler
+      ? renderSpoilerImg(s.url)
+      : '<img src="' + esc(s.url) + '">';
+    return '<div class="paged-slide" data-idx="' + idx + '">' + inner + '</div>';
+  }).join('');
 
   content.innerHTML =
     `<div class="paged-carousel rtl" id="paged-carousel">${slides}</div>` +
@@ -1689,7 +1702,103 @@ function toast(msg, type='success') {
   el._t = setTimeout(() => el.classList.remove('show'), 2200);
 }
 
+// ══════════════════════════════════════════
+// SPOILER & MARKDOWN
+// ══════════════════════════════════════════
+function stripSpoilerMark(src) {
+  if (/^\|\|/.test(src) && /\|\|$/.test(src)) {
+    return { url: src.replace(/^\|\|/, '').replace(/\|\|$/, ''), isSpoiler: true };
+  }
+  return { url: src, isSpoiler: false };
+}
+
+function cleanImageUrl(src) { return stripSpoilerMark(src).url; }
+
+function renderSpoilerImg(url, extraClass) {
+  return '<div class="spoiler-img ' + (extraClass || '') + '" onclick="this.classList.toggle(\'revealed\')">' +
+    '<img src="' + esc(url) + '">' +
+    '<div class="spoiler-cover">點擊顯示</div></div>';
+}
+
+function parseMd(text) {
+  if (!text) return '';
+  var lines = text.split('\n');
+  var html = '';
+  var inCode = false;
+  var codeBuf = '';
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (/^```/.test(line.trim())) {
+      if (!inCode) { inCode = true; codeBuf = ''; }
+      else { html += '<pre><code>' + esc(codeBuf) + '</code></pre>'; inCode = false; }
+      continue;
+    }
+    if (inCode) { codeBuf += (codeBuf ? '\n' : '') + line; continue; }
+    var t = line.trim();
+    if (!t) continue;
+    if (/^(-{3,}|\*{3,})$/.test(t)) { html += '<hr>'; continue; }
+    var sm = t.match(/^\|\|(https?:\/\/\S+)\|\|$/);
+    if (sm) { html += renderSpoilerImg(sm[1]); continue; }
+    if (/^https?:\/\/\S+$/i.test(t)) { html += '<div class="post-block-img"><img src="' + esc(t) + '"></div>'; continue; }
+    if (/^[-*] /.test(t)) { html += '<ul><li>' + inlineMd(t.replace(/^[-*] /, '')) + '</li></ul>'; continue; }
+    if (/^\d+\. /.test(t)) { html += '<ol><li>' + inlineMd(t.replace(/^\d+\. /, '')) + '</li></ol>'; continue; }
+    if (/^### /.test(t)) { html += '<h3>' + inlineMd(t.slice(4)) + '</h3>'; continue; }
+    if (/^## /.test(t))  { html += '<h2>' + inlineMd(t.slice(3)) + '</h2>'; continue; }
+    if (/^# /.test(t))   { html += '<h1>' + inlineMd(t.slice(2)) + '</h1>'; continue; }
+    html += '<p>' + inlineMd(t) + '</p>';
+  }
+  if (inCode) html += '<pre><code>' + esc(codeBuf) + '</code></pre>';
+  html = html.replace(/<\/ul><ul>/g, '').replace(/<\/ol><ol>/g, '');
+  return html;
+}
+
+function parseMdViewer(text, allImgUrls) {
+  if (!text) return '';
+  var lines = text.split('\n');
+  var html = '';
+  var inCode = false;
+  var codeBuf = '';
+  var imgIdx = 0;
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (/^```/.test(line.trim())) {
+      if (!inCode) { inCode = true; codeBuf = ''; }
+      else { html += '<pre><code>' + esc(codeBuf) + '</code></pre>'; inCode = false; }
+      continue;
+    }
+    if (inCode) { codeBuf += (codeBuf ? '\n' : '') + line; continue; }
+    var t = line.trim();
+    if (!t) continue;
+    if (/^(-{3,}|\*{3,})$/.test(t)) { html += '<hr>'; continue; }
+    var sm = t.match(/^\|\|(https?:\/\/\S+)\|\|$/);
+    if (sm) { imgIdx++; html += renderSpoilerImg(sm[1]); continue; }
+    if (/^https?:\/\/\S+$/i.test(t)) {
+      var li = imgIdx++;
+      html += '<div class="post-block-img"><img src="' + esc(t) + '" onclick="openLightboxArr(' + JSON.stringify(allImgUrls) + ',' + li + ')"></div>';
+      continue;
+    }
+    if (/^[-*] /.test(t)) { html += '<ul><li>' + inlineMd(t.replace(/^[-*] /, '')) + '</li></ul>'; continue; }
+    if (/^\d+\. /.test(t)) { html += '<ol><li>' + inlineMd(t.replace(/^\d+\. /, '')) + '</li></ol>'; continue; }
+    if (/^### /.test(t)) { html += '<h3>' + inlineMd(t.slice(4)) + '</h3>'; continue; }
+    if (/^## /.test(t))  { html += '<h2>' + inlineMd(t.slice(3)) + '</h2>'; continue; }
+    if (/^# /.test(t))   { html += '<h1>' + inlineMd(t.slice(2)) + '</h1>'; continue; }
+    html += '<p>' + inlineMd(t) + '</p>';
+  }
+  if (inCode) html += '<pre><code>' + esc(codeBuf) + '</code></pre>';
+  html = html.replace(/<\/ul><ul>/g, '').replace(/<\/ol><ol>/g, '');
+  return html;
+}
+
+function inlineMd(text) {
+  var s = esc(text);
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  s = s.replace(/~~(.+?)~~/g, '<del>$1</del>');
+  s = s.replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text" onclick="this.classList.toggle(\'revealed\')">$1</span>');
+  return s;
+}
+
 init();
-</script>
 </body>
 </html>
