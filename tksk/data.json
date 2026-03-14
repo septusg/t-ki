@@ -398,7 +398,7 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg"
           ],
-          "body": "# 速寫 標題1\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg\n## 標題2\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg\n### 標題3\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg\n*斜*　**粗**　***粗斜***　~~刪除~~　`區塊`\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg\n- List\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg\n---\n分隔線\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg\n1. a\n1. b\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg\n3. c\n||https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg||\n```\n爆雷測試\n```",
+          "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg\n2025／09／21\n---",
           "caption": ""
         }
       ]
@@ -417,7 +417,7 @@
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg"
           ],
-          "body": "# Celine Phyllis｜シリン・フィリス\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg\n2024／07／19\n初設\n---",
+          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/2024_0719_Shujinkou.jpg\n2024／07／19\n初設\n---",
           "caption": ""
         }
       ]
