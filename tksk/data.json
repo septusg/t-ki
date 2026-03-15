@@ -622,31 +622,41 @@
       "id": "79gh1326mmr0wjiy",
       "title": "【Velyrion】ＮａＧ",
       "type": "illust",
-      "cover": "",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR00.jpg",
       "readMode": null,
       "chapters": [
         {
           "id": "t8xs458lmmr0yuas",
           "title": "韓予琳",
-          "cover": "",
-          "images": [],
-          "body": "# 한여림｜HanYeoRim\n### ハン・ユリン\n---\n\n---",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR01.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR02.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR00.jpg"
+          ],
+          "body": "# 한여림｜HanYeoRim\n### ハン・ユリン\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR01.jpg\n2022／08／05\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR02.jpg\n2022／09／15\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR00.jpg\n2024／03／25\n---",
           "caption": ""
         },
         {
           "id": "tfgh68e2mmr10mdi",
           "title": "淺羽 怜",
-          "cover": "",
-          "images": [],
-          "body": "# 浅羽 怜｜あさば れい\n### Δ 澤菈｜Zera｜ゼラ\n---\n\n---",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/ASBR01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/ASBR01.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/ASBR02.jpg"
+          ],
+          "body": "# 浅羽 怜｜あさば れい\n### Δ 澤菈｜Zera｜ゼラ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/ASBR01.jpg\n2022／08／05\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/ASBR02.jpg\n2024／03／30\n---",
           "caption": ""
         },
         {
           "id": "a1jf7u9mmmr12ecx",
           "title": "尹燕",
-          "cover": "",
-          "images": [],
-          "body": "# 윤연｜YunYeon\n---\n\n---",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/YY01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/YY01.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/YY02.jpg"
+          ],
+          "body": "# 윤연｜YunYeon\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/YY01.jpg\n2022／09／26\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/YY02.jpg\n2024／05／03\n---",
           "caption": ""
         }
       ]
