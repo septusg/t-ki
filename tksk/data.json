@@ -428,7 +428,7 @@
       "chapters": [
         {
           "id": "hcljzk1omm6cek0k",
-          "title": "西琳・菲利絲",
+          "title": "【主人公】西琳・菲利絲",
           "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg",
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg"
@@ -507,20 +507,26 @@
       "id": "y6veixfemmqa81gn",
       "title": "【Velyrion】ＳＲ",
       "type": "illust",
-      "cover": "",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn05.jpg",
       "readMode": null,
       "chapters": [
         {
           "id": "3szgi05wmmqaibdg",
-          "title": "瑟蕾娜・波維希",
-          "cover": "",
-          "images": [],
-          "body": "# Serena Powehi｜セレナ・ポウェシ\n---\n\n---",
+          "title": "【主人公】瑟蕾娜・波維希",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn01.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn02.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn03.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn04.jpg",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn05.jpg"
+          ],
+          "body": "# Serena Powehi｜セレナ・ポウェシ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn01.jpg\n2024／10／16\n初設\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn02.jpg\n2025／02／08\n\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn03.jpg\n2025／04／24\n\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn04.jpg\n2025／07／15\n\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/srn05.jpg\n2025／08／26\n\n---",
           "caption": ""
         },
         {
           "id": "wgtev9zjmmqap0gt",
-          "title": "米莉恩・埃凌娜",
+          "title": "【主人公】米莉恩・埃凌娜",
           "cover": "",
           "images": [],
           "body": "# Miriam Elena｜ミリエン・エレナ\n---\n\n---",
@@ -537,7 +543,7 @@
       "chapters": [
         {
           "id": "c66iisx1mmqaka33",
-          "title": "陳澗",
+          "title": "【主人公】陳澗",
           "cover": "",
           "images": [],
           "body": "# Jian Chen\n---\n\n---",
@@ -651,7 +657,7 @@
       "chapters": [
         {
           "id": "t8xs458lmmr0yuas",
-          "title": "韓予琳",
+          "title": "【主人公】韓予琳",
           "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR01.jpg",
           "images": [
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NaG/ir/HYR01.jpg",
@@ -694,7 +700,7 @@
       "chapters": [
         {
           "id": "mg14k3n2mmqaep4n",
-          "title": "Tawa",
+          "title": "【主人公】Tawa",
           "cover": "",
           "images": [],
           "body": "# 羽紗 戯｜Hanesa Tawa\n### はねさ たわ\n---\n\n---",
@@ -702,7 +708,7 @@
         },
         {
           "id": "wwvpwpwpmmqagm4g",
-          "title": "Saki",
+          "title": "【主人公】Saki",
           "cover": "",
           "images": [],
           "body": "# 咲｜Saki\n### さき\n---\n\n---",
