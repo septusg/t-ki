@@ -416,6 +416,16 @@
           ],
           "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg\n2025／09／21\n---",
           "caption": ""
+        },
+        {
+          "id": "brdohrr2mmur0ays",
+          "title": "大雜燴",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg"
+          ],
+          "body": "# Mix\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg\n2026／02／19\n---",
+          "caption": ""
         }
       ]
     },
@@ -700,7 +710,7 @@
       "chapters": [
         {
           "id": "mg14k3n2mmqaep4n",
-          "title": "【主人公】Tawa",
+          "title": "Tawa",
           "cover": "",
           "images": [],
           "body": "# 羽紗 戯｜Hanesa Tawa\n### はねさ たわ\n---\n\n---",
@@ -708,10 +718,18 @@
         },
         {
           "id": "wwvpwpwpmmqagm4g",
-          "title": "【主人公】Saki",
+          "title": "Saki",
           "cover": "",
           "images": [],
           "body": "# 咲｜Saki\n### さき\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "t6gly86emmur1og4",
+          "title": "Shino",
+          "cover": "",
+          "images": [],
+          "body": "# 兎糖 凌｜Toame Shino\n### とあめ しの\n---\n\n---",
           "caption": ""
         }
       ]
