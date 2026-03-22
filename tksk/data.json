@@ -397,7 +397,7 @@
       "id": "kqolxapxmm7ql1q4",
       "title": "Practice",
       "type": "illust",
-      "cover": "",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
       "readMode": null,
       "chapters": [
         {
@@ -556,7 +556,7 @@
           "title": "【主人公】陳澗",
           "cover": "",
           "images": [],
-          "body": "# Jian Chen\n---\n\n---",
+          "body": "# Jian Chen\n## 【靈魂射手】\n---\n\n---",
           "caption": ""
         },
         {
@@ -573,7 +573,7 @@
       "id": "ce1ewcsqmmqa8r5f",
       "title": "【Velyrion】ＮＢＭ",
       "type": "illust",
-      "cover": "",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/ir/nbm.jpg?v=30275837",
       "readMode": null,
       "chapters": [
         {
@@ -581,7 +581,7 @@
           "title": "貝雷特・波維希",
           "cover": "",
           "images": [],
-          "body": "# Beleth Powehi\n## 【吸血鬼的後裔】\n---\n\n英國紳士\n---",
+          "body": "# Beleth Powehi｜ベレト・ポウェシ\n## 【吸血鬼的後裔】\n---\n\n英國紳士\n---",
           "caption": ""
         },
         {
@@ -589,7 +589,7 @@
           "title": "泰芙拉・艾克斯班",
           "cover": "",
           "images": [],
-          "body": "# Tevrah Axebane\n## 【戰斧女僕】\n---\n\n貝雷特 專屬女僕\n---",
+          "body": "# Tevrah Axebane｜テヴラ・アクセベイン\n## 【戰斧女僕】\n---\n\n貝雷特 專屬女僕\n---",
           "caption": ""
         },
         {
@@ -605,7 +605,7 @@
           "title": "卡庫・維雷斯",
           "cover": "",
           "images": [],
-          "body": "# Carku Vireth\n## 【正義之心】\n---\n\n\n---",
+          "body": "# Carku Vireth｜カルク・ヴィレス\n## 【正義之心】\n---\n\n\n---",
           "caption": ""
         },
         {
@@ -613,7 +613,7 @@
           "title": "菲尼克斯・塔那托斯",
           "cover": "",
           "images": [],
-          "body": "# Phoenix Thanatos\n## 【靈魂演奏者】\n---\n\n---",
+          "body": "# Phoenix Thanatos｜フェニックス・タナトス\n## 【靈魂演奏者】\n---\n\n---",
           "caption": ""
         },
         {
@@ -621,7 +621,7 @@
           "title": "羅景峻",
           "cover": "",
           "images": [],
-          "body": "# Jing-Jun Luo\n## 【專業料理師】\n---\n\n法雷可麗餅 店長\n---",
+          "body": "# Jing-Jun Luo｜ラケイシュン\n## 【專業料理師】\n---\n\n法雷可麗餅 店長\n---",
           "caption": ""
         },
         {
@@ -629,7 +629,7 @@
           "title": "米娜・利維坦諾娃",
           "cover": "",
           "images": [],
-          "body": "# Mina Leviathanova\n## 【藥水收藏家】\n---\n\n\n---",
+          "body": "# Mina Leviathanova｜ミナ・リヴァイアサノヴァ\n### Мина Левиафанова\n## 【藥水收藏家】\n---\n\n\n---",
           "caption": ""
         },
         {
@@ -637,7 +637,7 @@
           "title": "希薇雅・菲利絲",
           "cover": "",
           "images": [],
-          "body": "# Sylvia Phyllis\n## 【中立殺手】\n---\n\n菲利絲家族 狙擊手\n---",
+          "body": "# Sylvia Phyllis｜シルヴィア・フィリス\n## 【中立殺手】\n---\n\n菲利絲家族 狙擊手\n---",
           "caption": ""
         },
         {
@@ -667,9 +667,12 @@
         {
           "id": "4gc38zthmn1vx27w",
           "title": "伊妮絲・諾瓦爾",
-          "cover": "",
-          "images": [],
-          "body": "# Ines Noire｜イネス・ノワール\n### 【教會的純潔聖女】\n---\n\n2026／03／22\n初設　眼罩\n---\n\n2026／03／22\n無眼罩 ver\n---",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/ir/Ines01-1.jpg?v=cd59e1f1",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/ir/Ines01-1.jpg?v=cd59e1f1",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/ir/Ines01-2.jpg?v=55567493"
+          ],
+          "body": "# Ines Noire｜イネス・ノワール\n## 【教會的純潔聖女】\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/ir/Ines01-1.jpg?v=cd59e1f1\n2026／03／22\n初設　眼罩\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/ir/Ines01-2.jpg?v=55567493\n2026／03／22\n無眼罩 ver\n---",
           "caption": ""
         }
       ]
@@ -733,7 +736,7 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa02.jpg?v=83f2f642",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa03.jpg?v=0eb67403"
           ],
-          "body": "# 羽紗 戯｜Hanesa Tawa\n### はねさ たわ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa01.jpg?v=9731b006\n2024／02／09\n\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa02.jpg?v=83f2f642\n2024／08／02\n\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa03.jpg?v=0eb67403\n2025／07／24\n\n---",
+          "body": "# 羽紗 戯｜Hanesa Tawa\n### はねさ たわ\n## 【色彩的魔術師】\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa01.jpg?v=9731b006\n2024／02／09\n\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa02.jpg?v=83f2f642\n2024／08／02\n\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/Rabi/ir/tawa03.jpg?v=0eb67403\n2025／07／24\n\n---",
           "caption": ""
         },
         {
