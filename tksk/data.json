@@ -581,7 +581,7 @@
           "title": "貝雷特・波維希",
           "cover": "",
           "images": [],
-          "body": "# Beleth Powehi\n---\n\n---",
+          "body": "# Beleth Powehi\n## 【吸血鬼的後裔】\n---\n\n英國紳士\n---",
           "caption": ""
         },
         {
@@ -589,7 +589,7 @@
           "title": "泰芙拉・艾克斯班",
           "cover": "",
           "images": [],
-          "body": "# Tevrah Axebane\n---\n\n---",
+          "body": "# Tevrah Axebane\n## 【戰斧女僕】\n---\n\n貝雷特 專屬女僕\n---",
           "caption": ""
         },
         {
@@ -597,7 +597,7 @@
           "title": "莉莉絲・安普莎",
           "cover": "",
           "images": [],
-          "body": "# Lilith Empusa\n---\n\n---",
+          "body": "# Lilith Empusa｜リリス・エンプーサ\n## 【染血小妖精】\n---\n\n\n---",
           "caption": ""
         },
         {
@@ -605,7 +605,7 @@
           "title": "卡庫・維雷斯",
           "cover": "",
           "images": [],
-          "body": "# Carku Vireth\n---\n\n---",
+          "body": "# Carku Vireth\n## 【正義之心】\n---\n\n\n---",
           "caption": ""
         },
         {
@@ -621,7 +621,7 @@
           "title": "羅景峻",
           "cover": "",
           "images": [],
-          "body": "# Jing-Jun Luo\n---\n\n---",
+          "body": "# Jing-Jun Luo\n## 【專業料理師】\n---\n\n法雷可麗餅 店長\n---",
           "caption": ""
         },
         {
@@ -629,7 +629,7 @@
           "title": "米娜・利維坦諾娃",
           "cover": "",
           "images": [],
-          "body": "# Mina Leviathanova\n---\n\n---",
+          "body": "# Mina Leviathanova\n## 【藥水收藏家】\n---\n\n\n---",
           "caption": ""
         },
         {
@@ -637,7 +637,7 @@
           "title": "希薇雅・菲利絲",
           "cover": "",
           "images": [],
-          "body": "# Sylvia Phyllis\n---\n\n---",
+          "body": "# Sylvia Phyllis\n## 【中立殺手】\n---\n\n菲利絲家族 狙擊手\n---",
           "caption": ""
         },
         {
@@ -645,7 +645,7 @@
           "title": "御蕾 靜奈",
           "cover": "",
           "images": [],
-          "body": "# 御蕾 静奈｜Mirai Shizuna\n### みらい しずな\n---\n\n---",
+          "body": "# 御蕾 静奈｜Mirai Shizuna\n### みらい しずな\n## 【御用科學家】\n---\n\n---",
           "caption": ""
         },
         {
@@ -653,7 +653,23 @@
           "title": "莉琳・安普莎",
           "cover": "",
           "images": [],
-          "body": "# Lilim Empusa\n---\n\n---",
+          "body": "# Lilim Empusa｜リリム・エンプーサ\n## 【情色女王】\n---\n\n---",
+          "caption": ""
+        },
+        {
+          "id": "jcyry2qbmn1vufv9",
+          "title": "鳩利恩・馬洛",
+          "cover": "",
+          "images": [],
+          "body": "# Julian Marrow｜ジュリアン・マロウ\n## 【瘋狂的整形外科醫生】\n---\n\n\n---\n",
+          "caption": ""
+        },
+        {
+          "id": "4gc38zthmn1vx27w",
+          "title": "伊妮絲・諾瓦爾",
+          "cover": "",
+          "images": [],
+          "body": "# Ines Noire｜イネス・ノワール\n### 【教會的純潔聖女】\n---\n\n2026／03／22\n初設　眼罩\n---\n\n2026／03／22\n無眼罩 ver\n---",
           "caption": ""
         }
       ]
