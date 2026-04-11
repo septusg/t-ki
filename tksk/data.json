@@ -596,7 +596,7 @@
     },
     {
       "id": "3mlb70emmnize63i",
-      "title": "ＮＲ",
+      "title": "ＫＳ",
       "type": "illust",
       "cover": "",
       "readMode": null,
@@ -830,6 +830,28 @@
           ],
           "body": "# 大世界\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/setting/ir/World.jpg?v=3f7153eb\n### 最後更新\n2026／03／29\n​\n### 格式\n```\n《 作品代號 》\n　　主角名\n```\n---\n\n---",
           "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "9jksj5epmnu560zc",
+      "title": "🔞《 KS 》",
+      "type": "manga",
+      "cover": "",
+      "readMode": "strip",
+      "chapters": [
+        {
+          "id": "m6we20remnu580re",
+          "title": "都市的力量真偉大！",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01.jpg?v=930d5d57",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-1.png?v=a362722b",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-2.png?v=13f02f63",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-3.png?v=f5e015a6",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-4.png?v=15c6d3fb",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-5.png?v=34d23391"
+          ],
+          "readMode": null
         }
       ]
     }
