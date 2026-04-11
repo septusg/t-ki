@@ -118,6 +118,8 @@
   .viewer-mode-label { font-size: 11px; color: #3a5a75; letter-spacing: 0.1em; border: 1px solid #1a2a40; padding: 4px 10px; }
   .viewer-strip { padding-top: 0; }
   .strip-img { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
+  .seq-hidden { opacity: 0; transition: opacity 0.3s; }
+  .seq-visible { opacity: 1; }
     /* ── PAGED VIEWER — scroll-snap carousel ── */
   .paged-carousel {
     position: fixed; inset: 0; top: 0;
@@ -478,6 +480,34 @@ function preloadImages(urls) {
     img.decoding = 'async';
     img.src = src;
     STATE.preloadedImages[src] = img;
+  }
+}
+
+function bindSequentialReveal(container, selector) {
+  var imgs = container.querySelectorAll(selector);
+  if (!imgs.length) return;
+  var loaded = [];
+  var revealed = 0;
+  for (var i = 0; i < imgs.length; i++) loaded[i] = false;
+  function revealReady() {
+    while (revealed < imgs.length && loaded[revealed]) {
+      imgs[revealed].classList.remove('seq-hidden');
+      imgs[revealed].classList.add('seq-visible');
+      revealed++;
+    }
+  }
+  for (var i = 0; i < imgs.length; i++) {
+    (function(idx) {
+      var img = imgs[idx];
+      img.classList.add('seq-hidden');
+      if (img.complete && img.naturalWidth > 0) {
+        loaded[idx] = true;
+        revealReady();
+      } else {
+        img.addEventListener('load', function() { loaded[idx] = true; revealReady(); });
+        img.addEventListener('error', function() { loaded[idx] = true; revealReady(); });
+      }
+    })(i);
   }
 }
 
@@ -858,6 +888,7 @@ function setMode(mode) {
         return '<img class="strip-img" src="' + esc(src) + '">';
       }).join('')
     }</div>`;
+    bindSequentialReveal(content, '.strip-img');
     bindStripTapToggle();
   } else if (mode === 'paged') {
     nav.classList.remove('hidden');
@@ -890,6 +921,7 @@ function setMode(mode) {
     const titleHtml = p.title ? `<div class="post-article-title">${esc(p.title)}</div>` : '';
     const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
     content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}<div class="md-content">${blocksHtml}</div></div></div>`;
+    bindSequentialReveal(content, '.md-content img');
   }
 }
 
@@ -1119,6 +1151,7 @@ function renderPaged() {
   const carousel = document.getElementById('paged-carousel');
 
   carousel.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
+  bindSequentialReveal(carousel, '.paged-slide img');
 
   requestAnimationFrame(() => {
     pagedScrollToIndex(carousel, i, false);
