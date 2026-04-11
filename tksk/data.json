@@ -2,6 +2,28 @@
   "version": 1,
   "works": [
     {
+      "id": "9jksj5epmnu560zc",
+      "title": "🔞《 KS 》",
+      "type": "manga",
+      "cover": "https://thumb.silhouette-ac.com/t/c9/c98c37f5078011fb3a1feaf49f8cf6a4_t.jpeg",
+      "readMode": "strip",
+      "chapters": [
+        {
+          "id": "m6we20remnu580re",
+          "title": "都市的力量真偉大！",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01.jpg?v=930d5d57",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-1.png?v=a362722b",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-2.png?v=13f02f63",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-3.png?v=f5e015a6",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-4.png?v=15c6d3fb",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-5.png?v=34d23391"
+          ],
+          "readMode": null
+        }
+      ]
+    },
+    {
       "id": "7b0ibmfnmm4wkkxj",
       "title": "🔞《 Noblemor 》",
       "type": "manga",
@@ -256,6 +278,81 @@
       ]
     },
     {
+      "id": "kqolxapxmm7ql1q4",
+      "title": "Practice",
+      "type": "illust",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "w1ugix89mm7qmg5d",
+          "title": "Sketch",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192"
+          ],
+          "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192\n2025／09／21\n---",
+          "caption": ""
+        },
+        {
+          "id": "brdohrr2mmur0ays",
+          "title": "大雜燴",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89"
+          ],
+          "body": "# Mix\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89\n2026／02／19\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "fmykz4lcmm6ccn8d",
+      "title": "ＳｏＤ",
+      "type": "illust",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg?v=90f309a4",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "hcljzk1omm6cek0k",
+          "title": "【主人公】西琳・菲利絲",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b"
+          ],
+          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b\n2024／07／19\n初設\n---",
+          "caption": ""
+        },
+        {
+          "id": "8znr57etmmq9p4ey",
+          "title": "希比爾",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37"
+          ],
+          "body": "# Sibyl｜シビル\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37\n2024／11／08\n---",
+          "caption": ""
+        },
+        {
+          "id": "jaxeo2ghmmq9re1l",
+          "title": "莉西 ＆ 莉沙・陣化裳埜",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965"
+          ],
+          "body": "# Lisi ＆ Lisa｜リシ ＆ リサ・ジンケモノ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965\n2025／08／18\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
       "id": "oono65mgmm5xowvw",
       "title": "《 △物語 》",
       "type": "manga",
@@ -388,126 +485,6 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-1.jpg?v=a7ce7c16",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-2.jpg?v=157d5c8e",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-3.jpg?v=c9adc3c4"
-          ],
-          "readMode": null
-        }
-      ]
-    },
-    {
-      "id": "kqolxapxmm7ql1q4",
-      "title": "Practice",
-      "type": "illust",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
-      "readMode": null,
-      "chapters": [
-        {
-          "id": "w1ugix89mm7qmg5d",
-          "title": "Sketch",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192"
-          ],
-          "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192\n2025／09／21\n---",
-          "caption": ""
-        },
-        {
-          "id": "brdohrr2mmur0ays",
-          "title": "大雜燴",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89"
-          ],
-          "body": "# Mix\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89\n2026／02／19\n---",
-          "caption": ""
-        }
-      ]
-    },
-    {
-      "id": "fmykz4lcmm6ccn8d",
-      "title": "ＳｏＤ",
-      "type": "illust",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg?v=90f309a4",
-      "readMode": null,
-      "chapters": [
-        {
-          "id": "hcljzk1omm6cek0k",
-          "title": "【主人公】西琳・菲利絲",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b"
-          ],
-          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b\n2024／07／19\n初設\n---",
-          "caption": ""
-        },
-        {
-          "id": "8znr57etmmq9p4ey",
-          "title": "希比爾",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37"
-          ],
-          "body": "# Sibyl｜シビル\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37\n2024／11／08\n---",
-          "caption": ""
-        },
-        {
-          "id": "jaxeo2ghmmq9re1l",
-          "title": "莉西 ＆ 莉沙・陣化裳埜",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965"
-          ],
-          "body": "# Lisi ＆ Lisa｜リシ ＆ リサ・ジンケモノ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965\n2025／08／18\n---",
-          "caption": ""
-        }
-      ]
-    },
-    {
-      "id": "h2vbij59mm5yvat3",
-      "title": "《 SR 》",
-      "type": "manga",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/sr.jpg?v=3b62cc69",
-      "readMode": "paged",
-      "chapters": [
-        {
-          "id": "vublqc8umm5yxagy",
-          "title": "討厭死了…",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01.jpg?v=a5d7e6fd",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-1.jpg?v=fb3cd20a",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-2.jpg?v=6b86190f",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-3.jpg?v=56e0f110",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-4.jpg?v=fb80e2da"
-          ],
-          "readMode": "strip"
-        },
-        {
-          "id": "mwkok85tmm5yxx6s",
-          "title": "有沒有人說過妳的性格很差？（上）",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02.jpg?v=1d01ff0c",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-1.png?v=614fcb97",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-2.png?v=d5de8157",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-3.png?v=7f9dd774",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-4.png?v=7032fcce",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-5.png?v=3e49c5f0",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-6.png?v=fd6996a5",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-7.png?v=6c73afab",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-8.png?v=8bcaa098",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-9.png?v=359cb563",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-10.png?v=07d5c5eb",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-11.png?v=9a687071",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-12.png?v=3015ce6c",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-13.png?v=051eedae",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-14.png?v=528762ae",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-15.png?v=7278ecf5",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-16.png?v=3f625951"
           ],
           "readMode": null
         }
@@ -834,22 +811,45 @@
       ]
     },
     {
-      "id": "9jksj5epmnu560zc",
-      "title": "🔞《 KS 》",
+      "id": "h2vbij59mm5yvat3",
+      "title": "《 SR 》",
       "type": "manga",
-      "cover": "",
-      "readMode": "strip",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/ir/sr.jpg?v=3b62cc69",
+      "readMode": "paged",
       "chapters": [
         {
-          "id": "m6we20remnu580re",
-          "title": "都市的力量真偉大！",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01.jpg?v=930d5d57",
+          "id": "vublqc8umm5yxagy",
+          "title": "討厭死了…",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01.jpg?v=a5d7e6fd",
           "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-1.png?v=a362722b",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-2.png?v=13f02f63",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-3.png?v=f5e015a6",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-4.png?v=15c6d3fb",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/KS/mg/01/ks01-5.png?v=34d23391"
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-1.jpg?v=fb3cd20a",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-2.jpg?v=6b86190f",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-3.jpg?v=56e0f110",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/01/sr01-4.jpg?v=fb80e2da"
+          ],
+          "readMode": "strip"
+        },
+        {
+          "id": "mwkok85tmm5yxx6s",
+          "title": "有沒有人說過妳的性格很差？（上）",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02.jpg?v=1d01ff0c",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-1.png?v=614fcb97",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-2.png?v=d5de8157",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-3.png?v=7f9dd774",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-4.png?v=7032fcce",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-5.png?v=3e49c5f0",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-6.png?v=fd6996a5",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-7.png?v=6c73afab",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-8.png?v=8bcaa098",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-9.png?v=359cb563",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-10.png?v=07d5c5eb",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-11.png?v=9a687071",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-12.png?v=3015ce6c",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-13.png?v=051eedae",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-14.png?v=528762ae",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-15.png?v=7278ecf5",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SR/mg/02/sr02-16.png?v=3f625951"
           ],
           "readMode": null
         }
