@@ -571,6 +571,11 @@ function applyRoute() {
   }
 
   if (route.page === 'library') {
+    if (isSectionBlocked(route.section)) {
+      toast('禁止閱覽未開通內容，請聯繫作者', 'error');
+      goHome(true);
+      return;
+    }
     showPage('library');
     renderLibrary(route.section);
     return;
@@ -602,11 +607,25 @@ function doLogin() {
   window.location.href = AUTH_API + '/auth/login';
 }
 
-// nav 切換 section（已登入狀態，不需要密碼）
+// nav 切換 section（已登入狀態）
 function navClickSection(type) {
+  if (isSectionBlocked(type)) {
+    toast('禁止閱覽未開通內容，請聯繫作者', 'error');
+    return;
+  }
   showPage('library');
   renderLibrary(type);
   setRouteHash('#library=' + type);
+}
+
+// 檢查某個 section 是否整區被鎖（所有作品都 blocked）
+function isSectionBlocked(type) {
+  var sectionWorks = STATE.works.filter(function(w) { return w.type === type; });
+  if (!sectionWorks.length) return false;
+  for (var i = 0; i < sectionWorks.length; i++) {
+    if (!sectionWorks[i].blocked) return false;
+  }
+  return true;
 }
 
 function logout() {
@@ -659,8 +678,8 @@ function renderLibrary(activeSection) {
   const navIllust = document.getElementById('nav-illust');
   navManga.classList.toggle('active', activeSection === 'manga');
   navIllust.classList.toggle('active', activeSection === 'illust');
-  navManga.classList.remove('locked');
-  navIllust.classList.remove('locked');
+  navManga.classList.toggle('locked', isSectionBlocked('manga'));
+  navIllust.classList.toggle('locked', isSectionBlocked('illust'));
 }
 
 function renderGrid(id, works) {
