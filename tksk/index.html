@@ -297,14 +297,7 @@
   <div class="login-box">
     <div class="login-title">Usagi Comic Reader</div>
     <div class="login-sub">PRIVATE READING ROOM</div>
-    <div class="login-tabs">
-      <div class="login-tab active" onclick="selectLoginTab('manga',this)">漫畫</div>
-      <div class="login-tab" onclick="selectLoginTab('illust',this)">插圖</div>
-    </div>
-    <div class="pw-input-wrap">
-      <input type="password" id="pw-input" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-    <button class="btn-login" onclick="doLogin()">進入</button>
+    <button class="btn-login" onclick="doLogin()" style="margin-top:16px">使用 Google 登入</button>
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
@@ -369,18 +362,7 @@
   <div id="viewer-content"></div>
 </div>
 
-<!-- ══ MODAL: 小密碼視窗 ══ -->
-<div class="modal-overlay" id="modal-unlock">
-  <div class="mini-modal">
-    <div class="modal-title" id="modal-unlock-title">輸入密碼</div>
-    <div class="pw-input-wrap"><input type="password" id="unlock-input" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doUnlock()"></div>
-    <div class="login-error" id="unlock-error"></div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('modal-unlock')">取消</button>
-      <button class="btn btn-primary" onclick="doUnlock()">進入</button>
-    </div>
-  </div>
-</div>
+<!-- (removed: modal-unlock no longer needed with Google login) -->
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
@@ -396,10 +378,15 @@
 // ══════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════
+const AUTH_API = 'https://tkskworker.pnyuki159.workers.dev';
+
 let STATE = {
-  // loggedIn: Set of unlocked sections. 'admin' means all access.
-  unlocked: new Set(), // e.g. 'manga', 'illust', 'admin'
-  passwords: { manga: '', illust: 'sa' },
+  // auth
+  token: null,
+  userEmail: null,
+  userName: null,
+  // data
+  unlocked: new Set(),
   works: [],
   viewerImages: [],    // flat array for manga/lightbox
   viewerPosts: [],     // array of {images, caption} for illust post feed
@@ -407,7 +394,6 @@ let STATE = {
   viewerIndex: 0,
   viewerSpoilers: [],
   currentWorkId: null,
-  pendingUnlockSection: null, // which section user is trying to unlock
   lightboxImages: [],
   lightboxIndex: 0,
   pendingRoute: null,
@@ -429,33 +415,62 @@ const IS_MOBILE = (function() {
 // INIT
 // ══════════════════════════════════════════
 
-function loadLocalData() {
-  const saved = localStorage.getItem('manga-gallery-data');
-  if (!saved) return null;
-  try { return JSON.parse(saved); } catch(e) { return null; }
-}
-
 async function loadRemoteData() {
+  if (!STATE.token) return null;
   try {
-    const r = await fetch('data.json?ts=' + Date.now(), { cache: 'no-store' });
+    var r = await fetch(AUTH_API + '/api/data', {
+      headers: { 'Authorization': 'Bearer ' + STATE.token }
+    });
+    if (r.status === 401) { logout(); return null; }
     if (!r.ok) return null;
-    const d = await r.json();
+    var d = await r.json();
     if (d && Array.isArray(d.works)) return d;
   } catch(e) {}
   return null;
 }
 
 async function init() {
-  const remote = await loadRemoteData();
-  if (remote && remote.works) STATE.works = remote.works;
-
-  const local = loadLocalData();
-  if (local) {
-    if (local.passwords) STATE.passwords = { ...STATE.passwords, ...local.passwords };
-    if (!remote && local.works) STATE.works = local.works;
+  // ── 處理 Google 登入回傳的 token ──
+  var hash = location.hash || '';
+  if (hash.indexOf('#token=') === 0) {
+    STATE.token = hash.slice(7);
+    localStorage.setItem('auth_token', STATE.token);
+    history.replaceState(null, '', location.pathname);
+  } else if (hash === '#login_error') {
+    document.getElementById('login-error').textContent = 'Google 登入失敗，請重試';
+    history.replaceState(null, '', location.pathname);
+  } else {
+    STATE.token = localStorage.getItem('auth_token') || null;
   }
 
-  STATE.passwords.manga = '';
+  // ── 驗證 token ──
+  if (STATE.token) {
+    try {
+      var r = await fetch(AUTH_API + '/auth/me', {
+        headers: { 'Authorization': 'Bearer ' + STATE.token }
+      });
+      if (r.ok) {
+        var user = await r.json();
+        STATE.userEmail = user.email;
+        STATE.userName = user.name;
+        STATE.unlocked.add('manga');
+        STATE.unlocked.add('illust');
+      } else {
+        STATE.token = null;
+        localStorage.removeItem('auth_token');
+      }
+    } catch(e) {
+      STATE.token = null;
+      localStorage.removeItem('auth_token');
+    }
+  }
+
+  // ── 載入資料 ──
+  if (STATE.token) {
+    var remote = await loadRemoteData();
+    if (remote && remote.works) STATE.works = remote.works;
+  }
+
   document.addEventListener('keydown', handleKey);
   document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
   document.querySelectorAll('.modal-overlay').forEach(o => {
@@ -517,17 +532,6 @@ function setRouteHash(hash) {
   location.hash = hash;
 }
 
-function setLoginTabByType(type) {
-  loginTarget = type;
-  const tabs = document.querySelectorAll('.login-tab');
-  tabs.forEach(t => t.classList.remove('active'));
-  if (type === 'illust') {
-    if (tabs[1]) tabs[1].classList.add('active');
-  } else {
-    if (tabs[0]) tabs[0].classList.add('active');
-  }
-  document.getElementById('login-error').textContent = '';
-}
 
 function parseRoute() {
   const hash = (location.hash || '').replace(/^#/, '');
@@ -553,144 +557,72 @@ function parseRoute() {
 }
 
 function applyRoute() {
-  const route = parseRoute();
+  var route = parseRoute();
+
+  // 未登入 → 顯示登入頁
+  if (!STATE.token) {
+    showPage('login');
+    return;
+  }
 
   if (route.page === 'home') {
-    if (STATE.unlocked.size) {
-      goHome(true);
-    } else {
-      showPage('login');
-    }
+    goHome(true);
     return;
   }
 
   if (route.page === 'library') {
-    if (!isUnlocked(route.section)) {
-      STATE.pendingRoute = route;
-      setLoginTabByType(route.section);
-      showPage('login');
-      return;
-    }
-    STATE.pendingRoute = null;
     showPage('library');
     renderLibrary(route.section);
     return;
   }
 
-  if (!isUnlocked(route.type)) {
-    STATE.pendingRoute = route;
-    setLoginTabByType(route.type);
-    showPage('login');
-    return;
-  }
-
   if (route.page === 'work') {
-    STATE.pendingRoute = null;
     openWork(route.workId, true);
     return;
   }
 
   if (route.page === 'chapter') {
-    STATE.pendingRoute = null;
     openChapter(route.workId, route.chapterId, true);
     return;
   }
 
   if (route.page === 'post') {
-    STATE.pendingRoute = null;
     openPost(route.workId, route.postId, true);
     return;
   }
 
-  showPage('login');
+  goHome(true);
 }
 
 // ══════════════════════════════════════════
-// AUTH — multi-section unlock system
+// AUTH — Google Login
 // ══════════════════════════════════════════
-let loginTarget = 'manga';
-
-function selectLoginTab(type, el) {
-  loginTarget = type;
-  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('login-error').textContent = '';
-}
 
 function doLogin() {
-  const pw = document.getElementById('pw-input').value;
-  if (loginTarget === 'admin') {
-    const err = document.getElementById('login-error');
-    err.textContent = '請使用 admin.html';
-    setTimeout(() => err.textContent = '', 2200);
-    return;
-  }
-  if (pw === STATE.passwords[loginTarget]) {
-    document.getElementById('pw-input').value = '';
-    document.getElementById('login-error').textContent = '';
-    STATE.unlocked.add(loginTarget);
-    if (STATE.pendingRoute) {
-      applyRoute();
-    } else {
-      showPage('library');
-      renderLibrary(loginTarget);
-      setRouteHash('#library=' + loginTarget);
-    }
-  } else {
-    const err = document.getElementById('login-error');
-    err.textContent = '密碼錯誤';
-    setTimeout(() => err.textContent = '', 2000);
-  }
+  window.location.href = AUTH_API + '/auth/login';
 }
 
-// Called when nav button for a locked section is clicked
+// nav 切換 section（已登入狀態，不需要密碼）
 function navClickSection(type) {
-  if (STATE.unlocked.has(type) || STATE.unlocked.has('admin')) {
-    // already unlocked — just switch
-    showPage('library');
-    renderLibrary(type);
-    setRouteHash('#library=' + type);
-  } else {
-    // need password
-    STATE.pendingUnlockSection = type;
-    const label = type === 'manga' ? '漫畫區' : '插圖區';
-    document.getElementById('modal-unlock-title').textContent = '輸入' + label + '密碼';
-    document.getElementById('unlock-input').value = '';
-    document.getElementById('unlock-error').textContent = '';
-    openModal('modal-unlock');
-    setTimeout(() => document.getElementById('unlock-input').focus(), 100);
-  }
-}
-
-function doUnlock() {
-  const pw = document.getElementById('unlock-input').value;
-  const type = STATE.pendingUnlockSection;
-  if (pw === STATE.passwords[type]) {
-    STATE.unlocked.add(type);
-    closeModal('modal-unlock');
-    if (STATE.pendingRoute) {
-      applyRoute();
-    } else {
-      showPage('library');
-      renderLibrary(type);
-      setRouteHash('#library=' + type);
-    }
-  } else {
-    const err = document.getElementById('unlock-error');
-    err.textContent = '密碼錯誤';
-    setTimeout(() => err.textContent = '', 2000);
-  }
+  showPage('library');
+  renderLibrary(type);
+  setRouteHash('#library=' + type);
 }
 
 function logout() {
+  STATE.token = null;
+  STATE.userEmail = null;
+  STATE.userName = null;
   STATE.unlocked = new Set();
+  STATE.works = [];
   STATE.pendingRoute = null;
+  localStorage.removeItem('auth_token');
   showPage('login');
   setRouteHash('#home');
 }
 
 function isUnlocked(type) {
-  return STATE.unlocked.has(type) || STATE.unlocked.has('admin');
+  return STATE.unlocked.has(type);
 }
 
 // ══════════════════════════════════════════
@@ -704,10 +636,8 @@ function showPage(name) {
 
 function goHome(skipRoute) {
   showPage('library');
-  // show first unlocked section
-  const section = STATE.unlocked.has('manga') ? 'manga' : 'illust';
-  renderLibrary(section);
-  if (!skipRoute) setRouteHash('#library=' + section);
+  renderLibrary('manga');
+  if (!skipRoute) setRouteHash('#library=manga');
 }
 
 // ══════════════════════════════════════════
@@ -721,31 +651,36 @@ function renderLibrary(activeSection) {
   renderGrid('manga-grid', mangaWorks);
   renderGrid('illust-grid', illustWorks);
 
-  // show/hide sections based on unlock state
-  const showManga = isUnlocked('manga');
-  const showIllust = isUnlocked('illust');
-  document.getElementById('manga-section').style.display = showManga ? '' : 'none';
-  document.getElementById('illust-section').style.display = showIllust ? '' : 'none';
+  document.getElementById('manga-section').style.display = activeSection === 'manga' ? '' : 'none';
+  document.getElementById('illust-section').style.display = activeSection === 'illust' ? '' : 'none';
 
   // nav button states
   const navManga = document.getElementById('nav-manga');
   const navIllust = document.getElementById('nav-illust');
   navManga.classList.toggle('active', activeSection === 'manga');
   navIllust.classList.toggle('active', activeSection === 'illust');
-  navManga.classList.toggle('locked', !showManga);
-  navIllust.classList.toggle('locked', !showIllust);
-
-  // if both unlocked, show only the active one
-  if (showManga && showIllust) {
-    document.getElementById('manga-section').style.display = activeSection === 'manga' ? '' : 'none';
-    document.getElementById('illust-section').style.display = activeSection === 'illust' ? '' : 'none';
-  }
+  navManga.classList.remove('locked');
+  navIllust.classList.remove('locked');
 }
 
 function renderGrid(id, works) {
   const el = document.getElementById(id);
   if (!works.length) { el.innerHTML = '<div class="empty-hint">尚無作品</div>'; return; }
-  el.innerHTML = works.map(w => `
+  el.innerHTML = works.map(w => {
+    if (w.blocked) {
+      return `
+        <div class="work-card reveal" style="opacity:0.5;cursor:default" title="禁止閱覽未開通內容，請聯繫作者">
+          <div class="work-cover" style="position:relative">
+            ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy" style="filter:blur(6px) brightness(0.4)">` : `<div class="work-cover-placeholder">${w.title.charAt(0)}</div>`}
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:24px">🔒</div>
+          </div>
+          <div class="work-info">
+            <div class="work-title">${esc(w.title)}</div>
+            <div class="work-meta" style="color:var(--danger)">未開通</div>
+          </div>
+        </div>`;
+    }
+    return `
     <div class="work-card reveal" onclick="openWork('${w.id}')">
       <div class="work-cover">
         ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy">` : `<div class="work-cover-placeholder">${w.title.charAt(0)}</div>`}
@@ -755,7 +690,7 @@ function renderGrid(id, works) {
         <div class="work-meta">${w.type === 'manga' ? w.chapters.length + ' 話' : (w.chapters||[]).length + ' 貼文'}</div>
       </div>
     </div>
-  `).join('');
+  `}).join('');
   setTimeout(() => el.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
 }
 
@@ -765,6 +700,7 @@ function renderGrid(id, works) {
 function openWork(id, skipRoute) {
   const w = STATE.works.find(x => x.id === id);
   if (!w) return;
+  if (w.blocked) { toast('禁止閱覽未開通內容，請聯繫作者', 'error'); return; }
   STATE.currentWorkId = id;
   document.getElementById('work-section-label').textContent = w.type === 'manga' ? '漫畫' : '插圖';
   document.getElementById('work-breadcrumb-title').textContent = w.title;
@@ -788,8 +724,21 @@ function renderChapterList(cl, w) {
   }
   var chapters = w.chapters.slice().reverse();
   cl.innerHTML = chapters.map((c, i) => {
-    const thumb = c.cover || (c.images && c.images[0]) || '';
+    const thumb = c.cover || (!c.blocked && c.images && c.images[0]) || '';
     const num = String(chapters.length - i).padStart(2,'0');
+    if (c.blocked) {
+      return `
+        <div class="chapter-item reveal" style="opacity:0.5;cursor:default">
+          <div class="chapter-thumb">
+            ${thumb ? `<img src="${esc(thumb)}" loading="lazy" style="filter:blur(4px) brightness(0.4)">` : `<div class="chapter-thumb-placeholder">🔒</div>`}
+          </div>
+          <div class="chapter-info">
+            <div class="chapter-num">${num}</div>
+            <div class="chapter-name">${esc(c.title)}</div>
+            <div class="chapter-count" style="color:var(--danger)">禁止閱覽未開通內容，請聯繫作者</div>
+          </div>
+        </div>`;
+    }
     return `
       <div class="chapter-item reveal" onclick="openChapter('${w.id}','${c.id}')">
         <div class="chapter-thumb">
@@ -809,6 +758,20 @@ function renderAlbumList(cl, w) {
   const posts = w.chapters || [];
   if (!posts.length) { cl.innerHTML = '<div class="empty-hint">尚無貼文</div>'; return; }
   cl.innerHTML = '<div class="post-list">' + posts.map((p, i) => {
+    if (p.blocked) {
+      const coverHtml = p.cover
+        ? `<img src="${esc(p.cover)}" loading="lazy" style="filter:blur(4px) brightness(0.4)">`
+        : `<div class="post-list-cover-ph">🔒</div>`;
+      const title = p.title || '（未命名貼文）';
+      return `
+        <div class="post-list-item reveal" style="opacity:0.5;cursor:default">
+          <div class="post-list-cover">${coverHtml}</div>
+          <div class="post-list-body">
+            <div class="post-list-title">${esc(title)}</div>
+            <div class="post-list-meta" style="color:var(--danger)">禁止閱覽未開通內容，請聯繫作者</div>
+          </div>
+        </div>`;
+    }
     const coverUrl = p.cover || (p.images && p.images[0]) || '';    const coverHtml = coverUrl
       ? `<img src="${esc(coverUrl)}" loading="lazy">`
       : `<div class="post-list-cover-ph">🖼</div>`;
@@ -838,7 +801,9 @@ function openChapter(workId, chapterId, skipRoute) {
   const w = STATE.works.find(x => x.id === workId);
   if (!w) return;
   const c = w.chapters.find(x => x.id === chapterId);
-  if (!c || !c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
+  if (!c) return;
+  if (c.blocked) { toast('禁止閱覽未開通內容，請聯繫作者', 'error'); return; }
+  if (!c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
   STATE.currentWorkId = workId;
   STATE.viewerSpoilers = c.images.map(function(s) { var t = s.trim(); return /^\|\|/.test(t) && /\|\|$/.test(t); });
   STATE.viewerImages = c.images.map(function(s) { var t = s.trim(); if (/^\|\|/.test(t) && /\|\|$/.test(t)) return t.replace(/^\|\|/, '').replace(/\|\|$/, ''); return t; });
@@ -858,6 +823,7 @@ function openPost(workId, postId, skipRoute) {
   if (!w) return;
   const p = w.chapters.find(x => x.id === postId);
   if (!p) return;
+  if (p.blocked) { toast('禁止閱覽未開通內容，請聯繫作者', 'error'); return; }
   STATE.currentWorkId = workId;
   STATE.viewerPosts = [p];
   STATE.viewerImages = p.images || [];

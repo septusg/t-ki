@@ -151,14 +151,8 @@
 <div id="page-login" class="page active">
   <div class="login-box">
     <div class="login-title">Usagi Comic Reader</div>
-    <div class="login-sub">PRIVATE READING ROOM</div>
-    <div class="login-tabs">
-      <div class="login-tab active" onclick="selectLoginTab('admin',this)">管理</div>
-    </div>
-    <div class="pw-input-wrap">
-      <input type="password" id="pw-input" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-    <button class="btn-login" onclick="doLogin()">進入</button>
+    <div class="login-sub">ADMIN PANEL</div>
+    <button class="btn-login" onclick="doLogin()" style="margin-top:16px">使用 Google 登入</button>
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
@@ -176,15 +170,6 @@
   </nav>
   <div class="admin-inner">
     <div class="admin-title">管 理 後 台</div>
-    <div class="admin-section">
-      <div class="admin-section-title">密碼設定</div>
-      <div class="pw-settings">
-        <div class="field"><label>漫畫區密碼</label><input type="password" id="pw-manga-new" placeholder="輸入新密碼（留空不改）"></div>
-        <div class="field"><label>插圖區密碼</label><input type="password" id="pw-illust-new" placeholder="輸入新密碼（留空不改）"></div>
-      </div>
-      <div style="margin-top:10px"><div class="field" style="max-width:260px"><label>管理員密碼</label><input type="password" id="pw-admin-new" placeholder="輸入新密碼（留空不改）"></div></div>
-      <button class="btn btn-primary" style="margin-top:12px" onclick="savePasswords()">儲存密碼</button>
-    </div>
     <div class="admin-section">
       <div class="admin-section-title" style="display:flex;align-items:center;justify-content:space-between">
         <span>作品管理</span>
@@ -313,14 +298,16 @@
 // ══════════════════════════════════════════
 const UPLOAD_API = 'https://tkskworker.pnyuki159.workers.dev/upload';
 const SAVE_API = 'https://tkskworker.pnyuki159.workers.dev/saveData';
+const AUTH_API = 'https://tkskworker.pnyuki159.workers.dev';
 const UPLOAD_SITE_BASE = location.origin;
 
 // ══════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════
 let STATE = {
+  token: null,
+  userEmail: null,
   unlocked: new Set(),
-  passwords: { manga: '', illust: 'ki', admin: 'ad777' },
   works: [],
   editingWorkId: null,
   editingChapterId: null,
@@ -334,79 +321,99 @@ let STATE = {
 // INIT
 // ══════════════════════════════════════════
 
-function loadLocalData() {
-  const saved = localStorage.getItem('manga-gallery-data');
-  if (!saved) return null;
-  try { return JSON.parse(saved); } catch(e) { return null; }
-}
-
 async function loadRemoteData() {
+  if (!STATE.token) return null;
   try {
-    const r = await fetch('data.json?ts=' + Date.now(), { cache: 'no-store' });
+    var r = await fetch(AUTH_API + '/api/data', {
+      headers: { 'Authorization': 'Bearer ' + STATE.token }
+    });
+    if (r.status === 401) { logout(); return null; }
     if (!r.ok) return null;
-    const d = await r.json();
+    var d = await r.json();
     if (d && Array.isArray(d.works)) return d;
   } catch(e) {}
   return null;
 }
 
 async function init() {
-  const remote = await loadRemoteData();
-  if (remote && remote.works) STATE.works = remote.works;
-
-  const local = loadLocalData();
-  if (local) {
-    if (local.passwords) STATE.passwords = { ...STATE.passwords, ...local.passwords };
-    if (!remote && local.works) STATE.works = local.works;
+  // ── 處理 Google 登入回傳的 token ──
+  var hash = location.hash || '';
+  if (hash.indexOf('#token=') === 0) {
+    STATE.token = hash.slice(7);
+    localStorage.setItem('admin_auth_token', STATE.token);
+    history.replaceState(null, '', location.pathname + location.search);
+  } else if (hash === '#login_error') {
+    document.getElementById('login-error').textContent = 'Google 登入失敗，請重試';
+    history.replaceState(null, '', location.pathname + location.search);
+    return;
+  } else {
+    STATE.token = localStorage.getItem('admin_auth_token') || null;
   }
+
+  // ── 驗證 token + 確認 admin 身份 ──
+  if (STATE.token) {
+    try {
+      var r = await fetch(AUTH_API + '/auth/me', {
+        headers: { 'Authorization': 'Bearer ' + STATE.token }
+      });
+      if (r.ok) {
+        var user = await r.json();
+        STATE.userEmail = user.email;
+        if (STATE.userEmail !== 'pnyuki159@gmail.com') {
+          STATE.token = null;
+          localStorage.removeItem('admin_auth_token');
+          document.getElementById('login-error').textContent = '此帳號沒有管理員權限';
+          return;
+        }
+        STATE.unlocked = new Set(['manga', 'illust', 'admin']);
+      } else {
+        STATE.token = null;
+        localStorage.removeItem('admin_auth_token');
+      }
+    } catch(e) {
+      STATE.token = null;
+      localStorage.removeItem('admin_auth_token');
+    }
+  }
+
+  // ── 載入資料 ──
+  if (STATE.token && STATE.unlocked.has('admin')) {
+    var remote = await loadRemoteData();
+    if (remote && remote.works) STATE.works = remote.works;
+    showPage('admin');
+    renderAdmin();
+  }
+
   document.addEventListener('keydown', handleKey);
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
   });
 }
 
-function save() {
-  localStorage.setItem('manga-gallery-data', JSON.stringify({
-    passwords: STATE.passwords,
-    works: STATE.works,
-  }));
-}
-
-
 // ══════════════════════════════════════════
-// AUTH — multi-section unlock system
+// AUTH — Google Login (admin)
 // ══════════════════════════════════════════
-let loginTarget = 'admin';
-
-function selectLoginTab(type, el) {
-  loginTarget = type;
-  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('login-error').textContent = '';
-}
 
 function doLogin() {
-  const pw = document.getElementById('pw-input').value;
-  if (pw === STATE.passwords.admin) {
-    document.getElementById('pw-input').value = '';
-    document.getElementById('login-error').textContent = '';
-    STATE.unlocked = new Set(['manga', 'illust', 'admin']);
-    showPage('admin');
-    renderAdmin();
-  } else {
-    const err = document.getElementById('login-error');
-    err.textContent = '密碼錯誤';
-    setTimeout(() => err.textContent = '', 2000);
-  }
+  window.location.href = AUTH_API + '/auth/login?admin=1';
 }
 
 function logout() {
+  STATE.token = null;
+  STATE.userEmail = null;
   STATE.unlocked = new Set();
+  STATE.works = [];
+  localStorage.removeItem('admin_auth_token');
   showPage('login');
 }
 
 function isUnlocked(type) {
-  return STATE.unlocked.has(type) || STATE.unlocked.has('admin');
+  return STATE.unlocked.has(type);
+}
+
+// admin 本地暫存（防止重整丟失未推送的編輯）
+function save() {
+  // 不再使用 localStorage 暫存，編輯後請記得按「更新JSON」
 }
 
 // ══════════════════════════════════════════
@@ -716,18 +723,6 @@ function savePost() {
 }
 
 // ── Passwords ──
-function savePasswords() {
-  const mn = document.getElementById('pw-manga-new').value;
-  const il = document.getElementById('pw-illust-new').value;
-  const ad = document.getElementById('pw-admin-new').value;
-  if (mn) STATE.passwords.manga = mn;
-  if (il) STATE.passwords.illust = il;
-  if (ad) STATE.passwords.admin = ad;
-  save();
-  ['pw-manga-new','pw-illust-new','pw-admin-new'].forEach(id => document.getElementById(id).value = '');
-  toast('密碼已更新');
-}
-
 // ── Backup ──
 function exportData() {
   const blob = new Blob([JSON.stringify({ version: 1, works: STATE.works }, null, 2)], { type: 'application/json' });
@@ -749,7 +744,6 @@ function importData(input) {
   r.onload = e => {
     try {
       const d = JSON.parse(e.target.result);
-      if (d.passwords) STATE.passwords = { ...STATE.passwords, ...d.passwords };
       if (d.works) STATE.works = d.works;
       save(); renderAdmin(); toast('已匯入（記得按「更新JSON」）');
     } catch { toast('JSON 格式錯誤', 'error'); }
