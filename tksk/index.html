@@ -56,6 +56,10 @@
   .nav-btn.active { color: var(--accent); }
   .nav-btn.locked { color: var(--text3); opacity: 0.5; }
   .nav-btn.locked::after { content: ' 🔒'; font-size: 10px; }
+  .nav-user { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+  .nav-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); object-fit: cover; }
+  .nav-username { font-size: 11px; color: var(--text2); max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media(max-width:480px){ .nav-username { display: none; } }
   .nav-sep { color: var(--border); margin: 0 2px; font-size: 11px; }
 
   /* ── LIBRARY ── */
@@ -309,7 +313,11 @@
     <button class="nav-btn" id="nav-manga" onclick="navClickSection('manga')">漫畫</button>
     <span class="nav-sep">·</span>
     <button class="nav-btn" id="nav-illust" onclick="navClickSection('illust')">插圖</button>
-    <button class="nav-btn" onclick="logout()" style="margin-left:8px">登出</button>
+    <div class="nav-user">
+      <img class="nav-avatar" id="nav-avatar" src="" style="display:none">
+      <span class="nav-username" id="nav-username"></span>
+      <button class="nav-btn" onclick="logout()">登出</button>
+    </div>
   </nav>
   <div class="page-inner">
     <div id="manga-section">
@@ -334,7 +342,10 @@
   <nav class="site-nav">
     <div class="nav-logo" onclick="goHome()">Usagi</div>
     <button class="nav-btn" onclick="goBack()">← 返回</button>
-    <button class="nav-btn" onclick="logout()" style="margin-left:auto">登出</button>
+    <div class="nav-user">
+      <img class="nav-avatar nav-avatar-sub" src="" style="display:none">
+      <button class="nav-btn" onclick="logout()">登出</button>
+    </div>
   </nav>
   <div class="work-header">
     <div class="work-header-inner">
@@ -385,6 +396,7 @@ let STATE = {
   token: null,
   userEmail: null,
   userName: null,
+  userPicture: null,
   // data
   unlocked: new Set(),
   works: [],
@@ -453,8 +465,10 @@ async function init() {
         var user = await r.json();
         STATE.userEmail = user.email;
         STATE.userName = user.name;
+        STATE.userPicture = user.picture;
         STATE.unlocked.add('manga');
         STATE.unlocked.add('illust');
+        updateUserDisplay();
       } else {
         STATE.token = null;
         localStorage.removeItem('auth_token');
@@ -628,10 +642,32 @@ function isSectionBlocked(type) {
   return true;
 }
 
+function updateUserDisplay() {
+  // 主 nav 頭像 + 名字
+  var avatar = document.getElementById('nav-avatar');
+  var username = document.getElementById('nav-username');
+  if (STATE.userPicture) {
+    avatar.src = STATE.userPicture;
+    avatar.style.display = '';
+  }
+  if (STATE.userName) {
+    username.textContent = STATE.userName;
+  }
+  // work detail nav 頭像
+  var subs = document.querySelectorAll('.nav-avatar-sub');
+  for (var i = 0; i < subs.length; i++) {
+    if (STATE.userPicture) {
+      subs[i].src = STATE.userPicture;
+      subs[i].style.display = '';
+    }
+  }
+}
+
 function logout() {
   STATE.token = null;
   STATE.userEmail = null;
   STATE.userName = null;
+  STATE.userPicture = null;
   STATE.unlocked = new Set();
   STATE.works = [];
   STATE.pendingRoute = null;
