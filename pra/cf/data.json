@@ -2,6 +2,25 @@
   "version": 1,
   "works": [
     {
+      "id": "9eog7jbjmo3wwgr9",
+      "title": "隨心所欲",
+      "type": "manga",
+      "cover": "",
+      "readMode": "paged",
+      "chapters": [
+        {
+          "id": "a3d0ya67mo3wxnio",
+          "title": "《 NaG 》片段",
+          "cover": "",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/fyi/01nag.jpg?v=ca11f5e3",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/fyi/02nag.jpg?v=62a41c72"
+          ],
+          "readMode": "strip"
+        }
+      ]
+    },
+    {
       "id": "9jksj5epmnu560zc",
       "title": "🔞《 逆桜の契 》",
       "type": "manga",
@@ -203,6 +222,81 @@
       ]
     },
     {
+      "id": "kqolxapxmm7ql1q4",
+      "title": "Practice",
+      "type": "illust",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "w1ugix89mm7qmg5d",
+          "title": "Sketch",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192"
+          ],
+          "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192\n2025／09／21\n---",
+          "caption": ""
+        },
+        {
+          "id": "brdohrr2mmur0ays",
+          "title": "大雜燴",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89"
+          ],
+          "body": "# Mix\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89\n2026／02／19\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "fmykz4lcmm6ccn8d",
+      "title": "ＳｏＤ",
+      "type": "illust",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg?v=90f309a4",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "hcljzk1omm6cek0k",
+          "title": "【主人公】西琳・菲利絲",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b"
+          ],
+          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b\n2024／07／19\n初設\n---",
+          "caption": ""
+        },
+        {
+          "id": "8znr57etmmq9p4ey",
+          "title": "希比爾",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37"
+          ],
+          "body": "# Sibyl｜シビル\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37\n2024／11／08\n---",
+          "caption": ""
+        },
+        {
+          "id": "jaxeo2ghmmq9re1l",
+          "title": "莉西 ＆ 莉沙・陣化裳埜",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965"
+          ],
+          "body": "# Lisi ＆ Lisa｜リシ ＆ リサ・ジンケモノ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965\n2025／08／18\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
       "id": "6vamh9owmmm70uvy",
       "title": "《 靈魂代碼 》",
       "type": "manga",
@@ -281,219 +375,6 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (65).jpg?v=caa19de1",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (66).jpg?v=d601ce8b",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (67).jpg?v=42e0b32c"
-          ],
-          "readMode": null
-        }
-      ]
-    },
-    {
-      "id": "kqolxapxmm7ql1q4",
-      "title": "Practice",
-      "type": "illust",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
-      "readMode": null,
-      "chapters": [
-        {
-          "id": "w1ugix89mm7qmg5d",
-          "title": "Sketch",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192"
-          ],
-          "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192\n2025／09／21\n---",
-          "caption": ""
-        },
-        {
-          "id": "brdohrr2mmur0ays",
-          "title": "大雜燴",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89"
-          ],
-          "body": "# Mix\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89\n2026／02／19\n---",
-          "caption": ""
-        }
-      ]
-    },
-    {
-      "id": "fmykz4lcmm6ccn8d",
-      "title": "ＳｏＤ",
-      "type": "illust",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg?v=90f309a4",
-      "readMode": null,
-      "chapters": [
-        {
-          "id": "hcljzk1omm6cek0k",
-          "title": "【主人公】西琳・菲利絲",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b"
-          ],
-          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b\n2024／07／19\n初設\n---",
-          "caption": ""
-        },
-        {
-          "id": "8znr57etmmq9p4ey",
-          "title": "希比爾",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37"
-          ],
-          "body": "# Sibyl｜シビル\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37\n2024／11／08\n---",
-          "caption": ""
-        },
-        {
-          "id": "jaxeo2ghmmq9re1l",
-          "title": "莉西 ＆ 莉沙・陣化裳埜",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965"
-          ],
-          "body": "# Lisi ＆ Lisa｜リシ ＆ リサ・ジンケモノ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965\n2025／08／18\n---",
-          "caption": ""
-        }
-      ]
-    },
-    {
-      "id": "oono65mgmm5xowvw",
-      "title": "《 △物語 》",
-      "type": "manga",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/sod.jpg?v=85a5907e",
-      "readMode": "strip",
-      "chapters": [
-        {
-          "id": "elurnxvrmm5xsq0o",
-          "title": "站住！不許跑！",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01.jpg?v=0240cbd2",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-1.jpg?v=b148d75c",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-2.jpg?v=c910a6a9",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-3.jpg?v=d2ebd3a9"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "028rzi4nmm5xte58",
-          "title": "你在做什麼？",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02.jpg?v=5ae09df8",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-1.jpg?v=4cccb858",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-2.jpg?v=44326c24",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-3.jpg?v=fb956c31"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "5zo7kh20mm5xtm2b",
-          "title": "因為那樣才合理啊",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03.jpg?v=1a61e928",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-1.jpg?v=37047825",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-2.jpg?v=37296539",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-3.jpg?v=dbbd5a56"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "23t8m089mm5xtsuz",
-          "title": "好想吃冰淇淋",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04.jpg?v=b4800cac",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-1.jpg?v=65102a86",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-2.jpg?v=e62160ce",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-3.jpg?v=9034b0e7"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "dn1nh5ximm5xu653",
-          "title": "【 試煉之塔篇 】呼嗯…？",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05.jpg?v=9c889eda",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-1.jpg?v=e8303458",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-2.jpg?v=0c8790c0",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-3.jpg?v=ee4ec5f6",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-4.jpg?v=41d22d12"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "4lgl8ujfmm5xucyp",
-          "title": "【 試煉之塔篇 】沒有半個正常人呢",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06.jpg?v=2ee6a77a",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-1.jpg?v=2d55b554",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-2.jpg?v=b0cef836",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-3.jpg?v=fc322ef6"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "qg2loi9cmm5xulxn",
-          "title": "【 試煉之塔篇 】德爾塔的繼承人",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07.jpg?v=53d09d43",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-1.jpg?v=e15c339e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-2.jpg?v=6fa8dfef",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-3.jpg?v=0de38d4d",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-4.jpg?v=e9fe6320",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-5.jpg?v=cca89017"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "ykm6jeaamm5xw73w",
-          "title": "【 試煉之塔篇 】這不是才正要開始嘛？",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08.jpg?v=98157694",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-1.jpg?v=82b6500e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-2.jpg?v=509387ed",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-3.jpg?v=bae7b27a",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-4.jpg?v=bdf8bd99"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "xy5uxczymm5xwfdd",
-          "title": "【 試煉之塔篇 】魔術好厲害…",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09.jpg?v=64d016c0",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-1.jpg?v=e604bb4c",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-2.jpg?v=a20db709",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-3.jpg?v=b61a0d11",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-4.jpg?v=f36a8f2f"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "1uxbn0a6mm5xwonl",
-          "title": "【 試煉之塔篇 】沒有比愛心呢",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10.jpg?v=956ffe91",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-1.jpg?v=9e2af719",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-2.jpg?v=d39bb862",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-3.jpg?v=6e635f2e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-4.jpg?v=2ff08680",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-5.jpg?v=5495cfa2",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-6.jpg?v=16750bf6"
-          ],
-          "readMode": null
-        },
-        {
-          "id": "el6w8fjdmm5xwz7z",
-          "title": "【 試煉之塔篇 】差不多也該結束了（上）",
-          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477193828866854974/image.png?ex=69a3df75&is=69a28df5&hm=da3d6096593ac0889843513ad9a714feeb65ea982bfe3b9ae19ceb087bcc30cb&",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-1.jpg?v=a7ce7c16",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-2.jpg?v=157d5c8e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-3.jpg?v=c9adc3c4"
           ],
           "readMode": null
         }
@@ -816,6 +697,144 @@
           ],
           "body": "# 大世界\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/setting/ir/World.jpg?v=3f7153eb\n### 最後更新\n2026／03／29\n​\n### 格式\n```\n《 作品代號 》\n　　主角名\n```\n---\n\n---",
           "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "oono65mgmm5xowvw",
+      "title": "《 △物語 》",
+      "type": "manga",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/sod.jpg?v=85a5907e",
+      "readMode": "strip",
+      "chapters": [
+        {
+          "id": "elurnxvrmm5xsq0o",
+          "title": "站住！不許跑！",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01.jpg?v=0240cbd2",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-1.jpg?v=b148d75c",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-2.jpg?v=c910a6a9",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/01/sod01-3.jpg?v=d2ebd3a9"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "028rzi4nmm5xte58",
+          "title": "你在做什麼？",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02.jpg?v=5ae09df8",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-1.jpg?v=4cccb858",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-2.jpg?v=44326c24",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/02/sod02-3.jpg?v=fb956c31"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "5zo7kh20mm5xtm2b",
+          "title": "因為那樣才合理啊",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03.jpg?v=1a61e928",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-1.jpg?v=37047825",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-2.jpg?v=37296539",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/03/sod03-3.jpg?v=dbbd5a56"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "23t8m089mm5xtsuz",
+          "title": "好想吃冰淇淋",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04.jpg?v=b4800cac",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-1.jpg?v=65102a86",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-2.jpg?v=e62160ce",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/04/sod04-3.jpg?v=9034b0e7"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "dn1nh5ximm5xu653",
+          "title": "【 試煉之塔篇 】呼嗯…？",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05.jpg?v=9c889eda",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-1.jpg?v=e8303458",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-2.jpg?v=0c8790c0",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-3.jpg?v=ee4ec5f6",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/05/sod05-4.jpg?v=41d22d12"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "4lgl8ujfmm5xucyp",
+          "title": "【 試煉之塔篇 】沒有半個正常人呢",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06.jpg?v=2ee6a77a",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-1.jpg?v=2d55b554",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-2.jpg?v=b0cef836",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/06/sod06-3.jpg?v=fc322ef6"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "qg2loi9cmm5xulxn",
+          "title": "【 試煉之塔篇 】德爾塔的繼承人",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07.jpg?v=53d09d43",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-1.jpg?v=e15c339e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-2.jpg?v=6fa8dfef",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-3.jpg?v=0de38d4d",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-4.jpg?v=e9fe6320",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/07/sod07-5.jpg?v=cca89017"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "ykm6jeaamm5xw73w",
+          "title": "【 試煉之塔篇 】這不是才正要開始嘛？",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08.jpg?v=98157694",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-1.jpg?v=82b6500e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-2.jpg?v=509387ed",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-3.jpg?v=bae7b27a",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/08/sod08-4.jpg?v=bdf8bd99"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "xy5uxczymm5xwfdd",
+          "title": "【 試煉之塔篇 】魔術好厲害…",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09.jpg?v=64d016c0",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-1.jpg?v=e604bb4c",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-2.jpg?v=a20db709",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-3.jpg?v=b61a0d11",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/09/sod09-4.jpg?v=f36a8f2f"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "1uxbn0a6mm5xwonl",
+          "title": "【 試煉之塔篇 】沒有比愛心呢",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10.jpg?v=956ffe91",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-1.jpg?v=9e2af719",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-2.jpg?v=d39bb862",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-3.jpg?v=6e635f2e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-4.jpg?v=2ff08680",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-5.jpg?v=5495cfa2",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/10/sod10-6.jpg?v=16750bf6"
+          ],
+          "readMode": null
+        },
+        {
+          "id": "el6w8fjdmm5xwz7z",
+          "title": "【 試煉之塔篇 】差不多也該結束了（上）",
+          "cover": "https://cdn.discordapp.com/attachments/1421699275456516146/1477193828866854974/image.png?ex=69a3df75&is=69a28df5&hm=da3d6096593ac0889843513ad9a714feeb65ea982bfe3b9ae19ceb087bcc30cb&",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-1.jpg?v=a7ce7c16",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-2.jpg?v=157d5c8e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/mg/11/sod11-3.jpg?v=c9adc3c4"
+          ],
+          "readMode": null
         }
       ]
     },
