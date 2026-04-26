@@ -3,11 +3,34 @@
   "works": [
     {
       "id": "c7mptlc0mofnr9xu",
-      "title": "🔞《光幕栖教 -人形-  柊澪音編》",
+      "title": "🔞《光幕栖教 -人形-》",
       "type": "manga",
-      "cover": "",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (1).jpg?v=36fbb72c",
       "readMode": "paged",
-      "chapters": []
+      "chapters": [
+        {
+          "id": "u0dot8f4mofo6zxk",
+          "title": "【柊澪音編】試看版",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion.jpg?v=620cb88c",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (1).jpg?v=36fbb72c",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (2).jpg?v=799f29b7",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (3).jpg?v=5b11a296",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (4).jpg?v=a045cfec",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (5).jpg?v=ae6f9f65",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (6).jpg?v=bdf88bf8",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (7).jpg?v=d2c8e12c",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (8).jpg?v=cbfb9ca6",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (9).jpg?v=0de3a86f",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (10).jpg?v=fdc7e3fa",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (11).jpg?v=c76d877a",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (12).jpg?v=ff31ccaf",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (13).jpg?v=8b0a5b0c",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/cf/kmsk/mg/mion (14).jpg?v=feb22ab4"
+          ],
+          "readMode": null
+        }
+      ]
     },
     {
       "id": "9eog7jbjmo3wwgr9",
