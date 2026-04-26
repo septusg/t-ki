@@ -2,6 +2,14 @@
   "version": 1,
   "works": [
     {
+      "id": "c7mptlc0mofnr9xu",
+      "title": "🔞《光幕栖教 -人形-  柊澪音編》",
+      "type": "manga",
+      "cover": "",
+      "readMode": "paged",
+      "chapters": []
+    },
+    {
       "id": "9eog7jbjmo3wwgr9",
       "title": "隨心所欲",
       "type": "manga",
@@ -48,6 +56,81 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/kkk.jpg?v=ede6c612"
           ],
           "readMode": null
+        }
+      ]
+    },
+    {
+      "id": "kqolxapxmm7ql1q4",
+      "title": "Practice",
+      "type": "illust",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "w1ugix89mm7qmg5d",
+          "title": "Sketch",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192"
+          ],
+          "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192\n2025／09／21\n---",
+          "caption": ""
+        },
+        {
+          "id": "brdohrr2mmur0ays",
+          "title": "大雜燴",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89"
+          ],
+          "body": "# Mix\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89\n2026／02／19\n---",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "fmykz4lcmm6ccn8d",
+      "title": "ＳｏＤ",
+      "type": "illust",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg?v=90f309a4",
+      "readMode": null,
+      "chapters": [
+        {
+          "id": "hcljzk1omm6cek0k",
+          "title": "【主人公】西琳・菲利絲",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b"
+          ],
+          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b\n2024／07／19\n初設\n---",
+          "caption": ""
+        },
+        {
+          "id": "8znr57etmmq9p4ey",
+          "title": "希比爾",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37"
+          ],
+          "body": "# Sibyl｜シビル\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37\n2024／11／08\n---",
+          "caption": ""
+        },
+        {
+          "id": "jaxeo2ghmmq9re1l",
+          "title": "莉西 ＆ 莉沙・陣化裳埜",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965"
+          ],
+          "body": "# Lisi ＆ Lisa｜リシ ＆ リサ・ジンケモノ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965\n2025／08／18\n---",
+          "caption": ""
         }
       ]
     },
@@ -216,165 +299,6 @@
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/10/nsfw (6).jpg?v=aa1f6417",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/10/nsfw (7).jpg?v=fb28b3bf",
             "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/NBM/mg/10/nsfw (8).jpg?v=4749dc4a"
-          ],
-          "readMode": null
-        }
-      ]
-    },
-    {
-      "id": "kqolxapxmm7ql1q4",
-      "title": "Practice",
-      "type": "illust",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
-      "readMode": null,
-      "chapters": [
-        {
-          "id": "w1ugix89mm7qmg5d",
-          "title": "Sketch",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192"
-          ],
-          "body": "# 速寫\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt01.jpg?v=3b84a4ad\n2025／08／12\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt02.jpg?v=0361f362\n2025／09／18\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt03.jpg?v=f80fbab6\n2025／09／20\n---\n## HK 香港\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt04.jpg?v=0484dfa1\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt05.jpg?v=76827d25\n2025／09／20\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt06.jpg?v=01bafa2e\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt07.jpg?v=a060eab7\n2025／09／21\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/skt/skt08.jpg?v=13b5d192\n2025／09／21\n---",
-          "caption": ""
-        },
-        {
-          "id": "brdohrr2mmur0ays",
-          "title": "大雜燴",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89"
-          ],
-          "body": "# Mix\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/pra/mix/Bunny01.jpg?v=88692b89\n2026／02／19\n---",
-          "caption": ""
-        }
-      ]
-    },
-    {
-      "id": "fmykz4lcmm6ccn8d",
-      "title": "ＳｏＤ",
-      "type": "illust",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine00.jpg?v=90f309a4",
-      "readMode": null,
-      "chapters": [
-        {
-          "id": "hcljzk1omm6cek0k",
-          "title": "【主人公】西琳・菲利絲",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b"
-          ],
-          "body": "# Celine Phyllis｜シリン・フィリス\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Celine01.jpg?v=7cca155b\n2024／07／19\n初設\n---",
-          "caption": ""
-        },
-        {
-          "id": "8znr57etmmq9p4ey",
-          "title": "希比爾",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37"
-          ],
-          "body": "# Sibyl｜シビル\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/Sibyl01.jpg?v=8dab0b37\n2024／11／08\n---",
-          "caption": ""
-        },
-        {
-          "id": "jaxeo2ghmmq9re1l",
-          "title": "莉西 ＆ 莉沙・陣化裳埜",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965"
-          ],
-          "body": "# Lisi ＆ Lisa｜リシ ＆ リサ・ジンケモノ\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/SoD/ir/LL01.jpg?v=cf6d8965\n2025／08／18\n---",
-          "caption": ""
-        }
-      ]
-    },
-    {
-      "id": "6vamh9owmmm70uvy",
-      "title": "《 靈魂代碼 》",
-      "type": "manga",
-      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/gc.jpg?v=da007c8c",
-      "readMode": "paged",
-      "chapters": [
-        {
-          "id": "q3nrpetkmmm71bjf",
-          "title": "你看見我了對吧？",
-          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01.jpg?v=d63ac4f4",
-          "images": [
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (1).jpg?v=47514602",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (2).jpg?v=47521275",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (3).jpg?v=3a8fc586",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (4).jpg?v=511356e1",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (5).jpg?v=8e7d2d52",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (6).jpg?v=143fb4ee",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (7).jpg?v=7c55fa0c",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (8).jpg?v=bb9cf94e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (9).jpg?v=453f6211",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (10).jpg?v=93250999",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (11).jpg?v=b51a84e0",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (12).jpg?v=9eec9f99",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (13).jpg?v=2eb42214",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (14).jpg?v=b46140d4",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (15).jpg?v=d64f3def",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (16).jpg?v=25d5a6e2",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (17).jpg?v=80677fc5",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (18).jpg?v=c13dfb1b",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (19).jpg?v=242df98a",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (20).jpg?v=2548e94f",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (21).jpg?v=6b0dce8f",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (22).jpg?v=772748c4",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (23).jpg?v=cf9b3290",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (24).jpg?v=6c61dabf",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (25).jpg?v=4a8966bb",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (26).jpg?v=e90a443b",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (27).jpg?v=3c542bc8",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (28).jpg?v=136779ab",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (29).jpg?v=9667eaef",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (30).jpg?v=61531d83",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (31).jpg?v=169c8454",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (32).jpg?v=8d06b627",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (33).jpg?v=371c40a0",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (34).jpg?v=eae89de3",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (35).jpg?v=901f252f",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (36).jpg?v=5f43f8b8",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (37).jpg?v=98e55010",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (38).jpg?v=256b0c10",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (39).jpg?v=564e1c67",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (40).jpg?v=09934881",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (41).jpg?v=fb337b0a",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (42).jpg?v=1a07b5a3",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (43).jpg?v=faadee68",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (44).jpg?v=19379acf",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (45).jpg?v=11b11ed7",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (46).jpg?v=9176c86f",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (47).jpg?v=e5a72366",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (48).jpg?v=2312e686",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (49).jpg?v=453e9e7a",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (50).jpg?v=a18fa9f4",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (51).jpg?v=c1122443",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (52).jpg?v=b3984259",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (53).jpg?v=e456c859",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (54).jpg?v=66852158",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (55).jpg?v=3f4c8674",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (56).jpg?v=bfe234e7",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (57).jpg?v=8ba7bfc4",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (58).jpg?v=92260e08",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (59).jpg?v=540dbd2e",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (60).jpg?v=cf59ff7b",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (61).jpg?v=1b862477",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (62).jpg?v=c9e1a001",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (63).jpg?v=7e1b9030",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (64).jpg?v=daca5a48",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (65).jpg?v=caa19de1",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (66).jpg?v=d601ce8b",
-            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (67).jpg?v=42e0b32c"
           ],
           "readMode": null
         }
@@ -697,6 +621,90 @@
           ],
           "body": "# 大世界\n---\nhttps://raw.githubusercontent.com/septusg/t-ki/cmc/org/setting/ir/World.jpg?v=3f7153eb\n### 最後更新\n2026／03／29\n​\n### 格式\n```\n《 作品代號 》\n　　主角名\n```\n---\n\n---",
           "caption": ""
+        }
+      ]
+    },
+    {
+      "id": "6vamh9owmmm70uvy",
+      "title": "《 靈魂代碼 》",
+      "type": "manga",
+      "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/gc.jpg?v=da007c8c",
+      "readMode": "paged",
+      "chapters": [
+        {
+          "id": "q3nrpetkmmm71bjf",
+          "title": "你看見我了對吧？",
+          "cover": "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01.jpg?v=d63ac4f4",
+          "images": [
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (1).jpg?v=47514602",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (2).jpg?v=47521275",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (3).jpg?v=3a8fc586",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (4).jpg?v=511356e1",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (5).jpg?v=8e7d2d52",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (6).jpg?v=143fb4ee",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (7).jpg?v=7c55fa0c",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (8).jpg?v=bb9cf94e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (9).jpg?v=453f6211",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (10).jpg?v=93250999",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (11).jpg?v=b51a84e0",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (12).jpg?v=9eec9f99",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (13).jpg?v=2eb42214",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (14).jpg?v=b46140d4",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (15).jpg?v=d64f3def",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (16).jpg?v=25d5a6e2",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (17).jpg?v=80677fc5",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (18).jpg?v=c13dfb1b",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (19).jpg?v=242df98a",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (20).jpg?v=2548e94f",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (21).jpg?v=6b0dce8f",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (22).jpg?v=772748c4",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (23).jpg?v=cf9b3290",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (24).jpg?v=6c61dabf",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (25).jpg?v=4a8966bb",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (26).jpg?v=e90a443b",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (27).jpg?v=3c542bc8",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (28).jpg?v=136779ab",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (29).jpg?v=9667eaef",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (30).jpg?v=61531d83",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (31).jpg?v=169c8454",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (32).jpg?v=8d06b627",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (33).jpg?v=371c40a0",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (34).jpg?v=eae89de3",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (35).jpg?v=901f252f",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (36).jpg?v=5f43f8b8",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (37).jpg?v=98e55010",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (38).jpg?v=256b0c10",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (39).jpg?v=564e1c67",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (40).jpg?v=09934881",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (41).jpg?v=fb337b0a",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (42).jpg?v=1a07b5a3",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (43).jpg?v=faadee68",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (44).jpg?v=19379acf",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (45).jpg?v=11b11ed7",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (46).jpg?v=9176c86f",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (47).jpg?v=e5a72366",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (48).jpg?v=2312e686",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (49).jpg?v=453e9e7a",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (50).jpg?v=a18fa9f4",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (51).jpg?v=c1122443",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (52).jpg?v=b3984259",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (53).jpg?v=e456c859",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (54).jpg?v=66852158",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (55).jpg?v=3f4c8674",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (56).jpg?v=bfe234e7",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (57).jpg?v=8ba7bfc4",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (58).jpg?v=92260e08",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (59).jpg?v=540dbd2e",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (60).jpg?v=cf59ff7b",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (61).jpg?v=1b862477",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (62).jpg?v=c9e1a001",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (63).jpg?v=7e1b9030",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (64).jpg?v=daca5a48",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (65).jpg?v=caa19de1",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (66).jpg?v=d601ce8b",
+            "https://raw.githubusercontent.com/septusg/t-ki/cmc/org/GC/mg/01/01 (67).jpg?v=42e0b32c"
+          ],
+          "readMode": null
         }
       ]
     },
