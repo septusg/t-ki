@@ -5,58 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Usagi Comic Reader</title>
 <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@100;400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
 <style>
-  :root {
-    --bg:     #090d14;
-    --bg2:    #0f1520;
-    --bg3:    #161e2e;
-    --border: #1e2d45;
-    --accent: #5b9bd5;
-    --acc2:   #3a72a8;
-    --text:   #d4e4f7;
-    --text2:  #7a9fc0;
-    --text3:  #3d5a78;
-    --danger: #c4614a;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'LINE Seed JP', sans-serif; min-height: 100vh; overflow-x: hidden; }
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-  /* ── PAGES ── */
-  .page { display: none; min-height: 100vh; }
-  .page.active { display: block; }
-  #page-login { align-items: center; justify-content: center; min-height: 100vh; background: radial-gradient(ellipse at 35% 45%, #0d1a2e 0%, #090d14 65%); }
-  #page-login.active { display: flex; }
-
-  /* ── LOGIN ── */
-  .login-box { width: 360px; padding: 48px 40px; border: 1px solid var(--border); background: var(--bg2); position: relative; }
-  .login-box::before { content: ''; position: absolute; top: -1px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
-  .login-title { font-family: 'LINE Seed JP', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; text-align: center; }
-  .login-sub { text-align: center; color: var(--text3); font-size: 11px; letter-spacing: 0.12em; margin-bottom: 32px; }
-  .login-tabs { display: flex; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
-  .login-tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; font-size: 13px; color: var(--text3); letter-spacing: 0.08em; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; }
-  .login-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .login-tab:hover { color: var(--text2); }
-  .pw-input-wrap { margin-bottom: 14px; }
-  .pw-input-wrap input { width: 100%; padding: 12px 16px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 14px; outline: none; letter-spacing: 0.2em; transition: border-color 0.2s; }
-  .pw-input-wrap input:focus { border-color: var(--acc2); }
-  .pw-input-wrap input::placeholder { letter-spacing: 0.05em; color: var(--text3); }
-  .btn-login { width: 100%; padding: 13px; background: var(--accent); color: #090d14; border: none; cursor: pointer; font-family: 'LINE Seed JP', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.15em; transition: background 0.2s; }
-  .btn-login:hover { background: #7ab3e0; }
-  .login-error { color: var(--danger); font-size: 12px; text-align: center; margin-top: 10px; min-height: 18px; }
-
-  /* ── NAV ── */
-  .site-nav { position: sticky; top: 0; z-index: 100; background: rgba(9,13,20,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; height: 56px; gap: 0; }
-  .nav-logo { font-family: 'LINE Seed JP', sans-serif; font-weight: 800; font-size: 17px; color: var(--accent); letter-spacing: 0.1em; cursor: pointer; margin-right: auto; }
-  .nav-btn { padding: 6px 14px; font-size: 12px; letter-spacing: 0.08em; color: var(--text3); cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
-  .nav-btn:hover { color: var(--accent); }
-  .nav-btn.active { color: var(--accent); }
-  .nav-sep { color: var(--border); margin: 0 2px; font-size: 11px; }
+  /* 共用樣式在 common.css，這裡只放後台專用的 */
 
   /* ── ADMIN ── */
-  .empty-hint { color: var(--text3); font-size: 13px; text-align: center; padding: 48px 0; border: 1px dashed var(--border); letter-spacing: 0.05em; }
   .admin-inner { max-width: 860px; margin: 0 auto; padding: 32px 24px; }
   .admin-title { font-family: 'LINE Seed JP', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 28px; letter-spacing: 0.12em; }
   .admin-section { margin-bottom: 40px; }
@@ -68,11 +21,6 @@
   .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--acc2); }
   .field textarea { min-height: 80px; resize: vertical; }
   select option { background: var(--bg3); }
-  .btn { padding: 9px 20px; font-size: 12px; letter-spacing: 0.08em; cursor: pointer; font-family: inherit; border: none; transition: all 0.2s; }
-  .btn-primary { background: var(--accent); color: #090d14; }
-  .btn-primary:hover { background: #7ab3e0; }
-  .btn-secondary { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
-  .btn-secondary:hover { border-color: var(--acc2); color: var(--text); }
   .btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
   .btn-danger:hover { background: var(--danger); color: #fff; }
   .btn-sm { padding: 5px 12px; font-size: 11px; }
@@ -100,20 +48,6 @@
   .chapter-edit-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--bg3); }
   .chapter-edit-name { flex: 1; font-size: 13px; color: var(--text2); }
   .chapter-edit-count { font-size: 11px; color: var(--text3); }
-  .pw-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 12px 20px; font-size: 13px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; letter-spacing: 0.05em; }
-  .toast.show { opacity: 1; transform: translateY(0); }
-  .toast.success { border-color: var(--accent); }
-  .toast.error { border-color: var(--danger); }
-
-  .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 24px; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; padding: 32px; }
-  .modal-title { font-family: 'LINE Seed JP', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 24px; letter-spacing: 0.08em; }
-  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; }
-
-  @media(max-width:480px){ .pw-settings{grid-template-columns:1fr;} }
 
   /* ── Markdown Editor ── */
   .md-toolbar { display: flex; gap: 4px; padding: 6px 0; flex-wrap: wrap; }
@@ -135,13 +69,7 @@
   .md-preview-box hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
   .md-preview-box ul, .md-preview-box ol { padding-left: 20px; margin-bottom: 8px; }
   .md-preview-box li { margin-bottom: 4px; }
-  .md-preview-box .spoiler-text { background: var(--text3); color: transparent; cursor: pointer; padding: 2px 6px; border-radius: 2px; user-select: none; transition: all 0.2s; }
-  .md-preview-box .spoiler-text.revealed { color: var(--text); background: var(--bg3); }
-  .md-preview-box .spoiler-img { position: relative; cursor: pointer; margin: 8px 0; overflow: hidden; }
-  .md-preview-box .spoiler-img img { display: block; max-width: 100%; filter: blur(20px) brightness(0.5); transition: filter 0.3s; border: 1px solid var(--border); }
-  .md-preview-box .spoiler-img.revealed img { filter: none; }
-  .md-preview-box .spoiler-img .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: var(--text3); font-size: 13px; letter-spacing: 0.1em; transition: opacity 0.3s; }
-  .md-preview-box .spoiler-img.revealed .spoiler-cover { opacity: 0; pointer-events: none; }
+  .md-preview-box .spoiler-img { margin: 8px 0; }   /* 爆雷其餘樣式在 common.css */
   a.nav-btn { text-decoration: none; }
 </style>
 </head>
@@ -152,7 +80,7 @@
   <div class="login-box">
     <div class="login-title">Usagi Comic Reader</div>
     <div class="login-sub">ADMIN PANEL</div>
-    <button class="btn-login" onclick="doLogin()" style="margin-top:16px">使用 Google 登入</button>
+    <button class="btn-login" onclick="doLogin(true)" style="margin-top:16px">使用 Google 登入</button>
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
@@ -173,7 +101,7 @@
     <div class="admin-section">
       <div class="admin-section-title" style="display:flex;align-items:center;justify-content:space-between">
         <span>作品管理</span>
-        <button class="btn btn-primary btn-sm" onclick="openAddWork()">+ 新增作品</button>
+        <button class="btn btn-primary btn-sm" onclick="openWorkModal()">+ 新增作品</button>
       </div>
       <div class="admin-work-tabs">
         <button class="admin-work-tab active" id="admin-tab-manga" onclick="setAdminWorkTab('manga')">漫畫</button>
@@ -189,7 +117,7 @@
         <button class="btn btn-secondary" onclick="updateJSON()">更新JSON</button>
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)">
       </div>
-      <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.8">資料儲存於瀏覽器 localStorage。建議定期匯出備份以防資料遺失。</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.8">編輯完要按「更新JSON」才會寫回 GitHub。建議定期匯出備份以防資料遺失。</div>
     </div>
   </div>
 </div>
@@ -292,14 +220,11 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="common.js"></script>
 <script>
-// ══════════════════════════════════════════
-// UPLOAD (Cloudflare Worker -> GitHub)
-// ══════════════════════════════════════════
-const UPLOAD_API = 'https://tkskworker.pnyuki159.workers.dev/upload';
-const SAVE_API = 'https://tkskworker.pnyuki159.workers.dev/saveData';
-const AUTH_API = 'https://tkskworker.pnyuki159.workers.dev';
+// AUTH_API、callApi、showPage、esc、toast、parseMd 等共用函式在 common.js
 const UPLOAD_SITE_BASE = location.origin;
+const REMIND = '（記得按「更新JSON」）';
 
 // ══════════════════════════════════════════
 // STATE
@@ -307,8 +232,9 @@ const UPLOAD_SITE_BASE = location.origin;
 let STATE = {
   token: null,
   userEmail: null,
-  unlocked: new Set(),
   works: [],
+  loaded: false,     // data.json 是否成功載入；沒載入時禁止「更新JSON」，避免把線上資料蓋成空的
+  dataSha: null,     // 載入時 data.json 的版本（GitHub blob sha），存檔時給 Worker 比對，防止蓋掉別處的修改
   editingWorkId: null,
   editingChapterId: null,
   editingWorkIdForChapter: null,
@@ -321,120 +247,56 @@ let STATE = {
 // INIT
 // ══════════════════════════════════════════
 
-async function loadRemoteData() {
-  if (!STATE.token) return null;
-  try {
-    var r = await fetch(AUTH_API + '/api/data', {
-      headers: { 'Authorization': 'Bearer ' + STATE.token }
-    });
-    if (r.status === 401) { logout(); return null; }
-    if (!r.ok) return null;
-    var d = await r.json();
-    if (d && Array.isArray(d.works)) return d;
-  } catch(e) {}
-  return null;
-}
-
 async function init() {
   // ── 處理 Google 登入回傳的 token ──
-  var hash = location.hash || '';
-  if (hash.indexOf('#token=') === 0) {
-    STATE.token = hash.slice(7);
-    localStorage.setItem('admin_auth_token', STATE.token);
-    history.replaceState(null, '', location.pathname + location.search);
-  } else if (hash === '#login_error') {
-    document.getElementById('login-error').textContent = 'Google 登入失敗，請重試';
-    history.replaceState(null, '', location.pathname + location.search);
-    return;
-  } else {
-    STATE.token = localStorage.getItem('admin_auth_token') || null;
-  }
+  STATE.token = initToken('admin_auth_token');
 
-  // ── 驗證 token + 確認 admin 身份 ──
+  // ── 驗證 token + 確認 admin 身份（由 Worker 判斷，前端不寫死 email）──
   if (STATE.token) {
-    try {
-      var r = await fetch(AUTH_API + '/auth/me', {
-        headers: { 'Authorization': 'Bearer ' + STATE.token }
-      });
-      if (r.ok) {
-        var user = await r.json();
-        STATE.userEmail = user.email;
-        if (STATE.userEmail !== 'pnyuki159@gmail.com') {
-          STATE.token = null;
-          localStorage.removeItem('admin_auth_token');
-          document.getElementById('login-error').textContent = '此帳號沒有管理員權限';
-          return;
-        }
-        STATE.unlocked = new Set(['manga', 'illust', 'admin']);
-      } else {
-        STATE.token = null;
-        localStorage.removeItem('admin_auth_token');
-      }
-    } catch(e) {
+    var me = await callApi('/auth/me', STATE.token);
+    if (!me.ok || !me.data) {
       STATE.token = null;
       localStorage.removeItem('admin_auth_token');
+    } else if (!me.data.isAdmin) {
+      STATE.token = null;
+      localStorage.removeItem('admin_auth_token');
+      document.getElementById('login-error').textContent = '此帳號沒有管理員權限';
+    } else {
+      STATE.userEmail = me.data.email;
     }
   }
 
   // ── 載入資料 ──
-  if (STATE.token && STATE.unlocked.has('admin')) {
-    var remote = await loadRemoteData();
-    if (remote && remote.works) STATE.works = remote.works;
+  if (STATE.token) {
+    var res = await callApi('/api/data', STATE.token);
+    if (res.status === 401) { logout(); return; }
+    STATE.loaded = !!(res.ok && res.data && Array.isArray(res.data.works));
+    if (STATE.loaded) {
+      STATE.works = res.data.works;
+      STATE.dataSha = res.data.sha || null;
+    } else {
+      toast('資料載入失敗：' + apiErrorText(res) + '，已停用「更新JSON」', 'error');
+    }
     showPage('admin');
     renderAdmin();
   }
 
-  document.addEventListener('keydown', handleKey);
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
   });
 }
 
 // ══════════════════════════════════════════
-// AUTH — Google Login (admin)
+// AUTH
 // ══════════════════════════════════════════
-
-function doLogin() {
-  window.location.href = AUTH_API + '/auth/login?admin=1';
-}
-
 function logout() {
   STATE.token = null;
   STATE.userEmail = null;
-  STATE.unlocked = new Set();
   STATE.works = [];
+  STATE.loaded = false;
+  STATE.dataSha = null;
   localStorage.removeItem('admin_auth_token');
   showPage('login');
-}
-
-function isUnlocked(type) {
-  return STATE.unlocked.has(type);
-}
-
-// admin 本地暫存（防止重整丟失未推送的編輯）
-function save() {
-  // 不再使用 localStorage 暫存，編輯後請記得按「更新JSON」
-}
-
-// ══════════════════════════════════════════
-// PAGES
-// ══════════════════════════════════════════
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-function goHome() {
-  showPage('admin');
-  renderAdmin();
-}
-
-// ══════════════════════════════════════════
-// KEYBOARD
-// ══════════════════════════════════════════
-function handleKey(e) {
-  // reserved for future use
 }
 
 // ══════════════════════════════════════════
@@ -515,22 +377,23 @@ function setupWorkDnD() {
       cur.splice(toIdx, 0, fromId);
 
       reorderWorksWithinType(type, cur);
-      save();
       renderAdmin();
-      toast('已調整順序（記得按「更新JSON」）');
+      toast('已調整順序' + REMIND);
     });
   }
 }
 
 function renderAdmin() {
   const el = document.getElementById('admin-work-list');
+  if (!STATE.loaded) { el.innerHTML = '<div class="empty-hint">資料載入失敗，請重新整理（錯誤原因見右下角訊息）</div>'; return; }
   const t = STATE.adminWorkTab || 'manga';
   const list = STATE.works.filter(w => w.type === t);
   if (!list.length) { el.innerHTML = '<div class="empty-hint">尚無作品（可按右上「新增作品」建立）</div>'; return; }
   el.innerHTML = list.map(w => {
+    const isManga = w.type === 'manga';
     const coverHtml = w.cover
       ? `<img src="${esc(w.cover)}" loading="lazy">`
-      : `<div class="work-list-cover-ph">${w.title.charAt(0)}</div>`;
+      : `<div class="work-list-cover-ph">${esc(firstChar(w.title))}</div>`;
     return `
     <div class="work-list-item" data-work-id="${w.id}">
       <div class="work-list-header" onclick="toggleWorkExpand('${w.id}')">
@@ -538,34 +401,32 @@ function renderAdmin() {
         <div class="drag-handle" title="拖曳排序">≡</div>
         <div class="work-list-cover">${coverHtml}</div>
         <span class="work-list-name">${esc(w.title)}</span>
-        <span class="work-list-type">${w.type === 'manga' ? (w.readMode === 'paged' ? '頁漫' : '條漫') : '插圖'}</span>
+        <span class="work-list-type">${isManga ? (w.readMode === 'paged' ? '頁漫' : '條漫') : '插圖'}</span>
         <div class="work-list-actions">
-          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openEditWork('${w.id}')">編輯</button>
+          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openWorkModal('${w.id}')">編輯</button>
           <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteWork('${w.id}')">刪除</button>
         </div>
       </div>
       <div class="work-list-body" id="work-body-${w.id}" style="display:none">
         <div style="padding:12px 0 8px;display:flex;justify-content:flex-end">
-          ${w.type === 'manga'
-            ? `<button class="btn btn-primary btn-sm" onclick="openAddChapter('${w.id}')">+ 新增話數</button>`
-            : `<button class="btn btn-primary btn-sm" onclick="openAddPost('${w.id}')">+ 新增貼文</button>`}
+          ${isManga
+            ? `<button class="btn btn-primary btn-sm" onclick="openChapterModal('${w.id}')">+ 新增話數</button>`
+            : `<button class="btn btn-primary btn-sm" onclick="openPostModal('${w.id}')">+ 新增貼文</button>`}
         </div>
-        ${(w.chapters||[]).map((c,i) => w.type === 'manga' ? `
+        ${(w.chapters||[]).map((c,i) => {
+          // 縮圖：漫畫用話數封面，沒有就用第一張圖；插圖用第一張圖（去掉 || 爆雷標記）
+          const thumb = splitSpoiler((isManga && c.cover) || (c.images && c.images[0]) || '').url;
+          const name = isManga ? c.title : (c.title || (c.caption||'').split('\n')[0].slice(0,30) || '（未命名）');
+          const edit = isManga ? 'openChapterModal' : 'openPostModal';
+          return `
           <div class="chapter-edit-item">
-            ${(c.cover||c.images?.[0]) ? `<img src="${esc(c.cover||c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
-            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title)}</span>
+            ${thumb ? `<img src="${esc(thumb)}" loading="lazy" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
+            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(name)}</span>
             <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
-            <button class="btn btn-secondary btn-sm" onclick="openEditChapter('${w.id}','${c.id}')">編輯</button>
+            <button class="btn btn-secondary btn-sm" onclick="${edit}('${w.id}','${c.id}')">編輯</button>
             <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
-          </div>` : `
-          <div class="chapter-edit-item">
-            ${c.images?.[0] ? `<img src="${esc(c.images[0])}" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
-            <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(c.title || (c.caption||'').split('\n')[0].slice(0,30) || '（未命名）')}</span>
-            <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
-            <button class="btn btn-secondary btn-sm" onclick="openEditPost('${w.id}','${c.id}')">編輯</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteChapter('${w.id}','${c.id}')">刪</button>
-          </div>`
-        ).join('')}
+          </div>`;
+        }).join('')}
         ${!(w.chapters||[]).length ? '<div style="font-size:12px;color:var(--text3);padding:8px 0">尚無內容</div>' : ''}
       </div>
     </div>`
@@ -582,25 +443,16 @@ function toggleWorkExpand(id) {
 }
 
 // ── Work CRUD ──
-function openAddWork() {
-  STATE.editingWorkId = null;
-  document.getElementById('modal-work-title').textContent = '新增作品';
-  document.getElementById('m-work-title').value = '';
-  document.getElementById('m-work-type').value = 'manga';
-  document.getElementById('m-work-readmode').value = 'strip';
-  document.getElementById('m-work-cover').value = '';
-  document.getElementById('read-mode-field').style.display = '';
-  openModal('modal-work');
-}
-function openEditWork(id) {
-  const w = STATE.works.find(x => x.id === id);
-  STATE.editingWorkId = id;
-  document.getElementById('modal-work-title').textContent = '編輯作品';
-  document.getElementById('m-work-title').value = w.title;
-  document.getElementById('m-work-type').value = w.type;
+// id 有值 = 編輯，沒值 = 新增
+function openWorkModal(id) {
+  const w = id ? STATE.works.find(x => x.id === id) : {};
+  STATE.editingWorkId = id || null;
+  document.getElementById('modal-work-title').textContent = id ? '編輯作品' : '新增作品';
+  document.getElementById('m-work-title').value = w.title || '';
+  document.getElementById('m-work-type').value = w.type || 'manga';
   document.getElementById('m-work-readmode').value = w.readMode || 'strip';
   document.getElementById('m-work-cover').value = w.cover || '';
-  document.getElementById('read-mode-field').style.display = w.type === 'illust' ? 'none' : '';
+  toggleReadMode();
   openModal('modal-work');
 }
 function toggleReadMode() {
@@ -619,32 +471,23 @@ function saveWork() {
   } else {
     STATE.works.push({ id: uid(), title, type, cover, readMode, chapters: [] });
   }
-  save(); closeModal('modal-work'); renderAdmin(); toast('已儲存（記得按「更新JSON」）');
+  closeModal('modal-work'); renderAdmin(); toast('已儲存' + REMIND);
 }
 function deleteWork(id) {
   if (!confirm('確定刪除此作品及所有內容？')) return;
   STATE.works = STATE.works.filter(x => x.id !== id);
-  save(); renderAdmin(); toast('已刪除（記得按「更新JSON」）');
+  renderAdmin(); toast('已刪除' + REMIND);
 }
 
 // ── Manga Chapter CRUD ──
-function openAddChapter(workId) {
-  STATE.editingWorkIdForChapter = workId;
-  STATE.editingChapterId = null;
-  document.getElementById('modal-chapter-title').textContent = '新增話數';
-  document.getElementById('m-ch-title').value = '';
-  document.getElementById('m-ch-cover').value = '';
-  document.getElementById('m-ch-readmode').value = '';
-  document.getElementById('m-ch-images').value = '';
-  openModal('modal-chapter');
-}
-function openEditChapter(workId, chapterId) {
+// chapterId 有值 = 編輯，沒值 = 新增
+function openChapterModal(workId, chapterId) {
   const w = STATE.works.find(x => x.id === workId);
-  const c = w.chapters.find(x => x.id === chapterId);
+  const c = chapterId ? w.chapters.find(x => x.id === chapterId) : {};
   STATE.editingWorkIdForChapter = workId;
-  STATE.editingChapterId = chapterId;
-  document.getElementById('modal-chapter-title').textContent = '編輯話數';
-  document.getElementById('m-ch-title').value = c.title;
+  STATE.editingChapterId = chapterId || null;
+  document.getElementById('modal-chapter-title').textContent = chapterId ? '編輯話數' : '新增話數';
+  document.getElementById('m-ch-title').value = c.title || '';
   document.getElementById('m-ch-cover').value = c.cover || '';
   document.getElementById('m-ch-readmode').value = c.readMode || '';
   document.getElementById('m-ch-images').value = (c.images||[]).join('\n');
@@ -663,32 +506,23 @@ function saveChapter() {
   } else {
     w.chapters.push({ id: uid(), title, cover, images, readMode });
   }
-  save(); closeModal('modal-chapter'); renderAdmin(); toast('已儲存（記得按「更新JSON」）');
+  closeModal('modal-chapter'); renderAdmin(); toast('已儲存' + REMIND);
 }
 function deleteChapter(workId, chapterId) {
   if (!confirm('確定刪除？')) return;
   const w = STATE.works.find(x => x.id === workId);
   w.chapters = w.chapters.filter(x => x.id !== chapterId);
-  save(); renderAdmin(); toast('已刪除（記得按「更新JSON」）');
+  renderAdmin(); toast('已刪除' + REMIND);
 }
 
 // ── Illust Post CRUD ──
-function openAddPost(workId) {
-  STATE.editingPostWorkId = workId;
-  STATE.editingPostId = null;
-  document.getElementById('modal-post-title').textContent = '新增貼文';
-  document.getElementById('m-post-title').value = '';
-  document.getElementById('m-post-cover').value = '';
-  document.getElementById('m-post-body').value = '';
-  updatePostPreview();
-  openModal('modal-post');
-}
-function openEditPost(workId, postId) {
+// postId 有值 = 編輯，沒值 = 新增
+function openPostModal(workId, postId) {
   const w = STATE.works.find(x => x.id === workId);
-  const p = w.chapters.find(x => x.id === postId);
+  const p = postId ? w.chapters.find(x => x.id === postId) : {};
   STATE.editingPostWorkId = workId;
-  STATE.editingPostId = postId;
-  document.getElementById('modal-post-title').textContent = '編輯貼文';
+  STATE.editingPostId = postId || null;
+  document.getElementById('modal-post-title').textContent = postId ? '編輯貼文' : '新增貼文';
   document.getElementById('m-post-title').value = p.title || '';
   document.getElementById('m-post-cover').value = p.cover || '';
   document.getElementById('m-post-body').value = p.body || p.caption || '';
@@ -700,11 +534,8 @@ function savePost() {
   const coverInput = document.getElementById('m-post-cover').value.trim();
   const body = document.getElementById('m-post-body').value;
 
-  const bodyImages = body.split('\n').map(function(s){ return s.trim(); }).filter(function(s){
-    return /^(\|\|)?https?:\/\//i.test(s);
-  }).map(function(s){
-    return s.replace(/^\|\|/, '').replace(/\|\|$/, '');
-  });
+  // 圖片判斷跟 parseMd 用同一條規則（common.js 的 mdImageLine）
+  const bodyImages = body.split('\n').map(mdImageLine).filter(Boolean).map(function(img){ return img.url; });
   const cover = coverInput || (bodyImages[0] || '');
 
   if (!bodyImages.length && !body.trim()) { toast('請輸入圖片或文字內容', 'error'); return; }
@@ -719,10 +550,9 @@ function savePost() {
     w.chapters.push({ id: uid(), ...postData });
   }
 
-  save(); closeModal('modal-post'); renderAdmin(); toast('已儲存（記得按「更新JSON」）');
+  closeModal('modal-post'); renderAdmin(); toast('已儲存' + REMIND);
 }
 
-// ── Passwords ──
 // ── Backup ──
 function exportData() {
   const blob = new Blob([JSON.stringify({ version: 1, works: STATE.works }, null, 2)], { type: 'application/json' });
@@ -733,9 +563,22 @@ function exportData() {
   toast('已匯出');
 }
 
+// 寫回 GitHub：帶上載入時的版本 sha，Worker 發現線上版本不同會回 409，不會蓋掉別處的修改
 async function updateJSON() {
-  try { await pushPublicData(); toast('已更新 data.json'); }
-  catch { toast('更新 data.json 失敗', 'error'); }
+  if (!STATE.loaded) { toast('資料沒有成功載入，為避免把 data.json 蓋成空的，已停用更新；請重新整理', 'error'); return; }
+  const res = await callApi('/saveData', STATE.token, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ version: 1, works: STATE.works, sha: STATE.dataSha })
+  });
+  if (res.ok) {
+    STATE.dataSha = (res.data && res.data.sha) || null;
+    toast('已更新 data.json');
+  } else if (res.status === 409) {
+    toast('data.json 在別處被改過（例如直接在 GitHub 編輯），請先匯出備份再重新整理', 'error');
+  } else {
+    toast('更新 data.json 失敗：' + apiErrorText(res), 'error');
+  }
 }
 
 function importData(input) {
@@ -745,7 +588,7 @@ function importData(input) {
     try {
       const d = JSON.parse(e.target.result);
       if (d.works) STATE.works = d.works;
-      save(); renderAdmin(); toast('已匯入（記得按「更新JSON」）');
+      renderAdmin(); toast('已匯入' + REMIND);
     } catch { toast('JSON 格式錯誤', 'error'); }
   };
   r.readAsText(file);
@@ -756,108 +599,12 @@ function importData(input) {
 // UTILS
 // ══════════════════════════════════════════
 function uid() { return Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
-function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function toast(msg, type='success') {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = 'toast show ' + type;
-  clearTimeout(el._t);
-  el._t = setTimeout(() => el.classList.remove('show'), 2200);
-}
 
 // ══════════════════════════════════════════
-// MARKDOWN EDITOR
+// MARKDOWN EDITOR（parseMd 在 common.js，跟前台同一套）
 // ══════════════════════════════════════════
-function parseMd(text) {
-  if (!text) return '';
-  var lines = text.split('\n');
-  var html = '';
-  var inCode = false;
-  var codeBuf = '';
-
-  for (var i = 0; i < lines.length; i++) {
-    var line = lines[i];
-
-    // code block fence
-    if (/^```/.test(line.trim())) {
-      if (!inCode) {
-        inCode = true;
-        codeBuf = '';
-      } else {
-        html += '<pre><code>' + esc(codeBuf) + '</code></pre>';
-        inCode = false;
-      }
-      continue;
-    }
-
-    if (inCode) {
-      codeBuf += (codeBuf ? '\n' : '') + line;
-      continue;
-    }
-
-    var t = line.trim();
-
-    // empty line
-    if (!t) { continue; }
-
-    // horizontal rule
-    if (/^(-{3,}|\*{3,})$/.test(t)) { html += '<hr>'; continue; }
-
-    // spoiler image: ||URL||
-    var sm = t.match(/^\|\|(https?:\/\/\S+)\|\|$/);
-    if (sm) {
-      html += '<div class="spoiler-img" onclick="this.classList.toggle(\'revealed\')">'
-            + '<img src="' + esc(sm[1]) + '">'
-            + '<div class="spoiler-cover">點擊顯示</div></div>';
-      continue;
-    }
-
-    // plain image URL on its own line
-    if (/^https?:\/\/\S+$/i.test(t)) {
-      html += '<div class="post-block-img"><img src="' + esc(t) + '"></div>';
-      continue;
-    }
-
-    // unordered list
-    if (/^[-*] /.test(t)) { html += '<ul><li>' + inlineMd(t.replace(/^[-*] /, '')) + '</li></ul>'; continue; }
-
-    // ordered list
-    if (/^\d+\. /.test(t)) { html += '<ol><li>' + inlineMd(t.replace(/^\d+\. /, '')) + '</li></ol>'; continue; }
-
-    // headers
-    if (/^### /.test(t)) { html += '<h3>' + inlineMd(t.slice(4)) + '</h3>'; continue; }
-    if (/^## /.test(t))  { html += '<h2>' + inlineMd(t.slice(3)) + '</h2>'; continue; }
-    if (/^# /.test(t))   { html += '<h1>' + inlineMd(t.slice(2)) + '</h1>'; continue; }
-
-    // paragraph
-    html += '<p>' + inlineMd(t) + '</p>';
-  }
-
-  if (inCode) { html += '<pre><code>' + esc(codeBuf) + '</code></pre>'; }
-
-  // merge consecutive <ul>/<ol> tags
-  html = html.replace(/<\/ul><ul>/g, '');
-  html = html.replace(/<\/ol><ol>/g, '');
-
-  return html;
-}
-
-function inlineMd(text) {
-  var s = esc(text);
-  // inline code (handle first to protect contents)
-  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
-  // bold **text**
-  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  // italic *text*
-  s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  // strikethrough ~~text~~
-  s = s.replace(/~~(.+?)~~/g, '<del>$1</del>');
-  // spoiler text ||text||
-  s = s.replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text" onclick="this.classList.toggle(\'revealed\')">$1</span>');
-  return s;
-}
-
 function insertMd(before, after) {
   var ta = document.getElementById('m-post-body');
   var start = ta.selectionStart;
@@ -922,11 +669,8 @@ function toggleChSpoiler() {
   var toggled = lines.map(function(line) {
     var t = line.trim();
     if (!t) return line;
-    if (/^\|\|/.test(t) && /\|\|$/.test(t)) {
-      return t.replace(/^\|\|/, '').replace(/\|\|$/, '');
-    } else {
-      return '||' + t + '||';
-    }
+    var sp = splitSpoiler(t);
+    return sp.spoiler ? sp.url : '||' + t + '||';
   });
   ta.value = val.substring(0, start) + toggled.join('\n') + val.substring(end);
   ta.focus();
@@ -942,8 +686,6 @@ async function uploadPickedFiles(inp, targetId, kind) {
   const files = Array.prototype.slice.call(inp.files || []);
   inp.value = '';
   if (!files.length) return;
-
-  if (!UPLOAD_API || UPLOAD_API.indexOf('YOUR_WORKER_SUBDOMAIN') >= 0) { toast('請先設定 UPLOAD_API', 'error'); return; }
 
   const statusId = targetId === 'm-ch-images' ? 'm-ch-upload-status' : 'm-post-upload-status';
   const statusEl = document.getElementById(statusId);
@@ -970,7 +712,7 @@ async function uploadPickedFiles(inp, targetId, kind) {
 function appendLine(targetId, line) {
   const el = document.getElementById(targetId);
   const cur = el.value.trim();
-  el.value = cur ? (cur + '\\n' + line) : line;
+  el.value = cur ? (cur + '\n' + line) : line;
 }
 
 async function uploadOneFile(file, kind) {
@@ -979,18 +721,11 @@ async function uploadOneFile(file, kind) {
   fd.append('kind', kind);
   fd.append('site', UPLOAD_SITE_BASE);
 
-  const r = await fetch(UPLOAD_API, { method: 'POST', body: fd });
-  if (!r.ok) throw new Error('HTTP ' + r.status);
-  const j = await r.json();
-  if (!j || !j.url) throw new Error('NO_URL');
-  return j.url;
-}
-
-async function pushPublicData() {
-  const payload = { version: 1, works: STATE.works };
-  const r = await fetch(SAVE_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-  if (!r.ok) throw new Error('HTTP ' + r.status);
-  return r.json().catch(() => ({}));
+  // 不要自己設 Content-Type，讓瀏覽器幫 FormData 產生 boundary
+  const res = await callApi('/upload', STATE.token, { method: 'POST', body: fd });
+  if (!res.ok) throw new Error(apiErrorText(res));
+  if (!res.data || !res.data.url) throw new Error('NO_URL');
+  return res.data.url;
 }
 
 </script>
