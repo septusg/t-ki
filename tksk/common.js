@@ -68,6 +68,20 @@ function toast(msg, type='success') {
   el._t = setTimeout(() => el.classList.remove('show'), type === 'error' ? 5000 : 2200);   // 錯誤訊息較長，多留一點時間
 }
 
+// ══════════════════════════════════════════
+// 圖片來源
+// data.json 存的是 GitHub raw 網址（Worker 靠它對照 repo 檔案加 ?v= 版本號，所以資料不動），
+// 顯示時才把 org/ 底下的圖換成本站（Cloudflare Pages）的網址：Pages 組建時會把 org/ 一起發布，
+// 走 Cloudflare 節點，而且跟網頁同網域，可以共用同一條連線
+// 其他路徑（例如後台上傳的 uploads/）Pages 沒發布，維持 raw
+// 想退回全部走 GitHub raw：把 IMG_BASE 改成 RAW_ORG
+// ══════════════════════════════════════════
+const RAW_ORG  = 'https://raw.githubusercontent.com/septusg/t-ki/cmc/org/';
+const IMG_BASE = '/org/';
+function imgUrl(u) {
+  return u && u.indexOf(RAW_ORG) === 0 ? IMG_BASE + u.slice(RAW_ORG.length) : u;
+}
+
 // 沒封面時的佔位字：取標題第一個文字（跳過 🔞、《 這類符號；Array.from 避免把 emoji 切成半個）
 function firstChar(title) {
   return Array.from((title || '').replace(/^[^\p{L}\p{N}]+/u, ''))[0] || '?';
@@ -133,7 +147,7 @@ function parseMd(text, deferImg) {
     // image line: URL / ||URL||（爆雷圖片，點擊才顯示）
     var img = mdImageLine(t);
     if (img) {
-      var tag = '<img ' + (deferImg ? 'data-src' : 'src') + '="' + esc(img.url) + '">';
+      var tag = '<img ' + (deferImg ? 'data-src' : 'src') + '="' + esc(imgUrl(img.url)) + '">';
       html += img.spoiler
         ? '<div class="spoiler-img" onclick="this.classList.toggle(\'revealed\')">' + tag + '<div class="spoiler-cover">點擊顯示</div></div>'
         : '<div class="post-block-img">' + tag + '</div>';

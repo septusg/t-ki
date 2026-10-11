@@ -392,7 +392,7 @@ function renderAdmin() {
   el.innerHTML = list.map(w => {
     const isManga = w.type === 'manga';
     const coverHtml = w.cover
-      ? `<img src="${esc(w.cover)}" loading="lazy">`
+      ? `<img src="${esc(imgUrl(w.cover))}" loading="lazy">`
       : `<div class="work-list-cover-ph">${esc(firstChar(w.title))}</div>`;
     return `
     <div class="work-list-item" data-work-id="${w.id}">
@@ -420,7 +420,7 @@ function renderAdmin() {
           const edit = isManga ? 'openChapterModal' : 'openPostModal';
           return `
           <div class="chapter-edit-item">
-            ${thumb ? `<img src="${esc(thumb)}" loading="lazy" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
+            ${thumb ? `<img src="${esc(imgUrl(thumb))}" loading="lazy" style="width:36px;height:36px;object-fit:cover;border:1px solid var(--border);flex-shrink:0">` : ''}
             <span class="chapter-edit-name">${String(i+1).padStart(2,'0')}. ${esc(name)}</span>
             <span class="chapter-edit-count">${(c.images||[]).length} 張</span>
             <button class="btn btn-secondary btn-sm" onclick="${edit}('${w.id}','${c.id}')">編輯</button>

@@ -374,7 +374,7 @@ function loadImagesInOrder(imgs) {
       active++;
       img.addEventListener('load', done);
       img.addEventListener('error', done);
-      img.src = img.getAttribute('data-src');
+      img.src = imgUrl(img.getAttribute('data-src'));
     }
   }
   function done() { active--; pump(); }
@@ -584,7 +584,7 @@ function renderGrid(id, works) {
       return `
         <div class="work-card reveal" style="opacity:0.5;cursor:default" title="${BLOCKED_MSG}">
           <div class="work-cover" style="position:relative">
-            ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy" style="filter:blur(6px) brightness(0.4)">` : `<div class="work-cover-placeholder">${esc(firstChar(w.title))}</div>`}
+            ${w.cover ? `<img src="${esc(imgUrl(w.cover))}" loading="lazy" style="filter:blur(6px) brightness(0.4)">` : `<div class="work-cover-placeholder">${esc(firstChar(w.title))}</div>`}
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:24px">🔒</div>
           </div>
           <div class="work-info">
@@ -596,7 +596,7 @@ function renderGrid(id, works) {
     return `
     <div class="work-card reveal" onclick="openWork('${w.id}')">
       <div class="work-cover">
-        ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy">` : `<div class="work-cover-placeholder">${esc(firstChar(w.title))}</div>`}
+        ${w.cover ? `<img src="${esc(imgUrl(w.cover))}" loading="lazy">` : `<div class="work-cover-placeholder">${esc(firstChar(w.title))}</div>`}
       </div>
       <div class="work-info">
         <div class="work-title">${esc(w.title)}</div>
@@ -643,7 +643,7 @@ function renderChapterList(cl, w) {
       return `
         <div class="chapter-item reveal" style="opacity:0.5;cursor:default">
           <div class="chapter-thumb">
-            ${thumb ? `<img src="${esc(thumb)}" loading="lazy" style="filter:blur(4px) brightness(0.4)">` : `<div class="chapter-thumb-placeholder">🔒</div>`}
+            ${thumb ? `<img src="${esc(imgUrl(thumb))}" loading="lazy" style="filter:blur(4px) brightness(0.4)">` : `<div class="chapter-thumb-placeholder">🔒</div>`}
           </div>
           <div class="chapter-info">
             <div class="chapter-num">${num}</div>
@@ -655,7 +655,7 @@ function renderChapterList(cl, w) {
     return `
       <div class="chapter-item reveal" onclick="openChapter('${w.id}','${c.id}')">
         <div class="chapter-thumb">
-          ${thumb ? `<img src="${esc(thumb)}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${num}</div>`}
+          ${thumb ? `<img src="${esc(imgUrl(thumb))}" loading="lazy">` : `<div class="chapter-thumb-placeholder">${num}</div>`}
         </div>
         <div class="chapter-info">
           <div class="chapter-num">${num}</div>
@@ -673,7 +673,7 @@ function renderAlbumList(cl, w) {
   cl.innerHTML = '<div class="post-list">' + posts.map((p, i) => {
     if (p.blocked) {
       const coverHtml = p.cover
-        ? `<img src="${esc(p.cover)}" loading="lazy" style="filter:blur(4px) brightness(0.4)">`
+        ? `<img src="${esc(imgUrl(p.cover))}" loading="lazy" style="filter:blur(4px) brightness(0.4)">`
         : `<div class="post-list-cover-ph">🔒</div>`;
       const title = p.title || '（未命名貼文）';
       return `
@@ -686,7 +686,7 @@ function renderAlbumList(cl, w) {
         </div>`;
     }
     const coverUrl = p.cover || (p.images && p.images[0]) || '';    const coverHtml = coverUrl
-      ? `<img src="${esc(coverUrl)}" loading="lazy">`
+      ? `<img src="${esc(imgUrl(coverUrl))}" loading="lazy">`
       : `<div class="post-list-cover-ph">🖼</div>`;
     // title = first line of caption, or fallback
     const lines = (p.caption || '').split('\n');
