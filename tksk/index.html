@@ -5,62 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Usagi Comic Reader</title>
 <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@100;400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
 <style>
-  :root {
-    --bg:     #090d14;
-    --bg2:    #0f1520;
-    --bg3:    #161e2e;
-    --border: #1e2d45;
-    --accent: #5b9bd5;
-    --acc2:   #3a72a8;
-    --text:   #d4e4f7;
-    --text2:  #7a9fc0;
-    --text3:  #3d5a78;
-    --danger: #c4614a;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* 共用樣式在 common.css，這裡只放前台專用的 */
   img { -webkit-touch-callout: none; }
-  body { background: var(--bg); color: var(--text); font-family: 'LINE Seed JP', sans-serif; min-height: 100vh; overflow-x: hidden; }
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-  /* ── PAGES ── */
-  .page { display: none; min-height: 100vh; }
-  .page.active { display: block; }
-  #page-login { align-items: center; justify-content: center; min-height: 100vh; background: radial-gradient(ellipse at 35% 45%, #0d1a2e 0%, #090d14 65%); }
-  #page-login.active { display: flex; }
-
-  /* ── LOGIN ── */
-  .login-box { width: 360px; padding: 48px 40px; border: 1px solid var(--border); background: var(--bg2); position: relative; }
-  .login-box::before { content: ''; position: absolute; top: -1px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
-  .login-title { font-family: 'LINE Seed JP', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; text-align: center; }
-  .login-sub { text-align: center; color: var(--text3); font-size: 11px; letter-spacing: 0.12em; margin-bottom: 32px; }
-  .login-tabs { display: flex; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
-  .login-tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; font-size: 13px; color: var(--text3); letter-spacing: 0.08em; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; }
-  .login-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .login-tab:hover { color: var(--text2); }
-  .pw-input-wrap { margin-bottom: 14px; }
-  .pw-input-wrap input { width: 100%; padding: 12px 16px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 16px; outline: none; letter-spacing: 0.2em; transition: border-color 0.2s; }
-  .pw-input-wrap input:focus { border-color: var(--acc2); }
-  .pw-input-wrap input::placeholder { letter-spacing: 0.05em; color: var(--text3); }
-  .btn-login { width: 100%; padding: 13px; background: var(--accent); color: #090d14; border: none; cursor: pointer; font-family: 'LINE Seed JP', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.15em; transition: background 0.2s; }
-  .btn-login:hover { background: #7ab3e0; }
-  .login-error { color: var(--danger); font-size: 12px; text-align: center; margin-top: 10px; min-height: 18px; }
-
-  /* ── NAV ── */
-  .site-nav { position: sticky; top: 0; z-index: 100; background: rgba(9,13,20,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; height: 56px; gap: 0; }
-  .nav-logo { font-family: 'LINE Seed JP', sans-serif; font-weight: 800; font-size: 17px; color: var(--accent); letter-spacing: 0.1em; cursor: pointer; margin-right: auto; }
-  .nav-btn { padding: 6px 14px; font-size: 12px; letter-spacing: 0.08em; color: var(--text3); cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
-  .nav-btn:hover { color: var(--accent); }
-  .nav-btn.active { color: var(--accent); }
+  /* ── NAV（前台專用）── */
   .nav-btn.locked { color: var(--text3); opacity: 0.5; }
   .nav-btn.locked::after { content: ' 🔒'; font-size: 10px; }
   .nav-user { display: flex; align-items: center; gap: 6px; margin-left: auto; }
   .nav-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); object-fit: cover; }
   .nav-username { font-size: 11px; color: var(--text2); max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   @media(max-width:480px){ .nav-username { display: none; } }
-  .nav-sep { color: var(--border); margin: 0 2px; font-size: 11px; }
 
   /* ── LIBRARY ── */
   .page-inner { padding: 40px 24px; max-width: 1000px; margin: 0 auto; }
@@ -76,7 +32,6 @@
   .work-info { padding: 12px; }
   .work-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .work-meta { font-size: 11px; color: var(--text3); }
-  .empty-hint { color: var(--text3); font-size: 13px; text-align: center; padding: 48px 0; border: 1px dashed var(--border); letter-spacing: 0.05em; }
 
   /* ── WORK DETAIL ── */
   .work-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 32px 24px 28px; }
@@ -211,38 +166,13 @@
   .post-block-img img:hover { opacity: 0.9; }
   /* multi-image grid */
   .post-block-imgs { display: grid; gap: 4px; margin-bottom: 12px; padding: 0 24px; }
-  .post-block-imgs.cols-1 { grid-template-columns: 1fr; }
   .post-block-imgs.cols-2 { grid-template-columns: 1fr 1fr; }
   .post-block-imgs.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
   .post-block-imgs img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--border); transition: opacity 0.2s; }
   .post-block-imgs img:hover { opacity: 0.9; }
 
-  /* gallery grid (fallback for albums without captions) */
-  .viewer-gallery { padding-top: 52px; columns: 2; column-gap: 4px; padding-bottom: 4px; }
-  @media(min-width:600px){.viewer-gallery{columns:3;}}
-  @media(min-width:900px){.viewer-gallery{columns:4;}}
-  .gallery-img { display: block; width: 100%; margin-bottom: 4px; cursor: pointer; transition: opacity 0.2s; break-inside: avoid; }
-  .gallery-img:hover { opacity: 0.8; }
 
-  /* lightbox */
-  .lightbox { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.97); display: none; align-items: center; justify-content: center; }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
-  .lightbox-close { position: absolute; top: 16px; right: 20px; font-size: 28px; color: #3a5a75; cursor: pointer; line-height: 1; }
-  .lightbox-close:hover { color: #7ab3e0; }
-  .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); font-size: 32px; color: #2a4a65; cursor: pointer; padding: 20px; user-select: none; }
-  .lightbox-prev:hover, .lightbox-next:hover { color: #7ab3e0; }
-  .lightbox-prev { left: 0; }
-  .lightbox-next { right: 0; }
-
-  /* ── Spoiler ── */
-  .spoiler-text { background: var(--text3); color: transparent; cursor: pointer; padding: 2px 6px; border-radius: 2px; user-select: none; transition: all 0.2s; }
-  .spoiler-text.revealed { color: var(--text); background: var(--bg3); }
-  .spoiler-img { position: relative; cursor: pointer; overflow: hidden; }
-  .spoiler-img img { filter: blur(20px) brightness(0.5); transition: filter 0.3s; }
-  .spoiler-img.revealed img { filter: none; }
-  .spoiler-img .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: var(--text3); font-size: 13px; letter-spacing: 0.1em; transition: opacity 0.3s; }
-  .spoiler-img.revealed .spoiler-cover { opacity: 0; pointer-events: none; }
+  /* ── Spoiler（共用部分在 common.css）── */
   .strip-spoiler { margin: 0 auto; max-width: 720px; }
   .strip-spoiler img.strip-img { filter: blur(20px) brightness(0.5); transition: filter 0.3s; }
   .strip-spoiler.revealed img.strip-img { filter: none; }
@@ -266,28 +196,6 @@
   .md-content hr { border: none; border-top: 1px solid var(--border); margin: 12px 24px; }
   .md-content ul, .md-content ol { padding-left: 44px; padding-right: 24px; margin-bottom: 8px; }
   .md-content li { margin-bottom: 4px; font-size: 14px; color: var(--text2); line-height: 1.9; }
-
-  /* ── ADMIN ── */
-
-  .btn { padding: 9px 20px; font-size: 12px; letter-spacing: 0.08em; cursor: pointer; font-family: inherit; border: none; transition: all 0.2s; }
-  .btn-primary { background: var(--accent); color: #090d14; }
-  .btn-primary:hover { background: #7ab3e0; }
-  .btn-secondary { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
-  .btn-secondary:hover { border-color: var(--acc2); color: var(--text); }
-
-  .toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 12px 20px; font-size: 13px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; letter-spacing: 0.05em; }
-  .toast.show { opacity: 1; transform: translateY(0); }
-  .toast.success { border-color: var(--accent); }
-  .toast.error { border-color: var(--danger); }
-
-  .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 24px; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; padding: 32px; }
-  .modal-title { font-family: 'LINE Seed JP', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 24px; letter-spacing: 0.08em; }
-  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; }
-
-  /* mini password modal */
-  .mini-modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 320px; padding: 32px; }
 
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
   .reveal.visible { opacity: 1; transform: none; }
@@ -373,23 +281,15 @@
   <div id="viewer-content"></div>
 </div>
 
-<!-- (removed: modal-unlock no longer needed with Google login) -->
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <div class="lightbox-close" onclick="closeLightboxDirect()">×</div>
-  <div class="lightbox-prev" onclick="lightboxNav(-1)">‹</div>
-  <img id="lightbox-img" src="">
-  <div class="lightbox-next" onclick="lightboxNav(1)">›</div>
-</div>
-
 <div class="toast" id="toast"></div>
 
+<script src="common.js"></script>
 <script>
 // ══════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════
-const AUTH_API = 'https://tkskworker.pnyuki159.workers.dev';
+// AUTH_API、callApi、showPage、esc、toast、parseMd 等共用函式在 common.js
+const BLOCKED_MSG = '禁止閱覽未開通內容，請聯繫作者';
 
 let STATE = {
   // auth
@@ -398,20 +298,14 @@ let STATE = {
   userName: null,
   userPicture: null,
   // data
-  unlocked: new Set(),
   works: [],
-  viewerImages: [],    // flat array for manga/lightbox
+  viewerImages: [],    // flat array for manga
   viewerPosts: [],     // array of {images, caption} for illust post feed
   viewerMode: 'strip',
   viewerIndex: 0,
   viewerSpoilers: [],
   currentWorkId: null,
-  lightboxImages: [],
-  lightboxIndex: 0,
-  pendingRoute: null,
   ignoreHashChange: false,
-  preloadedImages: {},
-
 };
 const IS_MOBILE = (function() {
   try {
@@ -427,53 +321,19 @@ const IS_MOBILE = (function() {
 // INIT
 // ══════════════════════════════════════════
 
-async function loadRemoteData() {
-  if (!STATE.token) return null;
-  try {
-    var r = await fetch(AUTH_API + '/api/data', {
-      headers: { 'Authorization': 'Bearer ' + STATE.token }
-    });
-    if (r.status === 401) { logout(); return null; }
-    if (!r.ok) return null;
-    var d = await r.json();
-    if (d && Array.isArray(d.works)) return d;
-  } catch(e) {}
-  return null;
-}
-
 async function init() {
   // ── 處理 Google 登入回傳的 token ──
-  var hash = location.hash || '';
-  if (hash.indexOf('#token=') === 0) {
-    STATE.token = hash.slice(7);
-    localStorage.setItem('auth_token', STATE.token);
-    history.replaceState(null, '', location.pathname);
-  } else if (hash === '#login_error') {
-    document.getElementById('login-error').textContent = 'Google 登入失敗，請重試';
-    history.replaceState(null, '', location.pathname);
-  } else {
-    STATE.token = localStorage.getItem('auth_token') || null;
-  }
+  STATE.token = initToken('auth_token');
 
   // ── 驗證 token ──
   if (STATE.token) {
-    try {
-      var r = await fetch(AUTH_API + '/auth/me', {
-        headers: { 'Authorization': 'Bearer ' + STATE.token }
-      });
-      if (r.ok) {
-        var user = await r.json();
-        STATE.userEmail = user.email;
-        STATE.userName = user.name;
-        STATE.userPicture = user.picture;
-        STATE.unlocked.add('manga');
-        STATE.unlocked.add('illust');
-        updateUserDisplay();
-      } else {
-        STATE.token = null;
-        localStorage.removeItem('auth_token');
-      }
-    } catch(e) {
+    var me = await callApi('/auth/me', STATE.token);
+    if (me.ok && me.data) {
+      STATE.userEmail = me.data.email;
+      STATE.userName = me.data.name;
+      STATE.userPicture = me.data.picture;
+      updateUserDisplay();
+    } else {
       STATE.token = null;
       localStorage.removeItem('auth_token');
     }
@@ -481,15 +341,14 @@ async function init() {
 
   // ── 載入資料 ──
   if (STATE.token) {
-    var remote = await loadRemoteData();
-    if (remote && remote.works) STATE.works = remote.works;
+    var res = await callApi('/api/data', STATE.token);
+    if (res.status === 401) logout();
+    else if (res.ok && res.data && Array.isArray(res.data.works)) STATE.works = res.data.works;
+    else toast('資料載入失敗：' + apiErrorText(res), 'error');
   }
 
   document.addEventListener('keydown', handleKey);
   document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
-  });
   window.addEventListener('hashchange', function() {
     if (STATE.ignoreHashChange) {
       STATE.ignoreHashChange = false;
@@ -500,16 +359,26 @@ async function init() {
   applyRoute();
 }
 
-function preloadImages(urls) {
-  if (!urls || !urls.length) return;
-  for (let i = 0; i < urls.length; i++) {
-    const src = urls[i];
-    if (!src || STATE.preloadedImages[src]) continue;
-    const img = new Image();
-    img.decoding = 'async';
-    img.src = src;
-    STATE.preloadedImages[src] = img;
+// 依序載入圖片：同時最多 IMG_CONCURRENCY 張，前面的頁先拿到頻寬
+// （原本一打開就把整話全部發出去，幾十張一起搶頻寬，第 1 頁反而很晚才出來）
+// 圖片 HTML 先放 data-src，由這裡依序換成 src；換話或離開閱讀頁就不再排下一張
+const IMG_CONCURRENCY = 3;
+let IMG_QUEUE_ID = 0;
+function loadImagesInOrder(imgs) {
+  const id = ++IMG_QUEUE_ID;
+  const viewer = document.getElementById('page-viewer');
+  let next = 0, active = 0;
+  function pump() {
+    while (active < IMG_CONCURRENCY && next < imgs.length && id === IMG_QUEUE_ID && viewer.classList.contains('active')) {
+      const img = imgs[next++];
+      active++;
+      img.addEventListener('load', done);
+      img.addEventListener('error', done);
+      img.src = img.getAttribute('data-src');
+    }
   }
+  function done() { active--; pump(); }
+  pump();
 }
 
 function bindSequentialReveal(container, selector) {
@@ -586,7 +455,7 @@ function applyRoute() {
 
   if (route.page === 'library') {
     if (isSectionBlocked(route.section)) {
-      toast('禁止閱覽未開通內容，請聯繫作者', 'error');
+      toast(BLOCKED_MSG, 'error');
       goHome(true);
       return;
     }
@@ -617,14 +486,10 @@ function applyRoute() {
 // AUTH — Google Login
 // ══════════════════════════════════════════
 
-function doLogin() {
-  window.location.href = AUTH_API + '/auth/login';
-}
-
 // nav 切換 section（已登入狀態）
 function navClickSection(type) {
   if (isSectionBlocked(type)) {
-    toast('禁止閱覽未開通內容，請聯繫作者', 'error');
+    toast(BLOCKED_MSG, 'error');
     return;
   }
   showPage('library');
@@ -668,27 +533,15 @@ function logout() {
   STATE.userEmail = null;
   STATE.userName = null;
   STATE.userPicture = null;
-  STATE.unlocked = new Set();
   STATE.works = [];
-  STATE.pendingRoute = null;
   localStorage.removeItem('auth_token');
   showPage('login');
   setRouteHash('#home');
 }
 
-function isUnlocked(type) {
-  return STATE.unlocked.has(type);
-}
-
 // ══════════════════════════════════════════
 // PAGES
 // ══════════════════════════════════════════
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  window.scrollTo(0, 0);
-}
-
 function goHome(skipRoute) {
   showPage('library');
   renderLibrary('manga');
@@ -718,15 +571,20 @@ function renderLibrary(activeSection) {
   navIllust.classList.toggle('locked', isSectionBlocked('illust'));
 }
 
+// 卡片淡入（.reveal → .visible）
+function revealIn(el) {
+  setTimeout(() => el.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+}
+
 function renderGrid(id, works) {
   const el = document.getElementById(id);
   if (!works.length) { el.innerHTML = '<div class="empty-hint">尚無作品</div>'; return; }
   el.innerHTML = works.map(w => {
     if (w.blocked) {
       return `
-        <div class="work-card reveal" style="opacity:0.5;cursor:default" title="禁止閱覽未開通內容，請聯繫作者">
+        <div class="work-card reveal" style="opacity:0.5;cursor:default" title="${BLOCKED_MSG}">
           <div class="work-cover" style="position:relative">
-            ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy" style="filter:blur(6px) brightness(0.4)">` : `<div class="work-cover-placeholder">${w.title.charAt(0)}</div>`}
+            ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy" style="filter:blur(6px) brightness(0.4)">` : `<div class="work-cover-placeholder">${esc(firstChar(w.title))}</div>`}
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:24px">🔒</div>
           </div>
           <div class="work-info">
@@ -738,7 +596,7 @@ function renderGrid(id, works) {
     return `
     <div class="work-card reveal" onclick="openWork('${w.id}')">
       <div class="work-cover">
-        ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy">` : `<div class="work-cover-placeholder">${w.title.charAt(0)}</div>`}
+        ${w.cover ? `<img src="${esc(w.cover)}" loading="lazy">` : `<div class="work-cover-placeholder">${esc(firstChar(w.title))}</div>`}
       </div>
       <div class="work-info">
         <div class="work-title">${esc(w.title)}</div>
@@ -746,7 +604,7 @@ function renderGrid(id, works) {
       </div>
     </div>
   `}).join('');
-  setTimeout(() => el.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+  revealIn(el);
 }
 
 // ══════════════════════════════════════════
@@ -755,7 +613,7 @@ function renderGrid(id, works) {
 function openWork(id, skipRoute) {
   const w = STATE.works.find(x => x.id === id);
   if (!w) return;
-  if (w.blocked) { toast('禁止閱覽未開通內容，請聯繫作者', 'error'); return; }
+  if (w.blocked) { toast(BLOCKED_MSG, 'error'); return; }
   STATE.currentWorkId = id;
   document.getElementById('work-section-label').textContent = w.type === 'manga' ? '漫畫' : '插圖';
   document.getElementById('work-breadcrumb-title').textContent = w.title;
@@ -779,7 +637,7 @@ function renderChapterList(cl, w) {
   }
   var chapters = w.chapters.slice().reverse();
   cl.innerHTML = chapters.map((c, i) => {
-    const thumb = c.cover || (!c.blocked && c.images && c.images[0]) || '';
+    const thumb = c.cover || (!c.blocked && c.images && c.images[0] && splitSpoiler(c.images[0]).url) || '';
     const num = String(chapters.length - i).padStart(2,'0');
     if (c.blocked) {
       return `
@@ -790,7 +648,7 @@ function renderChapterList(cl, w) {
           <div class="chapter-info">
             <div class="chapter-num">${num}</div>
             <div class="chapter-name">${esc(c.title)}</div>
-            <div class="chapter-count" style="color:var(--danger)">禁止閱覽未開通內容，請聯繫作者</div>
+            <div class="chapter-count" style="color:var(--danger)">${BLOCKED_MSG}</div>
           </div>
         </div>`;
     }
@@ -806,7 +664,7 @@ function renderChapterList(cl, w) {
         </div>
       </div>`;
   }).join('');
-  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+  revealIn(cl);
 }
 
 function renderAlbumList(cl, w) {
@@ -823,7 +681,7 @@ function renderAlbumList(cl, w) {
           <div class="post-list-cover">${coverHtml}</div>
           <div class="post-list-body">
             <div class="post-list-title">${esc(title)}</div>
-            <div class="post-list-meta" style="color:var(--danger)">禁止閱覽未開通內容，請聯繫作者</div>
+            <div class="post-list-meta" style="color:var(--danger)">${BLOCKED_MSG}</div>
           </div>
         </div>`;
     }
@@ -846,7 +704,7 @@ function renderAlbumList(cl, w) {
         </div>
       </div>`;
   }).join('') + '</div>';
-  setTimeout(() => cl.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')), 50);
+  revealIn(cl);
 }
 
 // ══════════════════════════════════════════
@@ -857,13 +715,12 @@ function openChapter(workId, chapterId, skipRoute) {
   if (!w) return;
   const c = w.chapters.find(x => x.id === chapterId);
   if (!c) return;
-  if (c.blocked) { toast('禁止閱覽未開通內容，請聯繫作者', 'error'); return; }
+  if (c.blocked) { toast(BLOCKED_MSG, 'error'); return; }
   if (!c.images || !c.images.length) { toast('此話尚無圖片', 'error'); return; }
   STATE.currentWorkId = workId;
-  STATE.viewerSpoilers = c.images.map(function(s) { var t = s.trim(); return /^\|\|/.test(t) && /\|\|$/.test(t); });
-  STATE.viewerImages = c.images.map(function(s) { var t = s.trim(); if (/^\|\|/.test(t) && /\|\|$/.test(t)) return t.replace(/^\|\|/, '').replace(/\|\|$/, ''); return t; });
+  STATE.viewerSpoilers = c.images.map(function(s) { return splitSpoiler(s).spoiler; });
+  STATE.viewerImages = c.images.map(function(s) { return splitSpoiler(s).url; });
   STATE.viewerIndex = 0;
-  preloadImages(STATE.viewerImages);
   document.getElementById('viewer-title').textContent = w.title + ' — ' + c.title;
   showPage('viewer');
   setMode(c.readMode || w.readMode || 'strip');
@@ -878,12 +735,11 @@ function openPost(workId, postId, skipRoute) {
   if (!w) return;
   const p = w.chapters.find(x => x.id === postId);
   if (!p) return;
-  if (p.blocked) { toast('禁止閱覽未開通內容，請聯繫作者', 'error'); return; }
+  if (p.blocked) { toast(BLOCKED_MSG, 'error'); return; }
   STATE.currentWorkId = workId;
   STATE.viewerPosts = [p];
   STATE.viewerImages = p.images || [];
   STATE.viewerIndex = 0;
-  preloadImages(STATE.viewerImages);
   document.getElementById('viewer-title').textContent = w.title;
   showPage('viewer');
   setMode('illust-post');
@@ -904,13 +760,16 @@ function setMode(mode) {
     content.innerHTML = `<div class="viewer-strip" id="viewer-strip">${
       STATE.viewerImages.map(function(src, i) {
         if (STATE.viewerSpoilers[i]) {
-          return '<div class="spoiler-img strip-spoiler" onclick="event.stopPropagation();this.classList.toggle(\'revealed\')"><img class="strip-img" src="' + esc(src) + '"><div class="spoiler-cover">點擊顯示</div></div>';
+          return '<div class="spoiler-img strip-spoiler" onclick="event.stopPropagation();this.classList.toggle(\'revealed\')"><img class="strip-img" data-src="' + esc(src) + '"><div class="spoiler-cover">點擊顯示</div></div>';
         }
-        return '<img class="strip-img" src="' + esc(src) + '">';
+        return '<img class="strip-img" data-src="' + esc(src) + '">';
       }).join('')
     }</div>`;
     bindSequentialReveal(content, '.strip-img');
-    bindStripTapToggle();
+    loadImagesInOrder(content.querySelectorAll('.strip-img'));
+    bindTapToggle(document.getElementById('viewer-strip'), function() {
+      document.getElementById('viewer-nav').classList.toggle('hidden');
+    });
   } else if (mode === 'paged') {
     nav.classList.remove('hidden');
     renderPaged();
@@ -922,16 +781,16 @@ function setMode(mode) {
     let blocksHtml = '';
 
     if (body) {
-      blocksHtml = parseMd(body);
+      blocksHtml = parseMd(body, true);
     } else {
       // Legacy: images array + caption text
       const imgs = allImgUrls;
       if (imgs.length === 1) {
-        blocksHtml += `<div class="post-block-img"><img src="${esc(imgs[0])}"></div>`;
+        blocksHtml += `<div class="post-block-img"><img data-src="${esc(imgs[0])}"></div>`;
       } else if (imgs.length > 1) {
         const cols = imgs.length === 2 ? 'cols-2' : 'cols-3';
         blocksHtml += `<div class="post-block-imgs ${cols}">` +
-          imgs.map((src,i) => `<img src="${esc(src)}">`).join('') +
+          imgs.map((src,i) => `<img data-src="${esc(src)}">`).join('') +
           `</div>`;
       }
       if (p.caption) {
@@ -943,68 +802,65 @@ function setMode(mode) {
     const metaHtml = `<div class="post-article-meta">${allImgUrls.length} 張圖片</div>`;
     content.innerHTML = `<div style="padding-top:52px"><div class="post-article">${titleHtml}${metaHtml}<div class="md-content">${blocksHtml}</div></div></div>`;
     bindSequentialReveal(content, '.md-content img');
+    loadImagesInOrder(content.querySelectorAll('.md-content img'));
   }
 }
 
-function bindStripTapToggle() {
-  const strip = document.getElementById('viewer-strip');
-  if (!strip) return;
+// 點一下切換工具列（條漫、頁漫共用）
+// 手機只認「短按且沒移動」才算點擊，避免滑動時誤觸；el._wasDragging 也會被頁漫的滑鼠拖曳設定
+function bindTapToggle(el, onTap) {
+  el.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
 
-  strip.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
-
-  strip._wasDragging = false;
-  strip._tapOk = false;
+  el._wasDragging = false;
+  el._tapOk = false;
 
   let tDown = false, tStartX = 0, tStartY = 0, tStartT = 0, tMoved = false;
 
-  strip.addEventListener('pointerdown', (e) => {
+  el.addEventListener('pointerdown', (e) => {
     if (!IS_MOBILE || e.pointerType != 'touch') return;
     tDown = true;
     tMoved = false;
-    strip._wasDragging = false;
-    strip._tapOk = false;
+    el._wasDragging = false;
+    el._tapOk = false;
     tStartX = e.clientX;
     tStartY = e.clientY;
     tStartT = Date.now();
-    try { strip.setPointerCapture(e.pointerId); } catch(_) {}
+    try { el.setPointerCapture(e.pointerId); } catch(_) {}
   }, { passive: true });
 
-  strip.addEventListener('pointermove', (e) => {
+  el.addEventListener('pointermove', (e) => {
     if (!tDown || e.pointerType != 'touch') return;
     const dx = e.clientX - tStartX;
     const dy = e.clientY - tStartY;
     if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
       tMoved = true;
-      strip._wasDragging = true;
+      el._wasDragging = true;
     }
   }, { passive: true });
 
-  strip.addEventListener('pointerup', (e) => {
+  el.addEventListener('pointerup', (e) => {
     if (!tDown || e.pointerType != 'touch') return;
     tDown = false;
     const dt = Date.now() - tStartT;
-    if (!tMoved && dt < 250) strip._tapOk = true;
+    if (!tMoved && dt < 250) el._tapOk = true;
   }, { passive: true });
 
-  strip.addEventListener('pointercancel', (e) => {
+  el.addEventListener('pointercancel', (e) => {
     if (e && e.pointerType == 'touch') {
       tDown = false;
       tMoved = false;
-      strip._wasDragging = true;
-      strip._tapOk = false;
+      el._wasDragging = true;
+      el._tapOk = false;
     }
   }, { passive: true });
 
-  strip.addEventListener('click', () => {
-    if (strip._wasDragging) return;
+  el.addEventListener('click', () => {
+    if (el._wasDragging) return;
     if (IS_MOBILE) {
-      if (!strip._tapOk) return;
-      strip._tapOk = false;
+      if (!el._tapOk) return;
+      el._tapOk = false;
     }
-    const nav = document.getElementById('viewer-nav');
-    if (!nav) return;
-    if (nav.classList.contains('hidden')) nav.classList.remove('hidden');
-    else nav.classList.add('hidden');
+    onTap();
   });
 }
 
@@ -1157,11 +1013,11 @@ function renderPaged() {
     if (STATE.viewerSpoilers[idx]) {
       return '<div class="paged-slide" data-idx="' + idx + '">' +
         '<div class="spoiler-img paged-spoiler" onclick="event.stopPropagation();this.classList.toggle(\'revealed\')">' +
-        '<img src="' + esc(src) + '">' +
+        '<img data-src="' + esc(src) + '">' +
         '<div class="spoiler-cover">點擊顯示</div></div></div>';
     }
     return '<div class="paged-slide" data-idx="' + idx + '">' +
-      '<img src="' + esc(src) + '">' +
+      '<img data-src="' + esc(src) + '">' +
       '</div>';
   }).join('');
 
@@ -1171,8 +1027,8 @@ function renderPaged() {
 
   const carousel = document.getElementById('paged-carousel');
 
-  carousel.querySelectorAll('img').forEach(img => { img.ondragstart = (e) => e.preventDefault(); });
   bindSequentialReveal(carousel, '.paged-slide img');
+  loadImagesInOrder(carousel.querySelectorAll('.paged-slide img'));
 
   requestAnimationFrame(() => {
     pagedScrollToIndex(carousel, i, false);
@@ -1196,59 +1052,8 @@ function renderPaged() {
     });
   }, { passive: true });
 
-  carousel._wasDragging = false;
-
-  carousel._tapOk = false;
-
-  let tDown = false, tStartX = 0, tStartY = 0, tStartT = 0, tMoved = false;
-
-  carousel.addEventListener('pointerdown', (e) => {
-    if (!IS_MOBILE || e.pointerType != 'touch') return;
-    tDown = true;
-    tMoved = false;
-    carousel._wasDragging = false;
-    carousel._tapOk = false;
-    tStartX = e.clientX;
-    tStartY = e.clientY;
-    tStartT = Date.now();
-    try { carousel.setPointerCapture(e.pointerId); } catch(_) {}
-  }, { passive: true });
-
-  carousel.addEventListener('pointermove', (e) => {
-    if (!tDown || e.pointerType != 'touch') return;
-    const dx = e.clientX - tStartX;
-    const dy = e.clientY - tStartY;
-    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
-      tMoved = true;
-      carousel._wasDragging = true;
-    }
-  }, { passive: true });
-
-  carousel.addEventListener('pointerup', (e) => {
-    if (!tDown || e.pointerType != 'touch') return;
-    tDown = false;
-    const dt = Date.now() - tStartT;
-    if (!tMoved && dt < 250) carousel._tapOk = true;
-  }, { passive: true });
-
-  carousel.addEventListener('pointercancel', (e) => {
-    if (e && e.pointerType == 'touch') {
-      tDown = false;
-      tMoved = false;
-      carousel._wasDragging = true;
-      carousel._tapOk = false;
-    }
-  }, { passive: true });
-
-  carousel.addEventListener('click', () => {
-    if (carousel._wasDragging) return;
-    if (IS_MOBILE) {
-      if (!carousel._tapOk) return;
-      carousel._tapOk = false;
-    }
-    const nav = document.getElementById('viewer-nav');
-    if (!nav) return;
-    if (nav.classList.contains('hidden')) PAGED_UI.show();
+  bindTapToggle(carousel, function() {
+    if (document.getElementById('viewer-nav').classList.contains('hidden')) PAGED_UI.show();
     else PAGED_UI.hide();
   });
 
@@ -1333,143 +1138,15 @@ function closeViewer(skipRoute) {
 }
 
 // ══════════════════════════════════════════
-// LIGHTBOX
-// ══════════════════════════════════════════
-function openLightbox(index) {
-  STATE.lightboxImages = STATE.viewerImages;
-  STATE.lightboxIndex = index;
-  document.getElementById('lightbox-img').src = STATE.lightboxImages[index];
-  document.getElementById('lightbox').classList.add('open');
-}
-function closeLightbox(e) { if (e.target === document.getElementById('lightbox')) closeLightboxDirect(); }
-function closeLightboxDirect() { document.getElementById('lightbox').classList.remove('open'); }
-function lightboxNav(dir) {
-  const n = STATE.lightboxIndex + dir;
-  if (n < 0 || n >= STATE.lightboxImages.length) return;
-  STATE.lightboxIndex = n;
-  document.getElementById('lightbox-img').src = STATE.lightboxImages[n];
-}
-// For post article: lightbox with explicit image array
-function openLightboxArr(imgs, index) {
-  STATE.lightboxImages = imgs;
-  STATE.lightboxIndex = index;
-  document.getElementById('lightbox-img').src = imgs[index];
-  document.getElementById('lightbox').classList.add('open');
-}
-
-// ══════════════════════════════════════════
 // KEYBOARD
 // ══════════════════════════════════════════
 function handleKey(e) {
-  if (document.getElementById('lightbox').classList.contains('open')) {
-    if (e.key === 'ArrowLeft') lightboxNav(-1);
-    if (e.key === 'ArrowRight') lightboxNav(1);
-    if (e.key === 'Escape') closeLightboxDirect();
-    return;
-  }
   if (!document.getElementById('page-viewer').classList.contains('active')) return;
   if (STATE.viewerMode === 'paged') {
     if (e.key === 'ArrowRight' || e.key === 'ArrowUp') pagedNav(-1);
     if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') pagedNav(1);
   }
   if (e.key === 'Escape') closeViewer();
-}
-
-// ══════════════════════════════════════════
-// UTILS
-// ══════════════════════════════════════════
-function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function toast(msg, type='success') {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = 'toast show ' + type;
-  clearTimeout(el._t);
-  el._t = setTimeout(() => el.classList.remove('show'), 2200);
-}
-
-// ══════════════════════════════════════════
-// MARKDOWN PARSER
-// ══════════════════════════════════════════
-function parseMd(text) {
-  if (!text) return '';
-  var lines = text.split('\n');
-  var html = '';
-  var inCode = false;
-  var codeBuf = '';
-
-  for (var i = 0; i < lines.length; i++) {
-    var line = lines[i];
-
-    if (/^```/.test(line.trim())) {
-      if (!inCode) {
-        inCode = true;
-        codeBuf = '';
-      } else {
-        html += '<pre><code>' + esc(codeBuf) + '</code></pre>';
-        inCode = false;
-      }
-      continue;
-    }
-
-    if (inCode) {
-      codeBuf += (codeBuf ? '\n' : '') + line;
-      continue;
-    }
-
-    var t = line.trim();
-
-    if (!t) { continue; }
-
-    if (/^(-{3,}|\*{3,})$/.test(t)) { html += '<hr>'; continue; }
-
-    // spoiler image: ||URL||
-    var sm = t.match(/^\|\|(https?:\/\/\S+)\|\|$/);
-    if (sm) {
-      html += '<div class="spoiler-img" onclick="this.classList.toggle(\'revealed\')">'
-            + '<img src="' + esc(sm[1]) + '">'
-            + '<div class="spoiler-cover">點擊顯示</div></div>';
-      continue;
-    }
-
-    // plain image URL
-    if (/^https?:\/\/\S+$/i.test(t)) {
-      html += '<div class="post-block-img"><img src="' + esc(t) + '"></div>';
-      continue;
-    }
-
-    // unordered list
-    if (/^[-*] /.test(t)) { html += '<ul><li>' + inlineMd(t.replace(/^[-*] /, '')) + '</li></ul>'; continue; }
-
-    // ordered list
-    if (/^\d+\. /.test(t)) { html += '<ol><li>' + inlineMd(t.replace(/^\d+\. /, '')) + '</li></ol>'; continue; }
-
-    // headers
-    if (/^### /.test(t)) { html += '<h3>' + inlineMd(t.slice(4)) + '</h3>'; continue; }
-    if (/^## /.test(t))  { html += '<h2>' + inlineMd(t.slice(3)) + '</h2>'; continue; }
-    if (/^# /.test(t))   { html += '<h1>' + inlineMd(t.slice(2)) + '</h1>'; continue; }
-
-    // paragraph
-    html += '<p>' + inlineMd(t) + '</p>';
-  }
-
-  if (inCode) { html += '<pre><code>' + esc(codeBuf) + '</code></pre>'; }
-
-  // merge consecutive <ul>/<ol> tags
-  html = html.replace(/<\/ul><ul>/g, '');
-  html = html.replace(/<\/ol><ol>/g, '');
-
-  return html;
-}
-
-function inlineMd(text) {
-  var s = esc(text);
-  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
-  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  s = s.replace(/~~(.+?)~~/g, '<del>$1</del>');
-  s = s.replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text" onclick="this.classList.toggle(\'revealed\')">$1</span>');
-  return s;
 }
 
 init();

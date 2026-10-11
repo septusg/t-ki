@@ -1,0 +1,75 @@
+/* ══════════════════════════════════════════
+   common.css — index.html 與 sak7@dm.html 共用樣式
+   （兩頁原本各寫一份、內容完全相同的部分）
+   ══════════════════════════════════════════ */
+:root {
+  --bg:     #090d14;
+  --bg2:    #0f1520;
+  --bg3:    #161e2e;
+  --border: #1e2d45;
+  --accent: #5b9bd5;
+  --acc2:   #3a72a8;
+  --text:   #d4e4f7;
+  --text2:  #7a9fc0;
+  --text3:  #3d5a78;
+  --danger: #c4614a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'LINE Seed JP', sans-serif; min-height: 100vh; overflow-x: hidden; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ── PAGES ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+#page-login { align-items: center; justify-content: center; min-height: 100vh; background: radial-gradient(ellipse at 35% 45%, #0d1a2e 0%, #090d14 65%); }
+#page-login.active { display: flex; }
+
+/* ── LOGIN ── */
+.login-box { width: 360px; padding: 48px 40px; border: 1px solid var(--border); background: var(--bg2); position: relative; }
+.login-box::before { content: ''; position: absolute; top: -1px; left: 20px; right: 20px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+.login-title { font-family: 'LINE Seed JP', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; text-align: center; }
+.login-sub { text-align: center; color: var(--text3); font-size: 11px; letter-spacing: 0.12em; margin-bottom: 32px; }
+.btn-login { width: 100%; padding: 13px; background: var(--accent); color: #090d14; border: none; cursor: pointer; font-family: 'LINE Seed JP', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.15em; transition: background 0.2s; }
+.btn-login:hover { background: #7ab3e0; }
+.login-error { color: var(--danger); font-size: 12px; text-align: center; margin-top: 10px; min-height: 18px; }
+
+/* ── NAV ── */
+.site-nav { position: sticky; top: 0; z-index: 100; background: rgba(9,13,20,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; height: 56px; gap: 0; }
+.nav-logo { font-family: 'LINE Seed JP', sans-serif; font-weight: 800; font-size: 17px; color: var(--accent); letter-spacing: 0.1em; cursor: pointer; margin-right: auto; }
+.nav-btn { padding: 6px 14px; font-size: 12px; letter-spacing: 0.08em; color: var(--text3); cursor: pointer; border: none; background: none; font-family: inherit; transition: color 0.2s; }
+.nav-btn:hover { color: var(--accent); }
+.nav-btn.active { color: var(--accent); }
+.nav-sep { color: var(--border); margin: 0 2px; font-size: 11px; }
+
+.empty-hint { color: var(--text3); font-size: 13px; text-align: center; padding: 48px 0; border: 1px dashed var(--border); letter-spacing: 0.05em; }
+
+/* ── BUTTON ── */
+.btn { padding: 9px 20px; font-size: 12px; letter-spacing: 0.08em; cursor: pointer; font-family: inherit; border: none; transition: all 0.2s; }
+.btn-primary { background: var(--accent); color: #090d14; }
+.btn-primary:hover { background: #7ab3e0; }
+.btn-secondary { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--acc2); color: var(--text); }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 12px 20px; font-size: 13px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; letter-spacing: 0.05em; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { border-color: var(--accent); }
+.toast.error { border-color: var(--danger); }
+
+/* ── MODAL ── */
+.modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 24px; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--bg2); border: 1px solid var(--border); width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; padding: 32px; }
+.modal-title { font-family: 'LINE Seed JP', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 24px; letter-spacing: 0.08em; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; }
+
+/* ── Spoiler（parseMd 產生；前台閱讀與後台預覽共用）── */
+.spoiler-text { background: var(--text3); color: transparent; cursor: pointer; padding: 2px 6px; border-radius: 2px; user-select: none; transition: all 0.2s; }
+.spoiler-text.revealed { color: var(--text); background: var(--bg3); }
+.spoiler-img { position: relative; cursor: pointer; overflow: hidden; }
+.spoiler-img img { filter: blur(20px) brightness(0.5); transition: filter 0.3s; }
+.spoiler-img.revealed img { filter: none; }
+.spoiler-img .spoiler-cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: var(--text3); font-size: 13px; letter-spacing: 0.1em; transition: opacity 0.3s; }
+.spoiler-img.revealed .spoiler-cover { opacity: 0; pointer-events: none; }
